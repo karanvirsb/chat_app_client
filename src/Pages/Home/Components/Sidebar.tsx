@@ -2,9 +2,9 @@ import React from "react";
 
 const Sidebar = () => {
     return (
-        <div className='grid grid-cols-[1fr_2fr]'>
+        <div className='grid grid-cols-[1fr_3fr]'>
             {/*  for groups*/}
-            <div>
+            <div className=''>
                 <div>Logo</div>
                 <div className='divider'></div>
             </div>
