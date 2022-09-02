@@ -6,7 +6,6 @@ import {
 } from "supertokens-auth-react/recipe/session";
 import Chat from "./Components/Chat";
 import Sidebar from "./Components/Sidebar";
-import Users from "./Components/Users";
 
 const Home = () => {
     const [sessionInfo, setSessionInfo] = useState<{
@@ -32,10 +31,9 @@ const Home = () => {
         }
     }, [session.loading]);
     return (
-        <div className='grid grid-cols-[1fr_2fr_1fr] h-screen'>
+        <div className='grid grid-cols-[1fr_2fr] h-screen'>
             <Sidebar></Sidebar>
             <Chat></Chat>
-            <Users></Users>
         </div>
     );
 };
