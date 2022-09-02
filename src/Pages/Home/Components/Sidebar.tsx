@@ -6,8 +6,8 @@ const Sidebar = () => {
         <div className='grid grid-cols-[1fr_3fr]'>
             {/*  for groups*/}
             <div className=''>
-                <div>
-                    <img src={Logo}></img>
+                <div className='flex justify-center items-center'>
+                    <img src={Logo} className='min-w-[50px] max-w-[75px]'></img>
                 </div>
                 <div className='divider'></div>
             </div>
