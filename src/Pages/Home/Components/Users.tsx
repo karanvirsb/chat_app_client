@@ -2,7 +2,7 @@ import React from "react";
 
 const Users = () => {
     return (
-        <div>
+        <div className='bg-groupInfo-bg px-4'>
             <div className='collapse'>
                 <input type='checkbox' />
                 <div className='collapse-title text-xl font-medium'>Online</div>
