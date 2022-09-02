@@ -5,7 +5,7 @@ module.exports = {
     theme: {
         extend: {},
         colors: {
-            groupBar: "#242933",
+            "groupBar-bg": "#242933",
         },
     },
     plugins: [require("daisyui")],
