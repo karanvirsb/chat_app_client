@@ -5,7 +5,7 @@ const Sidebar = () => {
     return (
         <div className='grid grid-cols-[1fr_3fr]'>
             {/*  for groups*/}
-            <div className='flex flex-col items-center'>
+            <div className='flex flex-col items-center bg-groupBar-bg py-4 px-2'>
                 <button className='btn btn-circle'>
                     <img src={Logo} className='rounded-full'></img>
                 </button>
