@@ -4,7 +4,9 @@ import Users from "./Users";
 const Chat = () => {
     return (
         <div className='flex flex-col pt-4 bg-chat-bg'>
-            <div className='btn bg-chat-bg w-full'>General</div>
+            <div className='bg-chat-bg w-full border-b border-b-black text-white'>
+                General
+            </div>
             <div className='grid grid-cols-[2fr_1fr] w-full h-full'>
                 <div className='flex flex-col h-full'>
                     <div className='flex-grow p-4 w-full '>
