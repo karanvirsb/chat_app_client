@@ -29,8 +29,10 @@ const Sidebar = () => {
                 </button>
             </div>
             {/* for chat */}
-            <div className='flex flex-col items-center bg-groupInfo-bg text-white py-4 px-2'>
-                <div className='border-b border-b-black w-full'>Group Name</div>
+            <div className='flex flex-col bg-groupInfo-bg'>
+                <div className='border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-[60px]'>
+                    Group Name
+                </div>
                 <div className='collapse'>
                     <input type='checkbox' />
                     <div className='collapse-title text-xl font-medium'>
