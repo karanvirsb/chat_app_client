@@ -7,7 +7,7 @@ const Chat = () => {
             <div className='bg-chat-bg border-b border-groupBar-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
                 General
             </div>
-            <div className='grid grid-cols-[2fr_1fr] w-full h-full'>
+            <div className='grid grid-cols-[3fr_1fr] w-full h-full'>
                 <div className='flex flex-col h-full'>
                     <div className='flex-grow p-4 w-full '>
                         {/* Create chat component */}
