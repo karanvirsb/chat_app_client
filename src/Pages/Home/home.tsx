@@ -31,7 +31,7 @@ const Home = () => {
         }
     }, [session.loading]);
     return (
-        <div className='grid grid-cols-[1fr_2fr] h-screen'>
+        <div className='grid grid-cols-[1fr_3fr] h-screen'>
             <Sidebar></Sidebar>
             <Chat></Chat>
         </div>
