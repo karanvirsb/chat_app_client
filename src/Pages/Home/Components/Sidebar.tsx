@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../../../assets/logo-nobg.png";
+import Collapse from "../../../Components/Collapse/Collapse";
 
 const Sidebar = () => {
     return (
@@ -33,17 +34,11 @@ const Sidebar = () => {
                 <div className='border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-[60px] text-white'>
                     Group Name
                 </div>
-                <div className='collapse'>
-                    <input type='checkbox' />
-                    <div className='collapse-title text-xl font-medium'>
-                        Text Channels
-                    </div>
-                    <div className='collapse-content'>
-                        <ul>
-                            <li>general</li>
-                        </ul>
-                    </div>
-                </div>
+                <Collapse title='Text Channels'>
+                    <ul>
+                        <li>general</li>
+                    </ul>
+                </Collapse>
             </div>
         </div>
     );
