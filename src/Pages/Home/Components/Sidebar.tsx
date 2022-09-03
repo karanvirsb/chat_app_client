@@ -3,7 +3,7 @@ import Logo from "../../../assets/logo-nobg.png";
 
 const Sidebar = () => {
     return (
-        <div className='grid grid-cols-[1fr_3fr]'>
+        <div className='grid grid-cols-[1fr_5fr]'>
             {/*  for groups*/}
             <div className='flex flex-col items-center bg-groupBar-bg py-4 px-2'>
                 <button className='btn btn-circle'>
