@@ -2,8 +2,8 @@ import React from "react";
 
 const Users = () => {
     return (
-        <div className='bg-groupInfo-bg px-4'>
-            <div className='collapse'>
+        <div className='bg-groupInfo-bg px-4 text-white'>
+            <div className='collapse collapse-open'>
                 <input type='checkbox' />
                 <div className='collapse-title text-xl font-medium'>Online</div>
                 <div className='collapse-content'>
@@ -12,7 +12,7 @@ const Users = () => {
                     </ul>
                 </div>
             </div>
-            <div className='collapse'>
+            <div className='collapse collapse-open'>
                 <input type='checkbox' />
                 <div className='collapse-title text-xl font-medium'>
                     Offline
