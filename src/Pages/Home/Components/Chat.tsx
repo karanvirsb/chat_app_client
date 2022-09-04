@@ -16,7 +16,7 @@ const Chat = () => {
                         <input
                             type='text'
                             placeholder='Send a message'
-                            className='input input-bordered w-full focus:outline-none'
+                            className='input input-bordered bg-[#2a303c] w-full focus:outline-none'
                         />
                     </div>
                 </div>
