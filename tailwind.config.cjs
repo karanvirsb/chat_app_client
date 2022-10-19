@@ -2,8 +2,9 @@
 
 module.exports = {
     mode: "jit",
+    darkMode: "media",
     purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+    content: ["./src/**/*.{js,jsx,ts,tsx}", "node_modules/preline/dist/*.js"],
     theme: {
         extend: {
             colors: {
@@ -13,5 +14,5 @@ module.exports = {
             },
         },
     },
-    plugins: [require("daisyui")],
+    plugins: [require("daisyui"), require("preline/plugin")],
 };
