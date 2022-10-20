@@ -10,7 +10,7 @@ const Chat = () => {
             <div className='grid grid-cols-[3fr_1fr] w-full h-full'>
                 <div className='flex flex-col h-full'>
                     <div className='flex-grow p-4 w-full '>
-                        {/* Create chat component */}
+                        {/* TODO Create chat component */}
                     </div>
                     <div className='input-group p-4'>
                         <input
@@ -22,7 +22,7 @@ const Chat = () => {
                 </div>
                 <Users></Users>
             </div>
-            {/* Create toggle for users */}
+            {/* TODO Create toggle for users */}
         </div>
     );
 };
