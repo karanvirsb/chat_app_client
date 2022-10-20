@@ -9,6 +9,7 @@ type props = {
 const Collapse = ({ children, title, clickEvent }: props) => {
     const [clicked, setClicked] = useState(false);
     return (
+        // TODO Fix tab with preline
         <>
             <div className='flex items-center px-4'>
                 <div
