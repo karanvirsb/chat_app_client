@@ -53,7 +53,7 @@ export default function Sidebar() {
                         </svg>
                     </label>
                     <ul
-                        tabIndex={0}
+                        tabIndex={1}
                         className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
                     >
                         {/* TODO add settings button */}
@@ -67,6 +67,7 @@ export default function Sidebar() {
             </div>
             {/* for chat */}
             <div className='flex flex-col bg-groupInfo-bg text-white'>
+                {/* TODO create drop down component for group */}
                 <div className='border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-[60px] text-white'>
                     Group Name
                 </div>
