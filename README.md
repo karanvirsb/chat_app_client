@@ -1,4 +1,10 @@
 # Chatter
 
-- A chat app that allows users to create groups and channels within those groups in order to send messages to one another.
+A chat app that allows users to create groups and channels within those groups in order to send messages to one another.
+
+# Run Locally
+
+Clone the project
+
+
 
