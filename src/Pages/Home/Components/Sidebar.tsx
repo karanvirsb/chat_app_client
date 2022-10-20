@@ -56,10 +56,7 @@ export default function Sidebar() {
                         tabIndex={0}
                         className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
                     >
-                        {/* TODO add styling */}
-                        <li>
-                            <button className='btn mb-2'>Delete User</button>
-                        </li>
+                        {/* TODO add settings button */}
                         <li>
                             <button className='btn' onClick={logout}>
                                 Logout
