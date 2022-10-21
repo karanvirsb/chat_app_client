@@ -12,30 +12,34 @@ Also Clone the backend [here](https://github.com/karanvirsb/bug_tracker_server) 
 To begin cloning
 
 ```bash
-  
+  git clone https://github.com/karanvirsb/chat_app_client.git
 ```
 
 Go to the project directory
 
 ``` bash
-  
+  cd chat_app_client
 ```
 
 Install dependencies
 
 ```bash
- 
+ npm install - OR -
+ pnpm install
 ```
 
 Start the server 
 
 ```bash
-  
+  npm run dev - OR -
+  pnpm run dev
 ```
 
-Go to http://localhost:3000 in your browser and ... <br/>
+Go to http://localhost:3000 in your browser and create an account and then start chating <br/>
 
 # How To
+
+
 
 ## User Stories
 
