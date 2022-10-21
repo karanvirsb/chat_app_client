@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 type props = {
     direction: "dropdown-top" | "dropdown-left" | "dropdown-right";
@@ -11,7 +11,7 @@ type props = {
     symbol?: boolean;
 };
 
-const DropDown = ({
+export default function DropDown({
     direction,
     align,
     hover,
@@ -20,12 +20,15 @@ const DropDown = ({
     btnChildren,
     children,
     symbol,
-}: props) => {
+}: props) {
+    const [open, setOpen] = useState(false);
+
     return (
         <div
             className={`dropdown ${direction} ${align} ${
                 hover && "dropdown-hover"
             } mt-auto`}
+            onClick={() => setOpen(!open)}
         >
             <label
                 tabIndex={0}
@@ -35,14 +38,14 @@ const DropDown = ({
                 {/* TODO create symbol */}
                 {symbol && ""}
             </label>
-            <ul
-                tabIndex={1}
-                className={`dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 ${listClass}`}
-            >
-                {children}
-            </ul>
+            {open && (
+                <ul
+                    tabIndex={1}
+                    className={`dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 ${listClass}`}
+                >
+                    {children}
+                </ul>
+            )}
         </div>
     );
-};
-
-export default DropDown;
+}
