@@ -6,8 +6,9 @@ type props = {
     hover?: boolean;
     btnClass?: string;
     listClass?: string;
-    btnChildren: JSX.Element;
-    listChildren: JSX.Element;
+    btnChildren: JSX.Element | string;
+    children?: JSX.Element;
+    symbol?: boolean;
 };
 
 const DropDown = ({
@@ -17,7 +18,8 @@ const DropDown = ({
     btnClass,
     listClass,
     btnChildren,
-    listChildren,
+    children,
+    symbol,
 }: props) => {
     return (
         <div
@@ -30,12 +32,14 @@ const DropDown = ({
                 className={`${btnClass ? btnClass : "btn btn-circle m-1"}`}
             >
                 {btnChildren}
+                {/* TODO create symbol */}
+                {symbol && ""}
             </label>
             <ul
                 tabIndex={1}
                 className={`dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 ${listClass}`}
             >
-                {listChildren}
+                {children}
             </ul>
         </div>
     );
