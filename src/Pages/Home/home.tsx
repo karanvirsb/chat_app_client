@@ -3,6 +3,7 @@ import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
 import Chat from "./Components/Chat";
 import Sidebar from "./Components/Sidebar";
+import Users from "./Components/Users";
 
 const Home = () => {
     const [sessionInfo, setSessionInfo] = useState<{
@@ -28,9 +29,10 @@ const Home = () => {
         }
     }, [session.loading]);
     return (
-        <div className='grid grid-cols-[1fr_3fr] h-screen'>
+        <div className='grid grid-cols-[1.25fr_3fr_1fr] h-screen'>
             <Sidebar></Sidebar>
             <Chat></Chat>
+            <Users></Users>
         </div>
     );
 };
