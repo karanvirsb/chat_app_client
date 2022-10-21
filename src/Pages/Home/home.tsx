@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { signOut } from "supertokens-auth-react/recipe/emailpassword";
-import {
-    doesSessionExist,
-    useSessionContext,
-} from "supertokens-auth-react/recipe/session";
+import { useSessionContext } from "supertokens-auth-react/recipe/session";
 import Chat from "./Components/Chat";
 import Sidebar from "./Components/Sidebar";
 
