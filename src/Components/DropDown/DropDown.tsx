@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type props = {
     direction: "dropdown-top" | "dropdown-left" | "dropdown-right";
@@ -22,6 +22,18 @@ export default function DropDown({
     symbol,
 }: props) {
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        const handleEscPress = (event: KeyboardEvent) => {
+            console.log(event.code);
+            if (event.code === "Escape") {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener("keydown", handleEscPress);
+        return () => document.removeEventListener("keydown", handleEscPress);
+    }, []);
 
     return (
         <div
