@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../../../assets/logo-nobg.png";
 import Collapse from "../../../Components/Collapse/Collapse";
 import { signOut } from "supertokens-auth-react/recipe/emailpassword";
+import DropDown from "../../../Components/DropDown/DropDown";
 
 export default function Sidebar() {
     return (
@@ -30,9 +31,10 @@ export default function Sidebar() {
                         />
                     </svg>
                 </button>
-                {/* TODO make into a component */}
-                <div className='dropdown dropdown-right dropdown-end mt-auto'>
-                    <label tabIndex={0} className='btn btn-circle m-1'>
+                <DropDown
+                    direction='dropdown-right'
+                    align='dropdown-end'
+                    btnChildren={
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
@@ -52,19 +54,15 @@ export default function Sidebar() {
                                 d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
                             />
                         </svg>
-                    </label>
-                    <ul
-                        tabIndex={1}
-                        className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
-                    >
-                        {/* TODO add settings button */}
-                        <li>
-                            <button className='btn' onClick={logout}>
-                                Logout
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+                    }
+                >
+                    {/* TODO add settings button */}
+                    <li>
+                        <button className='btn' onClick={logout}>
+                            Logout
+                        </button>
+                    </li>
+                </DropDown>
             </div>
             {/* for chat */}
             <div className='flex flex-col'>
