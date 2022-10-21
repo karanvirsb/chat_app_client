@@ -4,7 +4,7 @@ import Users from "./Users";
 const Chat = () => {
     return (
         <div className='flex flex-col'>
-            <div className='bg-chat-bg border-b border-groupBar-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
+            <div className='bg-chat-bg border-b border-r-0 border-groupBar-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
                 General
             </div>
             <div className='bg-chat-bg flex-grow'>
