@@ -39,7 +39,10 @@ Go to http://localhost:3000 in your browser and create an account and then start
 
 # How To
 
-
+## Create A Group
+- Go to the + button 
+- Type in the group name 
+- Go to the drop down with the group name to invite users
 
 ## User Stories
 
