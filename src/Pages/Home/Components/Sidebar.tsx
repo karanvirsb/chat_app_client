@@ -69,7 +69,7 @@ export default function Sidebar() {
             {/* for chat */}
             <div className='flex flex-col'>
                 {/* TODO create drop down component for group */}
-                <div className='bg-groupInfo-bg border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-[60px] text-white'>
+                <div className='bg-groupInfo-bg border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
                     Group Name
                 </div>
                 <div className='bg-groupInfo-bg flex-grow text-white'>
