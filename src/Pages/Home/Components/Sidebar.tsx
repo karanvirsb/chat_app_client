@@ -79,7 +79,7 @@ export default function Sidebar() {
                 {/* TODO create drop down component for group */}
                 <DropDown
                     btnChildren='Group Name'
-                    btnClass='btn h-16 rounded-none w-full'
+                    btnClass='btn font-bold h-16 rounded-none w-full'
                     dropDownClass='flex flex-col items-center'
                     listClass='relative top-[125%] w-[90%]'
                     symbol={true}
