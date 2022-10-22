@@ -1,8 +1,11 @@
 import React from "react";
 import Collapse from "../../../Components/Collapse/Collapse";
 import DropDown from "../../../Components/DropDown/DropDown";
+import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { setModal } from "../../../Redux/slices/modalSlice";
 
-const SidebarInfo = () => {
+export default function SidebarInfo() {
+    const dispatch = useAppDispatch();
     return (
         <div className='flex flex-col'>
             <DropDown
@@ -14,7 +17,10 @@ const SidebarInfo = () => {
             >
                 <>
                     <li>
-                        <button className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'>
+                        <button
+                            className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'
+                            onClick={displayChangeGroupNameModal}
+                        >
                             Change Group Name
                         </button>
                     </li>
@@ -47,6 +53,10 @@ const SidebarInfo = () => {
             </div>
         </div>
     );
-};
 
-export default SidebarInfo;
+    function displayChangeGroupNameModal() {
+        dispatch(
+            setModal({ modalName: "changeGroupName", open: true, options: {} })
+        );
+    }
+}
