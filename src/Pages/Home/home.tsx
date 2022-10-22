@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
+import Navbar from "../../Components/Navbar/Navbar";
 import Chat from "./Components/Chat";
 import Sidebar from "./Components/Sidebar";
+import SidebarInfo from "./Components/SidebarInfo";
 import Users from "./Components/Users";
 
 const Home = () => {
@@ -29,11 +31,14 @@ const Home = () => {
         }
     }, [session.loading]);
     return (
-        <div className='grid grid-cols-[1.25fr_3fr_1fr] h-screen'>
-            <Sidebar></Sidebar>
-            <Chat></Chat>
-            <Users></Users>
-        </div>
+        <>
+            <div className='grid grid-cols-[0.25fr_1fr_3fr_1fr] h-screen'>
+                <Sidebar></Sidebar>
+                <SidebarInfo></SidebarInfo>
+                <Chat></Chat>
+                <Users></Users>
+            </div>
+        </>
     );
 };
 
