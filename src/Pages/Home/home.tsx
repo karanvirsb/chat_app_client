@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
 import Chat from "./Components/Chat";
 import Sidebar from "./Components/Sidebar";
 import SidebarInfo from "./Components/SidebarInfo";
 import Users from "./Components/Users";
 
-const Home = () => {
+export default function Home() {
     const [sessionInfo, setSessionInfo] = useState<{
         doesSessionExist: boolean;
         userId: string;
@@ -14,10 +13,8 @@ const Home = () => {
     } | null>(null);
     let session = useSessionContext();
 
-    const onLogout = async () => {
-        await signOut();
-        window.location.href = "/";
-    };
+    const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
 
     useEffect(() => {
         if (!session.loading) {
@@ -29,16 +26,28 @@ const Home = () => {
             });
         }
     }, [session.loading]);
+
     return (
         <>
             <div className='grid grid-cols-[0.25fr_1fr_3fr_1fr] h-screen'>
                 <Sidebar></Sidebar>
                 <SidebarInfo></SidebarInfo>
-                <Chat></Chat>
+                <Chat
+                    isSideBarOpen={isSideBarOpen}
+                    toggleSideBar={toggleSideBar}
+                    isUserMenuOpen={isUserMenuOpen}
+                    toggleUserMenu={toggleUserMenu}
+                ></Chat>
                 <Users></Users>
             </div>
         </>
     );
-};
 
-export default Home;
+    function toggleSideBar() {
+        setIsSideBarOpen((prev) => !prev);
+    }
+
+    function toggleUserMenu() {
+        setIsUserMenuOpen((prev) => !prev);
+    }
+}
