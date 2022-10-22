@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import useComponentVisible from "../../Hooks/useComponentVisible";
 
 type props = {
-    direction?: "dropdown-top" | "dropdown-left" | "dropdown-right";
-    align?: "dropdown-end";
+    direction?: "dropdown-top" | "dropdown-left" | "dropdown-right" | "";
+    align?: "dropdown-end" | "";
     hover?: boolean;
     btnClass?: string;
     listClass?: string;
@@ -13,9 +13,9 @@ type props = {
 };
 
 export default function DropDown({
-    direction,
-    align,
-    hover,
+    direction = "",
+    align = "",
+    hover = false,
     btnClass = "",
     listClass = "",
     btnChildren,
