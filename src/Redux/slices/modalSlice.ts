@@ -17,15 +17,18 @@ const initialState: ModalState = {
 };
 
 export const modalSlice = createSlice({
-    name: "counter",
+    name: "modal",
     // `createSlice` will infer the state type from the `initialState` argument
     initialState,
     reducers: {
         setModal: (state, action: PayloadAction<ModalState>) => {
-            state = action.payload;
+            const { modalName, options, open } = action.payload;
+            state.modalName = modalName;
+            state.open = open;
+            state.options = options;
         },
         resetModal: (state) => {
-            state = initialState;
+            state = { ...initialState };
         },
     },
 });
