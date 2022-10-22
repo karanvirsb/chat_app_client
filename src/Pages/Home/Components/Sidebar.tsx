@@ -80,7 +80,8 @@ export default function Sidebar() {
                 <DropDown
                     btnChildren='Group Name'
                     btnClass='btn h-16 rounded-none w-full'
-                    listClass='w-[90%]'
+                    dropDownClass='flex flex-col items-center'
+                    listClass='relative top-[125%] w-[90%]'
                     symbol={true}
                 >
                     <>
