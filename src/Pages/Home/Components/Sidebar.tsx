@@ -58,7 +58,10 @@ export default function Sidebar() {
                 >
                     {/* TODO add settings button */}
                     <li>
-                        <button className='btn' onClick={logout}>
+                        <button
+                            className='btn bg-btn-mutations border-none font-bold text-btn-mutations-text hover:bg-btn-mutations-hover'
+                            onClick={logout}
+                        >
                             Logout
                         </button>
                     </li>
