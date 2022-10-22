@@ -76,7 +76,6 @@ export default function Sidebar() {
             </div>
             {/* for chat */}
             <div className='flex flex-col'>
-                {/* TODO create drop down component for group */}
                 <DropDown
                     btnChildren='Group Name'
                     btnClass='btn font-bold h-16 rounded-none w-full'
