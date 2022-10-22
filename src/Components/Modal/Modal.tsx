@@ -14,8 +14,12 @@ const Modal = ({
     modalName = "",
 }: props) => {
     return (
-        <div className={`modal modal-bottom sm:modal-middle ${bgClass}`}>
-            <div className={`modal-box relative ${modalClass}`}>
+        <div
+            className={`modal modal-bottom sm:modal-middle ${bgClass} visible opacity-100 z-50 pointer-events-auto`}
+        >
+            <div
+                className={`modal-box relative ${modalClass} visible opacity-100 z-50`}
+            >
                 <div className='absolute top-[2px] left-[10px]'>
                     {modalName}
                 </div>
