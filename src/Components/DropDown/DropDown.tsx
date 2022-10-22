@@ -6,6 +6,7 @@ type props = {
     align?: "dropdown-end" | "";
     hover?: boolean;
     btnClass?: string;
+    dropDownClass?: string;
     listClass?: string;
     btnChildren: JSX.Element | string;
     children?: JSX.Element;
@@ -17,6 +18,7 @@ export default function DropDown({
     align = "",
     hover = false,
     btnClass = "",
+    dropDownClass = "",
     listClass = "",
     btnChildren,
     children,
@@ -49,7 +51,7 @@ export default function DropDown({
         <div
             className={`dropdown ${direction} ${align} ${
                 hover && "dropdown-hover"
-            } mt-auto`}
+            } ${dropDownClass} mt-auto`}
         >
             <label
                 tabIndex={0}
