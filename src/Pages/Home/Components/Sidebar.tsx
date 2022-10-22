@@ -59,7 +59,7 @@ export default function Sidebar() {
                     {/* TODO add go to settings on press  */}
                     <>
                         <li>
-                            <button className='btn bg-btn-primary border-none font-bold text-btn-mutations-text hover:bg-btn-primary-hover mb-2'>
+                            <button className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'>
                                 Settings
                             </button>
                         </li>
@@ -77,9 +77,38 @@ export default function Sidebar() {
             {/* for chat */}
             <div className='flex flex-col'>
                 {/* TODO create drop down component for group */}
-                <div className='bg-groupInfo-bg border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
+                <DropDown
+                    btnChildren='Group Name'
+                    btnClass='btn h-16 rounded-none w-full'
+                    listClass='w-[90%]'
+                    symbol={true}
+                >
+                    <>
+                        <li>
+                            <button className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'>
+                                Change Group Name
+                            </button>
+                        </li>
+                        <li>
+                            <button className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'>
+                                Invite User
+                            </button>
+                        </li>
+                        <li>
+                            <button className='btn bg-btn-mutations border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-mutations-hover'>
+                                Delete Group
+                            </button>
+                        </li>
+                        <li>
+                            <button className='btn bg-btn-mutations border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-mutations-hover'>
+                                Leave Group
+                            </button>
+                        </li>
+                    </>
+                </DropDown>
+                {/* <div className='bg-groupInfo-bg border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
                     Group Name
-                </div>
+                </div> */}
                 <div className='bg-groupInfo-bg flex-grow text-white'>
                     <Collapse title='Text Channels'>
                         <ul>
