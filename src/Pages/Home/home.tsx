@@ -29,16 +29,17 @@ export default function Home() {
 
     return (
         <>
+            {/* TODO redo layout with navbar */}
             <div className='grid grid-cols-[0.25fr_1fr_3fr_1fr] h-screen'>
                 <Sidebar></Sidebar>
-                <SidebarInfo></SidebarInfo>
+                {isSideBarOpen && <SidebarInfo></SidebarInfo>}
                 <Chat
                     isSideBarOpen={isSideBarOpen}
                     toggleSideBar={toggleSideBar}
                     isUserMenuOpen={isUserMenuOpen}
                     toggleUserMenu={toggleUserMenu}
                 ></Chat>
-                <Users></Users>
+                <Users isUserMenuOpen={isUserMenuOpen}></Users>
             </div>
         </>
     );
