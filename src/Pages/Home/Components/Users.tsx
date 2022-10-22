@@ -1,35 +1,42 @@
 import React from "react";
 
-const Users = () => {
+type props = {
+    isUserMenuOpen: boolean;
+};
+// TODO add animation on close
+// Todo move into users
+const Users = ({ isUserMenuOpen }: props) => {
     return (
         <div className='flex flex-col'>
             <div className='bg-chat-bg drop-shadow-md flex items-center font-semibold py-2 px-4 w-full h-16 text-white'></div>
-            <div className='bg-groupInfo-bg px-4 text-white flex-grow'>
-                {/* TODO add top bar with search */}
-                {/* TODO create tabs for online and offline users */}
-                <div className='collapse collapse-open'>
-                    <input type='checkbox' />
-                    <div className='collapse-title text-xl font-medium'>
-                        Online
+            {isUserMenuOpen && (
+                <div className='bg-groupInfo-bg px-4 text-white flex-grow'>
+                    {/* TODO add top bar with search */}
+                    {/* TODO create tabs for online and offline users */}
+                    <div className='collapse collapse-open'>
+                        <input type='checkbox' />
+                        <div className='collapse-title text-xl font-medium'>
+                            Online
+                        </div>
+                        <div className='collapse-content'>
+                            <ul>
+                                <li>general</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div className='collapse-content'>
-                        <ul>
-                            <li>general</li>
-                        </ul>
+                    <div className='collapse collapse-open'>
+                        <input type='checkbox' />
+                        <div className='collapse-title text-xl font-medium'>
+                            Offline
+                        </div>
+                        <div className='collapse-content'>
+                            <ul>
+                                <li>general</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div className='collapse collapse-open'>
-                    <input type='checkbox' />
-                    <div className='collapse-title text-xl font-medium'>
-                        Offline
-                    </div>
-                    <div className='collapse-content'>
-                        <ul>
-                            <li>general</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            )}
         </div>
     );
 };
