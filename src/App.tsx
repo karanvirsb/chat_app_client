@@ -50,20 +50,10 @@ SuperTokens.init({
     ],
 });
 
-import { useAppSelector } from "./Hooks/reduxHooks";
-
 export default function App() {
-    const modalOpen = useAppSelector((state) => state.modalReducer.open);
-    const modalOptions = useAppSelector((state) => state.modalReducer.options);
-    const modalName = useAppSelector((state) => state.modalReducer.modalName);
-
     return (
         <>
-            <ModalDisplay
-                open={modalOpen}
-                options={modalOptions}
-                modalName={modalName}
-            ></ModalDisplay>
+            <ModalDisplay></ModalDisplay>
             <SuperTokensWrapper>
                 <Routes>
                     {getSuperTokensRoutesForReactRouterDom(reactRouterDom)}
