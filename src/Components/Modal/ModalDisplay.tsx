@@ -1,20 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ChangeGroupNameModal from "./ChangeGroupNameModal";
+import { useAppSelector } from "../../Hooks/reduxHooks";
 
-type props = {
-    open: boolean;
-    options: any;
-    modalName: "changeGroupName" | "";
-};
+export default function ModalDisplay() {
+    const modalOpen = useAppSelector((state) => state.modalReducer.open);
+    const modalOptions = useAppSelector((state) => state.modalReducer.options);
+    const modalName = useAppSelector((state) => state.modalReducer.modalName);
 
-export default function ModalDisplay({
-    modalName = "",
-    open = false,
-    options = {},
-}: props) {
     return (
         <>
-            {modalName === "changeGroupName" && open && (
+            {modalOpen && modalName === "changeGroupName" && (
                 <ChangeGroupNameModal></ChangeGroupNameModal>
             )}
         </>
