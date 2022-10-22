@@ -14,6 +14,8 @@ module.exports = {
                 "btn-mutations": "hsla(360, 62%, 59%, 100%)",
                 "btn-mutations-text": "hsla(218, 18%, 12%, 100%)",
                 "btn-mutations-hover": "hsla(360, 62%, 55%, 100%)",
+                "btn-primary": "hsla(219, 18%, 50%, 100%)",
+                "btn-primary-hover": "hsla(219, 18%, 35%, 100%)",
             },
         },
     },
