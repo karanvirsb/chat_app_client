@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import useComponentVisible from "../../Hooks/useComponentVisible";
 
 type props = {
     direction: "dropdown-top" | "dropdown-left" | "dropdown-right";
@@ -11,23 +12,26 @@ type props = {
     symbol?: boolean;
 };
 
+// TODO bug when clicking off component it should be off
 export default function DropDown({
     direction,
     align,
     hover,
-    btnClass,
-    listClass,
+    btnClass = "",
+    listClass = "",
     btnChildren,
     children,
     symbol,
 }: props) {
-    const [open, setOpen] = useState(false);
+    const [clicked, setClicked] = useState(false);
+    const { ref, isComponentVisible, setIsComponentVisible } =
+        useComponentVisible();
 
     useEffect(() => {
         const handleEscPress = (event: KeyboardEvent) => {
-            console.log(event.code);
             if (event.code === "Escape") {
-                setOpen(false);
+                setIsComponentVisible(false);
+                setClicked(false);
             }
         };
 
@@ -35,29 +39,46 @@ export default function DropDown({
         return () => document.removeEventListener("keydown", handleEscPress);
     }, []);
 
+    useEffect(() => {
+        if (!isComponentVisible) {
+            setClicked(false);
+        }
+    }, [isComponentVisible]);
+
     return (
         <div
             className={`dropdown ${direction} ${align} ${
                 hover && "dropdown-hover"
             } mt-auto`}
-            onClick={() => setOpen(!open)}
         >
             <label
                 tabIndex={0}
                 className={`${btnClass ? btnClass : "btn btn-circle m-1"}`}
+                onClick={toggleMenu}
             >
                 {btnChildren}
                 {/* TODO create symbol */}
                 {symbol && ""}
             </label>
-            {open && (
+
+            {isComponentVisible && (
                 <ul
                     tabIndex={1}
                     className={`dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 ${listClass}`}
+                    ref={ref}
                 >
                     {children}
                 </ul>
             )}
         </div>
     );
+
+    function toggleMenu() {
+        if (!clicked) {
+            setClicked(true);
+            setIsComponentVisible(true);
+        } else {
+            setClicked(false);
+        }
+    }
 }
