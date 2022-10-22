@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useComponentVisible from "../../Hooks/useComponentVisible";
 
 type props = {
@@ -12,7 +12,6 @@ type props = {
     symbol?: boolean;
 };
 
-// TODO bug when clicking off component it should be off
 export default function DropDown({
     direction,
     align,
@@ -53,12 +52,48 @@ export default function DropDown({
         >
             <label
                 tabIndex={0}
-                className={`${btnClass ? btnClass : "btn btn-circle m-1"}`}
+                className={`${
+                    btnClass
+                        ? btnClass
+                        : `btn btn-circle m-1 ${
+                              symbol && "flex justify-between"
+                          }`
+                }`}
                 onClick={toggleMenu}
             >
                 {btnChildren}
-                {/* TODO create symbol */}
-                {symbol && ""}
+                {symbol &&
+                    (isComponentVisible ? (
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth={1.5}
+                            stroke='currentColor'
+                            className='w-6 h-6'
+                        >
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M6 18L18 6M6 6l12 12'
+                            />
+                        </svg>
+                    ) : (
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth={1.5}
+                            stroke='currentColor'
+                            className='w-6 h-6'
+                        >
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M19.5 8.25l-7.5 7.5-7.5-7.5'
+                            />
+                        </svg>
+                    ))}
             </label>
 
             {isComponentVisible && (
