@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
-import Navbar from "../../Components/Navbar/Navbar";
 import Chat from "./Components/Chat";
 import Sidebar from "./Components/Sidebar";
 import SidebarInfo from "./Components/SidebarInfo";
