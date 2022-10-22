@@ -56,15 +56,22 @@ export default function Sidebar() {
                         </svg>
                     }
                 >
-                    {/* TODO add settings button */}
-                    <li>
-                        <button
-                            className='btn bg-btn-mutations border-none font-bold text-btn-mutations-text hover:bg-btn-mutations-hover'
-                            onClick={logout}
-                        >
-                            Logout
-                        </button>
-                    </li>
+                    {/* TODO add go to settings on press  */}
+                    <>
+                        <li>
+                            <button className='btn bg-btn-primary border-none font-bold text-btn-mutations-text hover:bg-btn-primary-hover mb-2'>
+                                Settings
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className='btn bg-btn-mutations border-none font-bold text-btn-mutations-text hover:bg-btn-mutations-hover'
+                                onClick={logout}
+                            >
+                                Logout
+                            </button>
+                        </li>
+                    </>
                 </DropDown>
             </div>
             {/* for chat */}
