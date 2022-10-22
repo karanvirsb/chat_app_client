@@ -42,6 +42,13 @@ Go to http://localhost:3000 in your browser and create an account and then start
 ## Create A Group
 - Go to the + button 
 - Type in the group name 
+
+## How to message
+- Click on the send message
+- Type in a message you would like to send.  
+- Then press enter to send the message.
+
+## Invite users
 - Go to the drop down with the group name to invite users
 
 ## User Stories
