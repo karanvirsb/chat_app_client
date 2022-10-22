@@ -24,10 +24,13 @@ export const modalSlice = createSlice({
         setModal: (state, action: PayloadAction<ModalState>) => {
             state = action.payload;
         },
+        resetModal: (state) => {
+            state = initialState;
+        },
     },
 });
 
-export const { setModal } = modalSlice.actions;
+export const { setModal, resetModal } = modalSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectModalState = (state: RootState) => state.counter.value;
