@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useComponentVisible from "../../Hooks/useComponentVisible";
 
 type props = {
-    direction: "dropdown-top" | "dropdown-left" | "dropdown-right";
+    direction?: "dropdown-top" | "dropdown-left" | "dropdown-right";
     align?: "dropdown-end";
     hover?: boolean;
     btnClass?: string;
@@ -25,6 +25,7 @@ export default function DropDown({
     const [clicked, setClicked] = useState(false);
     const { ref, isComponentVisible, setIsComponentVisible } =
         useComponentVisible();
+    const symbolClass = symbol && "flex justify-between w-full";
 
     useEffect(() => {
         const handleEscPress = (event: KeyboardEvent) => {
@@ -54,16 +55,14 @@ export default function DropDown({
                 tabIndex={0}
                 className={`${
                     btnClass
-                        ? btnClass
-                        : `btn btn-circle m-1 ${
-                              symbol && "flex justify-between"
-                          }`
+                        ? `${btnClass} ${symbolClass}`
+                        : `btn btn-circle m-1 ${symbolClass}`
                 }`}
                 onClick={toggleMenu}
             >
                 {btnChildren}
                 {symbol &&
-                    (isComponentVisible ? (
+                    (clicked ? (
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
