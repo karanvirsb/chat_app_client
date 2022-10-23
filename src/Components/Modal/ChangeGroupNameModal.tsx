@@ -14,7 +14,7 @@ export default function ChangeGroupNameModal() {
                 <div className='form-control w-full'>
                     <label className='label' htmlFor='prevName'>
                         <span className='label-text text-white'>
-                            Previous Name:
+                            Previous Name
                         </span>
                     </label>
                     <input
@@ -27,7 +27,7 @@ export default function ChangeGroupNameModal() {
                 </div>
                 <div className='form-control w-full'>
                     <label className='label' htmlFor='newName'>
-                        <span className='label-text text-white'>New Name:</span>
+                        <span className='label-text text-white'>New Name</span>
                     </label>
                     <input
                         id='newName'
