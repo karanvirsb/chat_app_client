@@ -53,6 +53,7 @@ export default function InviteUserModal() {
     );
 
     function handleCopyInviteCode() {
+        // TODO pop up message saying "Copied Text"
         const text = "copied code"; // TODO replace with invite code url
         navigator.clipboard.writeText(text);
     }
