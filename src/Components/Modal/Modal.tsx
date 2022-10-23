@@ -20,7 +20,7 @@ const Modal = ({
             <div
                 className={`modal-box bg-[#343C4B] relative lg:max-w-[650px] lg:min-h-[300px] xl:max-w-[700px] xl:min-h-[350px] ${modalClass} visible opacity-100 z-50`}
             >
-                <div className='absolute top-[10px] left-[0px] pl-6'>
+                <div className='absolute top-[10px] left-[0px] pl-6 text-[#B8B8B8]'>
                     {modalName}
                 </div>
                 {children}
