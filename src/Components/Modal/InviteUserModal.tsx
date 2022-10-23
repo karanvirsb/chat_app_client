@@ -8,6 +8,7 @@ import Modal from "./Modal";
 
 export default function InviteUserModal() {
     const [usernameSearch, setUsernameSearch] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
     const dispatch = useAppDispatch();
     // TODO useEffect that checks user name in database
 
@@ -34,7 +35,7 @@ export default function InviteUserModal() {
                     placeholder='Search User'
                     value={usernameSearch}
                     onChange={handleUserSearch}
-                    errorMsg=''
+                    errorMsg={errorMsg}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
@@ -59,7 +60,11 @@ export default function InviteUserModal() {
         setUsernameSearch(() => e.target.value);
     }
 
-    function handleSubmit() {}
+    function handleSubmit() {
+        if (!usernameSearch) {
+            setErrorMsg("Type a username between 3 to 50 characters");
+        }
+    }
 
     function handleCancel() {
         dispatch(resetModal());
