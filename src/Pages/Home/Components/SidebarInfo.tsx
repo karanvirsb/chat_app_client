@@ -33,7 +33,10 @@ export default function SidebarInfo() {
                         </button>
                     </li>
                     <li>
-                        <button className='btn bg-btn-mutations border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-mutations-hover'>
+                        <button
+                            className='btn bg-btn-mutations border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-mutations-hover'
+                            onClick={displayDeleteGroupModal}
+                        >
                             Delete Group
                         </button>
                     </li>
@@ -66,6 +69,12 @@ export default function SidebarInfo() {
     function displayInviteUserModal() {
         dispatch(
             setModal({ modalName: "inviteUser", open: true, options: {} })
+        );
+    }
+
+    function displayDeleteGroupModal() {
+        dispatch(
+            setModal({ modalName: "deleteGroup", open: true, options: {} })
         );
     }
 }
