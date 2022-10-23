@@ -25,7 +25,10 @@ export default function SidebarInfo() {
                         </button>
                     </li>
                     <li>
-                        <button className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'>
+                        <button
+                            className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'
+                            onClick={displayInviteUserModal}
+                        >
                             Invite User
                         </button>
                     </li>
@@ -57,6 +60,12 @@ export default function SidebarInfo() {
     function displayChangeGroupNameModal() {
         dispatch(
             setModal({ modalName: "changeGroupName", open: true, options: {} })
+        );
+    }
+
+    function displayInviteUserModal() {
+        dispatch(
+            setModal({ modalName: "inviteUser", open: true, options: {} })
         );
     }
 }
