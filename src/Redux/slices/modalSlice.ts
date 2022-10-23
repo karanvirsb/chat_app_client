@@ -28,7 +28,9 @@ export const modalSlice = createSlice({
             state.options = options;
         },
         resetModal: (state) => {
-            state = { ...initialState };
+            state.modalName = "";
+            state.open = false;
+            state.options = {};
         },
     },
 });
