@@ -11,6 +11,7 @@ type props = {
     type?: React.HTMLInputTypeAttribute | undefined;
     value?: any;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    children?: JSX.Element;
 };
 
 export default function ModalInput({
@@ -24,6 +25,7 @@ export default function ModalInput({
     type = "",
     value,
     onChange,
+    children,
 }: props) {
     return (
         <div className={`form-control w-full ${formClass}`}>
@@ -41,6 +43,7 @@ export default function ModalInput({
                 onChange={onChange ?? undefined}
                 value={value}
             />
+            {children}
         </div>
     );
 }
