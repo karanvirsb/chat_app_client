@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import ChangeGroupNameModal from "./ChangeGroupNameModal";
 import { useAppSelector } from "../../Hooks/reduxHooks";
 import InviteUserModal from "./InviteUserModal";
+import MutationModal from "./MutationModal";
+import DeleteGroupModal from "./DeleteGroupModal";
 
 export default function ModalDisplay() {
     const modalOpen = useAppSelector((state) => state.modalReducer.open);
@@ -16,6 +18,10 @@ export default function ModalDisplay() {
 
             {modalOpen && modalName === "inviteUser" && (
                 <InviteUserModal></InviteUserModal>
+            )}
+
+            {modalOpen && modalName === "deleteGroup" && (
+                <DeleteGroupModal></DeleteGroupModal>
             )}
         </>
     );
