@@ -21,7 +21,8 @@ export default function InviteUserModal() {
                     labelName='Invite Code'
                     editable={false}
                     placeholder=''
-                    value=''
+                    formClass='items-baseline'
+                    inputClass='mb-6'
                 >
                     <BtnCallToAction
                         text='Copy'
