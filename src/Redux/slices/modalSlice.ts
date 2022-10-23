@@ -6,7 +6,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 interface ModalState {
     open: boolean;
     options: any;
-    modalName: "changeGroupName" | "";
+    modalName: "changeGroupName" | "inviteUser" | "";
 }
 
 // Define the initial state using that type
