@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useAppDispatch } from "../../Hooks/reduxHooks";
+import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
+import BtnCancelAction from "../Buttons/BtnCancelAction";
 import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
 
 export default function InviteUserModal() {
     const [usernameSearch, setUsernameSearch] = useState("");
-
+    const dispatch = useAppDispatch();
     // TODO useEffect that checks user name in database
 
     return (
@@ -33,6 +36,16 @@ export default function InviteUserModal() {
                     onChange={handleUserSearch}
                     errorMsg=''
                 ></ModalInput>
+                <div className='flex gap-4 mt-2'>
+                    <BtnCallToAction
+                        onClick={handleSubmit}
+                        text='Send'
+                    ></BtnCallToAction>
+                    <BtnCancelAction
+                        onClick={handleCancel}
+                        text='Cancel'
+                    ></BtnCancelAction>
+                </div>
             </div>
         </Modal>
     );
@@ -44,5 +57,11 @@ export default function InviteUserModal() {
 
     function handleUserSearch(e: React.ChangeEvent<HTMLInputElement>) {
         setUsernameSearch(() => e.target.value);
+    }
+
+    function handleSubmit() {}
+
+    function handleCancel() {
+        dispatch(resetModal());
     }
 }
