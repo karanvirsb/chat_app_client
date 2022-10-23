@@ -37,11 +37,17 @@ export default function ChangeGroupNameModal() {
                         onChange={handleChange}
                     />
                 </div>
-                <div className=''>
-                    <button className='btn' onClick={handleSubmit}>
+                <div className='flex gap-4 mt-2'>
+                    <button
+                        className='btn bg-btn-cta  border-none font-bold tracking-wider hover:bg-btn-cta-hover text-white'
+                        onClick={handleSubmit}
+                    >
                         Change
                     </button>
-                    <button className='btn' onClick={closeModal}>
+                    <button
+                        className='btn border-none bg-transparent text-white hover:outline hover:outline-2 hover:outline-btn-cta hover:bg-transparent'
+                        onClick={closeModal}
+                    >
                         Cancel
                     </button>
                 </div>
