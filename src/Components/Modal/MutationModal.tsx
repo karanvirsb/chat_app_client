@@ -21,7 +21,7 @@ export default function MutationModal({
     text,
 }: props) {
     return (
-        <Modal modalName={modalName} modalClass='!max-w-[300px]'>
+        <Modal modalName={modalName} modalClass='!max-w-[300px] flex'>
             <div className='flex flex-col flex-grow justify-end mt-6'>
                 <label className='label flex gap-4 mr-auto flex-grow'>
                     <span className='label-text text-lg text-white'>
