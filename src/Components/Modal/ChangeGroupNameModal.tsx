@@ -1,6 +1,8 @@
 import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
+import BtnCallToAction from "../Buttons/BtnCallToAction";
+import BtnCancelAction from "../Buttons/BtnCancelAction";
 import Modal from "./Modal";
 
 // TODO give group id
@@ -38,18 +40,14 @@ export default function ChangeGroupNameModal() {
                     />
                 </div>
                 <div className='flex gap-4 mt-2'>
-                    <button
-                        className='btn bg-btn-cta  border-none font-bold tracking-wider hover:bg-btn-cta-hover text-white'
+                    <BtnCallToAction
+                        text='Change'
                         onClick={handleSubmit}
-                    >
-                        Change
-                    </button>
-                    <button
-                        className='btn border-none bg-transparent text-white hover:outline hover:outline-2 hover:outline-btn-cta hover:bg-transparent'
+                    ></BtnCallToAction>
+                    <BtnCancelAction
+                        text='Cancel'
                         onClick={closeModal}
-                    >
-                        Cancel
-                    </button>
+                    ></BtnCancelAction>
                 </div>
             </div>
         </Modal>
