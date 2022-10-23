@@ -13,7 +13,7 @@ export default function ChangeGroupNameModal() {
             <div className='flex flex-col gap-4 mt-6'>
                 <div className='form-control w-full'>
                     <label className='label' htmlFor='prevName'>
-                        <span className='label-text text-md'>
+                        <span className='label-text text-white'>
                             Previous Name:
                         </span>
                     </label>
@@ -21,19 +21,19 @@ export default function ChangeGroupNameModal() {
                         id='prevName'
                         type='text'
                         placeholder=''
-                        className='input input-bordered w-full'
+                        className='input input-bordered bg-[#2A303C] w-full'
                         contentEditable={false}
                     />
                 </div>
                 <div className='form-control w-full'>
                     <label className='label' htmlFor='newName'>
-                        <span className='label-text'>New Name:</span>
+                        <span className='label-text text-white'>New Name:</span>
                     </label>
                     <input
                         id='newName'
                         type='text'
                         placeholder='New group name'
-                        className='input input-bordered w-full'
+                        className='input input-bordered bg-[#2A303C] w-full'
                         onChange={handleChange}
                     />
                 </div>
