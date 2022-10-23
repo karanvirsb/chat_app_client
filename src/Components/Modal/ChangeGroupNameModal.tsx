@@ -10,30 +10,34 @@ export default function ChangeGroupNameModal() {
 
     return (
         <Modal modalName='Change Group Name'>
-            <>
-                <div className='form-control w-full max-w-xs'>
-                    <label className='label'>
-                        <span className='label-text'>Previous Name:</span>
+            <div className='flex flex-col gap-4 mt-6'>
+                <div className='form-control w-full'>
+                    <label className='label' htmlFor='prevName'>
+                        <span className='label-text text-md'>
+                            Previous Name:
+                        </span>
                     </label>
                     <input
+                        id='prevName'
                         type='text'
                         placeholder=''
-                        className='input input-bordered w-full max-w-xs'
+                        className='input input-bordered w-full'
                         contentEditable={false}
                     />
                 </div>
-                <div className='form-control w-full max-w-xs'>
-                    <label className='label'>
+                <div className='form-control w-full'>
+                    <label className='label' htmlFor='newName'>
                         <span className='label-text'>New Name:</span>
                     </label>
                     <input
+                        id='newName'
                         type='text'
                         placeholder='New group name'
-                        className='input input-bordered w-full max-w-xs'
+                        className='input input-bordered w-full'
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className=''>
                     <button className='btn' onClick={handleSubmit}>
                         Change
                     </button>
@@ -41,7 +45,7 @@ export default function ChangeGroupNameModal() {
                         Cancel
                     </button>
                 </div>
-            </>
+            </div>
         </Modal>
     );
 
