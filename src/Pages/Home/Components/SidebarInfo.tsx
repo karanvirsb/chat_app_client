@@ -41,7 +41,10 @@ export default function SidebarInfo() {
                         </button>
                     </li>
                     <li>
-                        <button className='btn bg-btn-mutations border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-mutations-hover'>
+                        <button
+                            className='btn bg-btn-mutations border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-mutations-hover'
+                            onClick={displayLeaveGroupModal}
+                        >
                             Leave Group
                         </button>
                     </li>
@@ -60,6 +63,7 @@ export default function SidebarInfo() {
         </div>
     );
 
+    // TODO added pass through values
     function displayChangeGroupNameModal() {
         dispatch(
             setModal({ modalName: "changeGroupName", open: true, options: {} })
@@ -75,6 +79,12 @@ export default function SidebarInfo() {
     function displayDeleteGroupModal() {
         dispatch(
             setModal({ modalName: "deleteGroup", open: true, options: {} })
+        );
+    }
+
+    function displayLeaveGroupModal() {
+        dispatch(
+            setModal({ modalName: "leaveGroup", open: true, options: {} })
         );
     }
 }
