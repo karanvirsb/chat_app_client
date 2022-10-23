@@ -6,6 +6,13 @@ module.exports = {
     purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
     content: ["./src/**/*.{js,jsx,ts,tsx}", "node_modules/preline/dist/*.js"],
     theme: {
+        screens: {
+            sm: "460px",
+            md: "720px",
+            lg: "1196px",
+            xl: "1440px",
+            xxl: "1920px",
+        },
         extend: {
             colors: {
                 "groupBar-bg": "#242933",
