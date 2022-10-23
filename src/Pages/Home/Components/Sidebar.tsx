@@ -9,7 +9,7 @@ export default function Sidebar() {
         // <div className='grid grid-cols-[1fr_5fr]'>
         <>
             {/*  for groups*/}
-            <div className='flex flex-col items-center bg-groupBar-bg py-4 px-2'>
+            <nav className='flex flex-col items-center bg-groupBar-bg py-4 px-2'>
                 <button className='btn btn-circle'>
                     <img src={Logo} className='rounded-full'></img>
                 </button>
@@ -74,7 +74,7 @@ export default function Sidebar() {
                         </li>
                     </>
                 </DropDown>
-            </div>
+            </nav>
             {/* for chat */}
         </>
         // </div>
