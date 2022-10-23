@@ -32,7 +32,7 @@ export default function InviteUserModal() {
                     labelName='Invite User'
                     type='search'
                     placeholder='Search User'
-                    value=''
+                    value={usernameSearch}
                     onChange={handleUserSearch}
                     errorMsg=''
                 ></ModalInput>
