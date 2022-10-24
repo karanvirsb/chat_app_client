@@ -5,6 +5,7 @@ import InviteUserModal from "./InviteUserModal";
 import MutationModal from "./MutationModal";
 import DeleteGroupModal from "./DeleteGroupModal";
 import LeaveGroupModal from "./LeaveGroupModal";
+import CreateGroupModal from "./CreateGroupModal";
 
 export default function ModalDisplay() {
     const modalOpen = useAppSelector((state) => state.modalReducer.open);
@@ -27,6 +28,10 @@ export default function ModalDisplay() {
 
             {modalOpen && modalName === "leaveGroup" && (
                 <LeaveGroupModal></LeaveGroupModal>
+            )}
+
+            {modalOpen && modalName === "createGroup" && (
+                <CreateGroupModal></CreateGroupModal>
             )}
         </>
     );
