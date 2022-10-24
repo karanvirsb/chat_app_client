@@ -22,7 +22,7 @@ export default function CreateGroupModal() {
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
-                        text='Change'
+                        text='Create'
                         onClick={handleSubmit}
                     ></BtnCallToAction>
                     <BtnCancelAction
