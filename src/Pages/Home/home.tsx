@@ -33,8 +33,8 @@ export default function Home() {
             {/* TODO redo layout with navbar */}
             <div className='flex h-screen'>
                 <Sidebar></Sidebar>
-                {isSideBarOpen && <SidebarInfo></SidebarInfo>}
                 {/* Top Bar */}
+                {isSideBarOpen && <SidebarInfo></SidebarInfo>}
                 <div className='flex flex-col flex-grow'>
                     <GroupTopBar
                         isSideBarOpen={isSideBarOpen}
