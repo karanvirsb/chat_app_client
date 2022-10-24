@@ -2,9 +2,11 @@ import React from "react";
 import Logo from "../../../assets/logo-nobg.png";
 import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import DropDown from "../../../Components/DropDown/DropDown";
-import SidebarInfo from "./SidebarInfo";
+import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { setModal } from "../../../Redux/slices/modalSlice";
 
 export default function Sidebar() {
+    const dispatch = useAppDispatch();
     return (
         // <div className='grid grid-cols-[1fr_5fr]'>
         <>
@@ -16,7 +18,10 @@ export default function Sidebar() {
                 <div className='divider'></div>
                 {/* TODO Groups go here */}
                 <ul></ul>
-                <button className='btn btn-circle'>
+                <button
+                    className='btn btn-circle'
+                    onClick={displayCreateGroupModal}
+                >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -79,9 +84,19 @@ export default function Sidebar() {
         </>
         // </div>
     );
-}
 
-async function logout() {
-    await signOut();
-    window.location.href = "/";
+    async function logout() {
+        await signOut();
+        window.location.href = "/";
+    }
+
+    function displayCreateGroupModal() {
+        dispatch(
+            setModal({
+                modalName: "createGroup",
+                open: true,
+                options: {},
+            })
+        );
+    }
 }
