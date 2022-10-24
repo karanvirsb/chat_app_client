@@ -11,14 +11,15 @@ export default function CreateGroupModal() {
     const [groupName, setGroupName] = useState("");
     const dispatch = useAppDispatch();
     return (
-        <Modal modalName='Change Group Name'>
-            <div className='flex flex-col gap-4 mt-6'>
+        <Modal modalName='Change Group Name' modalClass='flex'>
+            <div className='flex flex-col flex-grow w-full gap-4 mt-6 justify-end'>
                 <ModalInput
-                    labelName='New Name'
+                    labelName='Group Name'
                     onChange={handleChange}
                     value={groupName}
                     placeholder='Group Name'
                     inputId='groupName'
+                    formClass='flex-grow'
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
