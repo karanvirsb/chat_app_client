@@ -7,7 +7,7 @@ type props = {
     toggleUserMenu: () => void;
 };
 
-export default function Chat() {
+export default function GroupChat() {
     return (
         // <div className=''>
         <div className='bg-chat-bg flex flex-col flex-grow'>
