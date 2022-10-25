@@ -25,6 +25,7 @@ module.exports = {
                 "btn-primary-hover": "hsla(219, 18%, 35%, 100%)",
                 "btn-cta": "hsla(219, 18%, 45%, 100%)",
                 "btn-cta-hover": "hsla(219, 18%, 40%, 100%)",
+                "accent-color": "hsla(56, 100%, 65%, 100%)",
             },
         },
     },
