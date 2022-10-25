@@ -31,7 +31,7 @@ export default function Sidebar({ setTab, setTabId }: props) {
                         </button>
                     </li>
                 </ul>
-                {/* TODO color this a different color */}
+
                 {/* Btn is to create a group  */}
                 <button
                     className='btn btn-circle'
@@ -43,7 +43,7 @@ export default function Sidebar({ setTab, setTabId }: props) {
                         viewBox='0 0 24 24'
                         strokeWidth={1.5}
                         stroke='currentColor'
-                        className='w-6 h-6'
+                        className='w-6 h-6 text-accent-color'
                     >
                         <path
                             strokeLinecap='round'
