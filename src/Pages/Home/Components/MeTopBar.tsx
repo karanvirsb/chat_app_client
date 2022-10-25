@@ -8,7 +8,7 @@ type props = {
 export default function MeTopBar({ isSideBarOpen, toggleSideBar }: props) {
     return (
         <div className='bg-chat-bg border-b border-r-0 border-groupBar-bg flex items-center justify-between font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
-            <div className='flex gap-4'>
+            <div className='flex gap-4 items-center'>
                 <button onClick={toggleSideBar}>
                     {isSideBarOpen ? (
                         <svg
@@ -44,7 +44,9 @@ export default function MeTopBar({ isSideBarOpen, toggleSideBar }: props) {
                 </button>
                 {/*TODO Friends username goes here*/}
                 <span>Friends Name</span>
-                <button className='btn class'>Add Friend</button>
+                <button className='btn btn-sm border-none bg-accent-color font-bold ml-4 text-black'>
+                    Add Friends
+                </button>
             </div>
         </div>
     );
