@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
-import Chat from "./Components/Chat";
+import GroupChat from "./Components/GroupChat";
 import GroupTopBar from "./Components/GroupTopBar";
 import Sidebar from "./Components/Sidebar";
-import SidebarInfo from "./Components/SidebarInfo";
+import GroupSidebarInfo from "./Components/GroupSidebarInfo";
 import Users from "./Components/Users";
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
             <div className='flex h-screen'>
                 <Sidebar></Sidebar>
                 {/* Top Bar */}
-                {isSideBarOpen && <SidebarInfo></SidebarInfo>}
+                {isSideBarOpen && <GroupSidebarInfo></GroupSidebarInfo>}
                 <div className='flex flex-col flex-grow'>
                     <GroupTopBar
                         isSideBarOpen={isSideBarOpen}
@@ -43,7 +43,7 @@ export default function Home() {
                         toggleUserMenu={toggleUserMenu}
                     ></GroupTopBar>
                     <div className='flex flex-grow'>
-                        <Chat></Chat>
+                        <GroupChat></GroupChat>
                         {isUserMenuOpen && <Users></Users>}
                     </div>
                 </div>
