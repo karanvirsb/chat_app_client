@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
 type props = {
-    setTab: React.Dispatch<React.SetStateAction<"" | "group" | "me">>;
+    setTab: React.Dispatch<React.SetStateAction<"group" | "me">>;
     setTabId: React.Dispatch<React.SetStateAction<string>>;
 };
 
