@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../../Hooks/reduxHooks";
 export default function MeSideBarInfo() {
     const dispatch = useAppDispatch();
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col md:min-w-[235.375px]'>
             <h1 className='bg-groupInfo-bg border-b border-chat-bg flex items-center font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
                 Friends
             </h1>
