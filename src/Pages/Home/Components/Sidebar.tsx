@@ -5,19 +5,34 @@ import DropDown from "../../../Components/DropDown/DropDown";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
-export default function Sidebar() {
+type props = {
+    setTab: React.Dispatch<React.SetStateAction<"" | "group" | "me">>;
+    setTabId: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function Sidebar({ setTab, setTabId }: props) {
     const dispatch = useAppDispatch();
     return (
-        // <div className='grid grid-cols-[1fr_5fr]'>
         <>
             {/*  for groups*/}
             <nav className='flex flex-col items-center bg-groupBar-bg py-4 px-2'>
-                <button className='btn btn-circle'>
+                <button className='btn btn-circle' onClick={setTabToMe}>
                     <img src={Logo} className='rounded-full'></img>
                 </button>
                 <div className='divider'></div>
                 {/* TODO Groups go here */}
-                <ul></ul>
+                <ul className='mb-4 flex flex-col gap-4'>
+                    <li>
+                        <button
+                            className='btn btn-circle'
+                            onClick={() => setTabToGroup("1")}
+                        >
+                            G
+                        </button>
+                    </li>
+                </ul>
+                {/* TODO color this a different color */}
+                {/* Btn is to create a group  */}
                 <button
                     className='btn btn-circle'
                     onClick={displayCreateGroupModal}
@@ -80,9 +95,7 @@ export default function Sidebar() {
                     </>
                 </DropDown>
             </nav>
-            {/* for chat */}
         </>
-        // </div>
     );
 
     async function logout() {
@@ -98,5 +111,14 @@ export default function Sidebar() {
                 options: {},
             })
         );
+    }
+
+    function setTabToMe() {
+        setTab("me");
+    }
+
+    function setTabToGroup(id: string) {
+        setTab("group");
+        setTabId(id);
     }
 }
