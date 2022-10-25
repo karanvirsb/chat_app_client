@@ -4,7 +4,7 @@ import GroupChat from "./Components/GroupChat";
 import GroupTopBar from "./Components/GroupTopBar";
 import Sidebar from "./Components/Sidebar";
 import GroupSidebarInfo from "./Components/GroupSidebarInfo";
-import Users from "./Components/Users";
+import GroupUsers from "./Components/GroupUsers";
 
 export default function Home() {
     const [sessionInfo, setSessionInfo] = useState<{
@@ -44,7 +44,7 @@ export default function Home() {
                     ></GroupTopBar>
                     <div className='flex flex-grow'>
                         <GroupChat></GroupChat>
-                        {isUserMenuOpen && <Users></Users>}
+                        {isUserMenuOpen && <GroupUsers></GroupUsers>}
                     </div>
                 </div>
             </div>
