@@ -4,7 +4,7 @@ import DropDown from "../../../Components/DropDown/DropDown";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
-export default function SidebarInfo() {
+export default function GroupSidebarInfo() {
     const dispatch = useAppDispatch();
     return (
         <div className='flex flex-col'>
