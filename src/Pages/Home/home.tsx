@@ -6,6 +6,7 @@ import Sidebar from "./Components/Sidebar";
 import GroupSidebarInfo from "./Components/GroupSidebarInfo";
 import GroupUsers from "./Components/GroupUsers";
 import GroupChannel from "./Components/GroupChannel";
+import MeChannel from "./Components/MeChannel";
 
 export default function Home() {
     const [sessionInfo, setSessionInfo] = useState<{
@@ -14,6 +15,9 @@ export default function Home() {
         accessTokenPayload: any;
     } | null>(null);
     let session = useSessionContext();
+
+    const [tab, setTab] = useState<"group" | "me">("me");
+    const [tabId, setTabId] = useState(""); // can be a userId or groupId
 
     useEffect(() => {
         if (!session.loading) {
@@ -30,8 +34,9 @@ export default function Home() {
         <>
             {/* TODO redo layout with navbar */}
             <div className='flex h-screen'>
-                <Sidebar></Sidebar>
-                <GroupChannel></GroupChannel>
+                <Sidebar setTab={setTab} setTabId={setTabId}></Sidebar>
+                {tab === "group" && <GroupChannel></GroupChannel>}
+                {tab === "me" && <MeChannel></MeChannel>}
             </div>
         </>
     );
