@@ -5,6 +5,7 @@ import GroupTopBar from "./Components/GroupTopBar";
 import Sidebar from "./Components/Sidebar";
 import GroupSidebarInfo from "./Components/GroupSidebarInfo";
 import GroupUsers from "./Components/GroupUsers";
+import GroupChannel from "./Components/GroupChannel";
 
 export default function Home() {
     const [sessionInfo, setSessionInfo] = useState<{
@@ -13,9 +14,6 @@ export default function Home() {
         accessTokenPayload: any;
     } | null>(null);
     let session = useSessionContext();
-
-    const [isSideBarOpen, setIsSideBarOpen] = useState(true);
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
 
     useEffect(() => {
         if (!session.loading) {
@@ -33,29 +31,8 @@ export default function Home() {
             {/* TODO redo layout with navbar */}
             <div className='flex h-screen'>
                 <Sidebar></Sidebar>
-                {/* Top Bar */}
-                {isSideBarOpen && <GroupSidebarInfo></GroupSidebarInfo>}
-                <div className='flex flex-col flex-grow'>
-                    <GroupTopBar
-                        isSideBarOpen={isSideBarOpen}
-                        isUserMenuOpen={isUserMenuOpen}
-                        toggleSideBar={toggleSideBar}
-                        toggleUserMenu={toggleUserMenu}
-                    ></GroupTopBar>
-                    <div className='flex flex-grow'>
-                        <GroupChat></GroupChat>
-                        {isUserMenuOpen && <GroupUsers></GroupUsers>}
-                    </div>
-                </div>
+                <GroupChannel></GroupChannel>
             </div>
         </>
     );
-
-    function toggleSideBar() {
-        setIsSideBarOpen((prev) => !prev);
-    }
-
-    function toggleUserMenu() {
-        setIsUserMenuOpen((prev) => !prev);
-    }
 }
