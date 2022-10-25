@@ -44,7 +44,7 @@ export default function MeTopBar({ isSideBarOpen, toggleSideBar }: props) {
                 </button>
                 {/*TODO Friends username goes here*/}
                 <span>Friends Name</span>
-                <button className='btn btn-sm border-none bg-accent-color font-bold ml-4 text-black'>
+                <button className='btn btn-sm border-none bg-accent-color font-bold ml-4 text-black hover:bg-accent-hover'>
                     Add Friends
                 </button>
             </div>
