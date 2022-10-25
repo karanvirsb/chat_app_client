@@ -9,30 +9,48 @@ type props = {
 const Collapse = ({ children, title, clickEvent }: props) => {
     const [clicked, setClicked] = useState(false);
     return (
-        // TODO Fix tab with preline
+        // TODO add transition time
         <>
-            <div className='flex items-center px-4'>
+            <div className='flex flex-col items-start px-4'>
                 <div
-                    className='collapse-title text-xl font-medium flex gap-4'
+                    className='collapse-title text-md flex items-center gap-4'
                     onClick={() => setClicked((prev) => !prev)}
                 >
                     {clicked ? (
-                        <div className='-rotate-90'>&#10094;</div>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth={1.5}
+                            stroke='currentColor'
+                            className='w-4 h-4'
+                        >
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M19.5 8.25l-7.5 7.5-7.5-7.5'
+                            />
+                        </svg>
                     ) : (
-                        <div className=''>&#10095;</div>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth={1.5}
+                            stroke='currentColor'
+                            className='w-4 h-4'
+                        >
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M8.25 4.5l7.5 7.5-7.5 7.5'
+                            />
+                        </svg>
                     )}
                     <span>{title}</span>
                 </div>
-                {clickEvent && (
-                    <span
-                        className='cursor-pointer text-xl'
-                        onClick={clickEvent}
-                    >
-                        +
-                    </span>
-                )}
+                {clicked && children}
             </div>
-            {clicked && children}
         </>
     );
 };
