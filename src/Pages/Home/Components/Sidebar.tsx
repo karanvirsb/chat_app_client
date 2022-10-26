@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../../assets/logo-nobg.png";
 import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import DropDown from "../../../Components/DropDown/DropDown";
@@ -12,11 +12,17 @@ type props = {
 
 export default function Sidebar({ setTab, setTabId }: props) {
     const dispatch = useAppDispatch();
+    const [activeIndex, setActiveIndex] = useState(-1);
     return (
         <>
-            {/*  for groups*/}
+            {/* TODO active index */}
             <nav className='flex flex-col items-center bg-groupBar-bg py-4 px-2'>
-                <button className='btn btn-circle' onClick={setTabToMe}>
+                <button
+                    className={`btn btn-circle z-10 ${
+                        activeIndex === -1 && ""
+                    }`}
+                    onClick={setTabToMe}
+                >
                     <img src={Logo} className='rounded-full'></img>
                 </button>
                 <div className='divider'></div>
