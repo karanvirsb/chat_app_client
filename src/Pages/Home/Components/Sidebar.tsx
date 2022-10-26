@@ -4,6 +4,7 @@ import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import DropDown from "../../../Components/DropDown/DropDown";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
+import { useNavigate } from "react-router";
 
 type props = {
     setTab: React.Dispatch<React.SetStateAction<"group" | "me">>;
@@ -13,6 +14,7 @@ type props = {
 export default function Sidebar({ setTab, setTabId }: props) {
     const dispatch = useAppDispatch();
     const [activeIndex, setActiveIndex] = useState(-1);
+    const navigate = useNavigate();
     return (
         <>
             {/* TODO active index */}
@@ -86,7 +88,10 @@ export default function Sidebar({ setTab, setTabId }: props) {
                     {/* TODO add go to settings on press  */}
                     <>
                         <li>
-                            <button className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'>
+                            <button
+                                className='btn bg-btn-primary border-none font-bold mb-2 text-btn-mutations-text hover:bg-btn-primary-hover'
+                                onClick={goToSettings}
+                            >
                                 Settings
                             </button>
                         </li>
@@ -128,5 +133,11 @@ export default function Sidebar({ setTab, setTabId }: props) {
         setTab("group");
         setTabId(id);
         setActiveIndex(index);
+    }
+
+    function goToSettings() {
+        navigate(`/settings`, {
+            replace: false,
+        });
     }
 }
