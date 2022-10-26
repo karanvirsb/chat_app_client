@@ -6,6 +6,7 @@ import UserInput from "./userInput";
 export default function AccountTab() {
     return (
         <div className='flex flex-col items-center w-full'>
+            <h1>Account</h1>
             <UserInput
                 labelName='Username'
                 value='username'
