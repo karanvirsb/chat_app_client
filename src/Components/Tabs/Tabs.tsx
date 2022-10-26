@@ -15,7 +15,7 @@ export default function Tabs({ components, tabs }: props) {
                     if (index === activeIndex) {
                         return (
                             <button
-                                className='btn border-b-2 border-b-red-400 flex-grow rounded-none  '
+                                className='btn border-b-2 border-b-red-400 flex-grow rounded-none'
                                 onClick={() => setTab(index)}
                             >
                                 {tab}
