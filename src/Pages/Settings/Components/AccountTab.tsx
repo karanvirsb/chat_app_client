@@ -22,6 +22,9 @@ export default function AccountTab() {
                 inputType='password'
                 onClick={() => {}}
             ></UserInput>
+            <button className='btn bg-btn-mutations border-none self-start mt-6 text-btn-mutations-text hover:bg-btn-mutations-hover'>
+                Delete Account
+            </button>
         </div>
     );
 }
