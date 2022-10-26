@@ -11,6 +11,17 @@ export default function AccountTab() {
                 value='username'
                 onClick={() => {}}
             ></UserInput>
+            <UserInput
+                labelName='Email'
+                value='Email'
+                onClick={() => {}}
+            ></UserInput>
+            <UserInput
+                labelName='Password'
+                value='password'
+                inputType='password'
+                onClick={() => {}}
+            ></UserInput>
         </div>
     );
 }
