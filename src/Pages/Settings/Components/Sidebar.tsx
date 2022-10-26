@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
-// TODO Add account settings and back button
-// TODO add tab display
-const tabs = ["Account"];
-export default function Sidebar() {
-    const [activeIndex, setActiveIndex] = useState(0);
+type props = {
+    tabs: string[];
+    activeIndex: number;
+    setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+};
 
+export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
     return (
-        <nav className='flex flex-col items-end bg-groupInfo-bg max-w-[250px] h-screen'>
+        <nav className='flex flex-col items-end bg-groupInfo-bg min-w-[250px] h-screen'>
             <button className='mt-4 px-4 self-start'>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -33,7 +34,10 @@ export default function Sidebar() {
                         if (index === activeIndex) {
                             return (
                                 <li className='w-full text-center rounded-md'>
-                                    <a className='tab bg-[#2A303C] rounded-tl-md rounded-bl-md  text-[#DFDFDF] w-full '>
+                                    <a
+                                        className='tab bg-[#2A303C] rounded-tl-md rounded-bl-md  text-[#DFDFDF] w-full'
+                                        onClick={() => setActiveTab(index)}
+                                    >
                                         {tab}
                                     </a>
                                 </li>
@@ -41,7 +45,10 @@ export default function Sidebar() {
                         } else {
                             return (
                                 <li className='w-full text-center '>
-                                    <a className='tab hover:bg-[#343C4B] text-[#DFDFDF] w-full'>
+                                    <a
+                                        className='tab hover:bg-[#343C4B] text-[#DFDFDF] w-full'
+                                        onClick={() => setActiveTab(index)}
+                                    >
                                         {tab}
                                     </a>
                                 </li>
@@ -52,4 +59,8 @@ export default function Sidebar() {
             </div>
         </nav>
     );
+
+    function setActiveTab(index: number) {
+        setActiveIndex(() => index);
+    }
 }
