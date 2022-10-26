@@ -23,7 +23,8 @@ export default function UserInput({
                     type={inputType}
                     className='input input-bordered w-full'
                     contentEditable={false}
-                    value={value}
+                    defaultValue={value}
+                    readOnly={true}
                 />
                 <button className='btn' onClick={onClick}>
                     Edit
