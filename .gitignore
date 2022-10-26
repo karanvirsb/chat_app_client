@@ -26,3 +26,5 @@ dist-ssr
 #pnpm
 
 pnpm-lock.yaml
+
+.env
