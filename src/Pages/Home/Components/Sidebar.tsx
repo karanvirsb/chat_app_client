@@ -31,7 +31,7 @@ export default function Sidebar({ setTab, setTabId }: props) {
                     <li>
                         <button
                             className='btn btn-circle'
-                            onClick={() => setTabToGroup("1")}
+                            onClick={() => setTabToGroup("1", 1)}
                         >
                             G
                         </button>
@@ -121,10 +121,12 @@ export default function Sidebar({ setTab, setTabId }: props) {
 
     function setTabToMe() {
         setTab("me");
+        setActiveIndex(-1);
     }
 
-    function setTabToGroup(id: string) {
+    function setTabToGroup(id: string, index: number) {
         setTab("group");
         setTabId(id);
+        setActiveIndex(index);
     }
 }
