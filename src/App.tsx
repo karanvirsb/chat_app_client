@@ -12,6 +12,7 @@ import EmailPassword, {
 } from "supertokens-auth-react/recipe/emailpassword";
 import Session from "supertokens-auth-react/recipe/session";
 import ModalDisplay from "./Components/Modal/ModalDisplay";
+import Settings from "./Pages/Settings/settings";
 
 SuperTokens.init({
     appInfo: {
@@ -62,6 +63,14 @@ export default function App() {
                         element={
                             <EmailPasswordAuth>
                                 <Home></Home>
+                            </EmailPasswordAuth>
+                        }
+                    ></Route>
+                    <Route
+                        path='/settings'
+                        element={
+                            <EmailPasswordAuth>
+                                <Settings></Settings>
                             </EmailPasswordAuth>
                         }
                     ></Route>
