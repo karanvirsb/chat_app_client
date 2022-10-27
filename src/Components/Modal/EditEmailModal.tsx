@@ -22,11 +22,13 @@ export default function EditEmailModal() {
                     inputId='currPassword'
                     labelName='Current Password'
                     errorMsg={currPasswordErrorMsg}
+                    onChange={handleCurrPasswordChange}
                 ></ModalInput>
                 <ModalInput
                     inputId='email'
                     labelName='New Email'
                     errorMsg={emailErrorMsg}
+                    onChange={handleEmailChange}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
@@ -42,6 +44,15 @@ export default function EditEmailModal() {
         </Modal>
     );
 
+    function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setNewEmail(() => e.target.value);
+    }
+
+    function handleCurrPasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setCurrPassword(() => e.target.value);
+    }
+
+    //TODO
     function handleSubmit() {}
 
     function handleCancel() {
