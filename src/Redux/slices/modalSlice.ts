@@ -14,6 +14,9 @@ interface ModalState {
         | "createGroup"
         | "addFriend"
         | "deleteAccount"
+        | "editUsername"
+        | "editEmail"
+        | "editPassword"
         | "";
 }
 
