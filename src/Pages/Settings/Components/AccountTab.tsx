@@ -1,5 +1,5 @@
 import React from "react";
-import UserInput from "./userInput";
+import UserInput from "./UserInput";
 
 // TODO add username, email, password info and edit btn
 // TODO add delete account button
