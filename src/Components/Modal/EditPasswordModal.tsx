@@ -27,6 +27,7 @@ export default function EditPasswordModal() {
                     errorMsg={currPasswordErrorMsg}
                     onChange={handleCurrPasswordChange}
                     value={currPassword}
+                    placeholder='Enter Current Password'
                 ></ModalInput>
                 <ModalInput
                     inputId='password'
@@ -34,6 +35,7 @@ export default function EditPasswordModal() {
                     errorMsg={newPassErrorMsg}
                     onChange={handlePasswordChange}
                     value={newPassword}
+                    placeholder='Enter New Password'
                 ></ModalInput>
                 <ModalInput
                     inputId='confirmPassword'
@@ -41,6 +43,7 @@ export default function EditPasswordModal() {
                     errorMsg={confirmPassErrorMsg}
                     onChange={handleConfirmPasswordChange}
                     value={confirmPassword}
+                    placeholder='Enter New Password'
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
