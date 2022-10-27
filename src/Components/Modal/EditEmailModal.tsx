@@ -7,9 +7,11 @@ import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
 
 export default function EditEmailModal() {
-    const [errorMsg, setErrorMsg] = useState("");
     const [newEmail, setNewEmail] = useState("");
+    const [emailErrorMsg, setEmailErrorMsg] = useState("");
+
     const [currPassword, setCurrPassword] = useState("");
+    const [currPasswordErrorMsg, setCurrPasswordErrorMsg] = useState("");
 
     const dispatch = useAppDispatch();
 
@@ -19,12 +21,12 @@ export default function EditEmailModal() {
                 <ModalInput
                     inputId='currPassword'
                     labelName='Current Password'
-                    errorMsg={errorMsg}
+                    errorMsg={currPasswordErrorMsg}
                 ></ModalInput>
                 <ModalInput
                     inputId='email'
                     labelName='New Email'
-                    errorMsg={errorMsg}
+                    errorMsg={emailErrorMsg}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
