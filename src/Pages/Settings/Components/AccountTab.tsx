@@ -1,9 +1,12 @@
 import React from "react";
+import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { setModal } from "../../../Redux/slices/modalSlice";
 import UserInput from "./UserInput";
 
 // TODO add username, email, password info and edit btn
 // TODO add delete account button
 export default function AccountTab() {
+    const dispatch = useAppDispatch();
     return (
         <div className='flex flex-col gap-4 items-center w-full'>
             <h1 className='font-semibold px-4 py-2 text-gray-600 text-lg text-left uppercase w-full'>
@@ -28,10 +31,19 @@ export default function AccountTab() {
                 ></UserInput>
             </div>
             <div className='min-w-[150px] w-[70%] max-w-[700px]'>
-                <button className='btn bg-btn-mutations border-none mt-6 text-btn-mutations-text hover:bg-btn-mutations-hover'>
+                <button
+                    className='btn bg-btn-mutations border-none mt-6 text-btn-mutations-text hover:bg-btn-mutations-hover'
+                    onClick={displayDeleteAccountModal}
+                >
                     Delete Account
                 </button>
             </div>
         </div>
     );
+
+    function displayDeleteAccountModal() {
+        dispatch(
+            setModal({ modalName: "deleteAccount", open: true, options: {} })
+        );
+    }
 }
