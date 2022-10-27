@@ -7,6 +7,7 @@ import DeleteGroupModal from "./DeleteGroupModal";
 import LeaveGroupModal from "./LeaveGroupModal";
 import CreateGroupModal from "./CreateGroupModal";
 import AddFriendModal from "./AddFriendModal";
+import DeleteAccountModal from "./DeleteAccountModal";
 
 export default function ModalDisplay() {
     const modalOpen = useAppSelector((state) => state.modalReducer.open);
@@ -37,6 +38,10 @@ export default function ModalDisplay() {
 
             {modalOpen && modalName === "addFriend" && (
                 <AddFriendModal></AddFriendModal>
+            )}
+
+            {modalOpen && modalName === "deleteAccount" && (
+                <DeleteAccountModal></DeleteAccountModal>
             )}
         </>
     );
