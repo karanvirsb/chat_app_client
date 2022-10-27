@@ -23,12 +23,14 @@ export default function EditEmailModal() {
                     labelName='Current Password'
                     errorMsg={currPasswordErrorMsg}
                     onChange={handleCurrPasswordChange}
+                    value={currPassword}
                 ></ModalInput>
                 <ModalInput
                     inputId='email'
                     labelName='New Email'
                     errorMsg={emailErrorMsg}
                     onChange={handleEmailChange}
+                    value={newEmail}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
