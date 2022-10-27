@@ -23,6 +23,7 @@ export default function EditUsernameModal() {
                     errorMsg={currPasswordErrorMsg}
                     onChange={handleCurrPasswordChange}
                     value={currPassword}
+                    placeholder='Enter Current Password'
                 ></ModalInput>
                 <ModalInput
                     inputId='username'
@@ -30,6 +31,7 @@ export default function EditUsernameModal() {
                     errorMsg={usernameErrorMsg}
                     onChange={handleUsernameChange}
                     value={newUsername}
+                    placeholder='Enter Username'
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
