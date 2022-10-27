@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 type props = {
     tabs: string[];
@@ -7,9 +8,10 @@ type props = {
 };
 
 export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
+    const navigate = useNavigate();
     return (
         <nav className='flex flex-col items-end bg-groupInfo-bg min-w-[250px] h-screen'>
-            <button className='mt-4 px-4 self-start'>
+            <button className='mt-4 px-4 self-start' onClick={goBackToHome}>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
@@ -59,6 +61,10 @@ export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
             </div>
         </nav>
     );
+
+    function goBackToHome() {
+        navigate(-1);
+    }
 
     function setActiveTab(index: number) {
         setActiveIndex(() => index);
