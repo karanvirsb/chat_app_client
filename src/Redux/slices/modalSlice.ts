@@ -13,6 +13,7 @@ interface ModalState {
         | "leaveGroup"
         | "createGroup"
         | "addFriend"
+        | "deleteAccount"
         | "";
 }
 
