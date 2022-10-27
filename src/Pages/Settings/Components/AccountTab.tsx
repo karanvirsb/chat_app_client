@@ -16,7 +16,7 @@ export default function AccountTab() {
                 <UserInput
                     labelName='Username'
                     value='username'
-                    onClick={() => {}}
+                    onClick={displayEditUsernameModal}
                 ></UserInput>
                 <UserInput
                     labelName='Email'
@@ -44,6 +44,12 @@ export default function AccountTab() {
     function displayDeleteAccountModal() {
         dispatch(
             setModal({ modalName: "deleteAccount", open: true, options: {} })
+        );
+    }
+
+    function displayEditUsernameModal() {
+        dispatch(
+            setModal({ modalName: "editUsername", open: true, options: {} })
         );
     }
 }
