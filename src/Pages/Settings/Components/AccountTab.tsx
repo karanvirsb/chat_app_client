@@ -27,9 +27,11 @@ export default function AccountTab() {
                     onClick={() => {}}
                 ></UserInput>
             </div>
-            <button className='btn bg-btn-mutations border-none self-start mt-6 text-btn-mutations-text hover:bg-btn-mutations-hover'>
-                Delete Account
-            </button>
+            <div className='min-w-[150px] w-[70%] max-w-[700px]'>
+                <button className='btn bg-btn-mutations border-none mt-6 text-btn-mutations-text hover:bg-btn-mutations-hover'>
+                    Delete Account
+                </button>
+            </div>
         </div>
     );
 }
