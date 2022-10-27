@@ -8,6 +8,9 @@ import LeaveGroupModal from "./LeaveGroupModal";
 import CreateGroupModal from "./CreateGroupModal";
 import AddFriendModal from "./AddFriendModal";
 import DeleteAccountModal from "./DeleteAccountModal";
+import EditUsernameModal from "./EditUsernameModal";
+import EditEmailModal from "./EditEmailModal";
+import EditPasswordModal from "./EditPasswordModal";
 
 export default function ModalDisplay() {
     const modalOpen = useAppSelector((state) => state.modalReducer.open);
@@ -42,6 +45,18 @@ export default function ModalDisplay() {
 
             {modalOpen && modalName === "deleteAccount" && (
                 <DeleteAccountModal></DeleteAccountModal>
+            )}
+
+            {modalOpen && modalName === "editUsername" && (
+                <EditUsernameModal></EditUsernameModal>
+            )}
+
+            {modalOpen && modalName === "editEmail" && (
+                <EditEmailModal></EditEmailModal>
+            )}
+
+            {modalOpen && modalName === "editPassword" && (
+                <EditPasswordModal></EditPasswordModal>
             )}
         </>
     );
