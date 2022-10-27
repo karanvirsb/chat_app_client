@@ -26,7 +26,10 @@ export default function UserInput({
                     defaultValue={value}
                     readOnly={true}
                 />
-                <button className='btn' onClick={onClick}>
+                <button
+                    className='btn bg-btn-cta border-none text-black hover:bg-btn-cta-hover'
+                    onClick={onClick}
+                >
                     Edit
                 </button>
             </div>
