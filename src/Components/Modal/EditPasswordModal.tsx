@@ -7,10 +7,14 @@ import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
 
 export default function EditPasswordModal() {
-    const [errorMsg, setErrorMsg] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [newPassErrorMsg, setNewPassErrorMsg] = useState("");
+
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [confirmPassErrorMsg, setConfirmPassErrorMsg] = useState("");
+
     const [currPassword, setCurrPassword] = useState("");
+    const [currPasswordErrorMsg, setCurrPasswordErrorMsg] = useState("");
 
     const dispatch = useAppDispatch();
 
@@ -20,16 +24,17 @@ export default function EditPasswordModal() {
                 <ModalInput
                     inputId='currPassword'
                     labelName='Current Password'
-                    errorMsg={errorMsg}
+                    errorMsg={currPasswordErrorMsg}
                 ></ModalInput>
                 <ModalInput
                     inputId='password'
                     labelName='New Password'
-                    errorMsg={errorMsg}
+                    errorMsg={newPassErrorMsg}
                 ></ModalInput>
                 <ModalInput
                     inputId='confirmPassword'
                     labelName='Confirm Password'
+                    errorMsg={confirmPassErrorMsg}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
