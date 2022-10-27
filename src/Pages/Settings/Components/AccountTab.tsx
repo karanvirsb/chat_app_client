@@ -27,7 +27,7 @@ export default function AccountTab() {
                     labelName='Password'
                     value='password'
                     inputType='password'
-                    onClick={() => {}}
+                    onClick={displayEditPasswordModal}
                 ></UserInput>
             </div>
             <div className='min-w-[150px] w-[70%] max-w-[700px]'>
@@ -55,5 +55,11 @@ export default function AccountTab() {
 
     function displayEditEmailModal() {
         dispatch(setModal({ modalName: "editEmail", open: true, options: {} }));
+    }
+
+    function displayEditPasswordModal() {
+        dispatch(
+            setModal({ modalName: "editPassword", open: true, options: {} })
+        );
     }
 }
