@@ -50,6 +50,7 @@ export default function EditUsernameModal() {
     function handleCurrPasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
         setCurrPassword(() => e.target.value);
     }
+    // TODO
     function handleSubmit() {}
 
     function handleCancel() {
