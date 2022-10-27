@@ -7,9 +7,10 @@ import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
 
 export default function EditUsernameModal() {
-    const [errorMsg, setErrorMsg] = useState("");
     const [newUsername, setNewUsername] = useState("");
+    const [usernameErrorMsg, setUsernameErrorMsg] = useState("");
     const [currPassword, setCurrPassword] = useState("");
+    const [currPasswordErrorMsg, setCurrPasswordErrorMsg] = useState("");
 
     const dispatch = useAppDispatch();
 
@@ -19,12 +20,12 @@ export default function EditUsernameModal() {
                 <ModalInput
                     inputId='currPassword'
                     labelName='Current Password'
-                    errorMsg={errorMsg}
+                    errorMsg={currPasswordErrorMsg}
                 ></ModalInput>
                 <ModalInput
                     inputId='username'
                     labelName='New Username'
-                    errorMsg={errorMsg}
+                    errorMsg={usernameErrorMsg}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
