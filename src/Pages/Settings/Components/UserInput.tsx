@@ -14,11 +14,11 @@ export default function UserInput({
     inputType = "text",
 }: props) {
     return (
-        <div className='form-control w-[70%]'>
+        <div className='form-control w-[90%]'>
             <label className='label'>
                 <span className='label-text'>{labelName}</span>
             </label>
-            <div className='flex gap-4 w-full'>
+            <div className='flex gap-4 w-full md:flex-row flex-col'>
                 <input
                     type={inputType}
                     className='input input-bordered w-full'
