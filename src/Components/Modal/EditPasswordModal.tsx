@@ -25,16 +25,19 @@ export default function EditPasswordModal() {
                     inputId='currPassword'
                     labelName='Current Password'
                     errorMsg={currPasswordErrorMsg}
+                    onChange={handleCurrPasswordChange}
                 ></ModalInput>
                 <ModalInput
                     inputId='password'
                     labelName='New Password'
                     errorMsg={newPassErrorMsg}
+                    onChange={handlePasswordChange}
                 ></ModalInput>
                 <ModalInput
                     inputId='confirmPassword'
                     labelName='Confirm Password'
                     errorMsg={confirmPassErrorMsg}
+                    onChange={handleConfirmPasswordChange}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
@@ -49,6 +52,20 @@ export default function EditPasswordModal() {
             </div>
         </Modal>
     );
+
+    function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setNewPassword(() => e.target.value);
+    }
+
+    function handleCurrPasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setCurrPassword(() => e.target.value);
+    }
+
+    function handleConfirmPasswordChange(
+        e: React.ChangeEvent<HTMLInputElement>
+    ) {
+        setConfirmPassword(() => e.target.value);
+    }
 
     function handleSubmit() {}
 
