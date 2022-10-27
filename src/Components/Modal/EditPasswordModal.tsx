@@ -26,18 +26,21 @@ export default function EditPasswordModal() {
                     labelName='Current Password'
                     errorMsg={currPasswordErrorMsg}
                     onChange={handleCurrPasswordChange}
+                    value={currPassword}
                 ></ModalInput>
                 <ModalInput
                     inputId='password'
                     labelName='New Password'
                     errorMsg={newPassErrorMsg}
                     onChange={handlePasswordChange}
+                    value={newPassword}
                 ></ModalInput>
                 <ModalInput
                     inputId='confirmPassword'
                     labelName='Confirm Password'
                     errorMsg={confirmPassErrorMsg}
                     onChange={handleConfirmPasswordChange}
+                    value={confirmPassword}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
