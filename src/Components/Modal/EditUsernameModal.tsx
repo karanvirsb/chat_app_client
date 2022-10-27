@@ -21,11 +21,13 @@ export default function EditUsernameModal() {
                     inputId='currPassword'
                     labelName='Current Password'
                     errorMsg={currPasswordErrorMsg}
+                    onChange={handleCurrPasswordChange}
                 ></ModalInput>
                 <ModalInput
                     inputId='username'
                     labelName='New Username'
                     errorMsg={usernameErrorMsg}
+                    onChange={handleUsernameChange}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
@@ -41,6 +43,13 @@ export default function EditUsernameModal() {
         </Modal>
     );
 
+    function handleUsernameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setNewUsername(() => e.target.value);
+    }
+
+    function handleCurrPasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setCurrPassword(() => e.target.value);
+    }
     function handleSubmit() {}
 
     function handleCancel() {
