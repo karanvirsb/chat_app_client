@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import * as reactRouterDom from "react-router-dom";
 import Home from "./Pages/Home/home";
 import "./App.css";
@@ -14,6 +14,7 @@ import Session from "supertokens-auth-react/recipe/session";
 import ModalDisplay from "./Components/Modal/ModalDisplay";
 import Settings from "./Pages/Settings/settings";
 import socket from "./Sockets";
+import BottomBar from "./Components/BottomBar/BottomBar";
 
 SuperTokens.init({
     appInfo: {
@@ -54,31 +55,41 @@ SuperTokens.init({
 
 export default function App() {
     // socket.connect();
-
     return (
         <>
             <ModalDisplay></ModalDisplay>
             <SuperTokensWrapper>
                 <Routes>
                     {getSuperTokensRoutesForReactRouterDom(reactRouterDom)}
-                    <Route
-                        path='/'
-                        element={
-                            <EmailPasswordAuth>
-                                <Home></Home>
-                            </EmailPasswordAuth>
-                        }
-                    ></Route>
-                    <Route
-                        path='/settings'
-                        element={
-                            <EmailPasswordAuth>
-                                <Settings></Settings>
-                            </EmailPasswordAuth>
-                        }
-                    ></Route>
+                    <Route element={<MobileLayout></MobileLayout>}>
+                        <Route
+                            path='/'
+                            element={
+                                <EmailPasswordAuth>
+                                    <Home></Home>
+                                </EmailPasswordAuth>
+                            }
+                        ></Route>
+                        <Route
+                            path='/settings'
+                            element={
+                                <EmailPasswordAuth>
+                                    <Settings></Settings>
+                                </EmailPasswordAuth>
+                            }
+                        ></Route>
+                    </Route>
                 </Routes>
             </SuperTokensWrapper>
         </>
     );
+
+    function MobileLayout() {
+        return (
+            <>
+                <BottomBar></BottomBar>
+                <Outlet></Outlet>
+            </>
+        );
+    }
 }
