@@ -2,7 +2,7 @@ import React from "react";
 
 export default function BottomBar() {
     return (
-        <nav className='flex justify-evenly min-h-[50px] w-full md:hidden'>
+        <nav className='flex justify-around min-h-[50px] w-full md:hidden'>
             {/* CHAT ICON */}
             <button>
                 <svg
@@ -11,7 +11,7 @@ export default function BottomBar() {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='w-6 h-6'
+                    className='w-8 h-8'
                 >
                     <path
                         strokeLinecap='round'
@@ -28,7 +28,7 @@ export default function BottomBar() {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='w-6 h-6'
+                    className='w-8 h-8'
                 >
                     <path
                         strokeLinecap='round'
@@ -46,7 +46,7 @@ export default function BottomBar() {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='w-6 h-6'
+                    className='w-8 h-8'
                 >
                     <path
                         strokeLinecap='round'
@@ -63,7 +63,7 @@ export default function BottomBar() {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='w-6 h-6'
+                    className='w-8 h-8'
                 >
                     <path
                         strokeLinecap='round'
