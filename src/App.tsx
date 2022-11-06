@@ -13,6 +13,7 @@ import EmailPassword, {
 import Session from "supertokens-auth-react/recipe/session";
 import ModalDisplay from "./Components/Modal/ModalDisplay";
 import Settings from "./Pages/Settings/settings";
+import socket from "./Sockets";
 
 SuperTokens.init({
     appInfo: {
@@ -52,6 +53,8 @@ SuperTokens.init({
 });
 
 export default function App() {
+    // socket.connect();
+
     return (
         <>
             <ModalDisplay></ModalDisplay>
