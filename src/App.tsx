@@ -87,8 +87,8 @@ export default function App() {
     function MobileLayout() {
         return (
             <>
-                <BottomBar></BottomBar>
                 <Outlet></Outlet>
+                <BottomBar></BottomBar>
             </>
         );
     }
