@@ -18,7 +18,7 @@ export default function Sidebar({ setTab, setTabId }: props) {
     return (
         <>
             {/* TODO active index */}
-            <nav className='flex flex-col items-center bg-groupBar-bg py-4 px-2'>
+            <nav className='flex flex-col items-center bg-groupBar-bg py-4 px-2 sm:-translate-x-[100%] sm:fixed'>
                 <button
                     className={`btn btn-circle z-10 ${
                         activeIndex === -1 && ""
