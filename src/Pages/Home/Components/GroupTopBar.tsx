@@ -1,18 +1,18 @@
 import React from "react";
+import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
+import {
+    setSideBarClosed,
+    setSideBarOpen,
+} from "../../../Redux/slices/SideBarSlice";
 
 type props = {
-    isSideBarOpen: boolean;
-    toggleSideBar: () => void;
     isUserMenuOpen: boolean;
     toggleUserMenu: () => void;
 };
 
-export default function GroupTopBar({
-    isSideBarOpen,
-    toggleSideBar,
-    isUserMenuOpen,
-    toggleUserMenu,
-}: props) {
+export default function GroupTopBar({ isUserMenuOpen, toggleUserMenu }: props) {
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const dispatch = useAppDispatch();
     return (
         <div className='bg-chat-bg border-b border-r-0 border-groupBar-bg flex items-center justify-between font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
             <div className='flex gap-4'>
@@ -104,4 +104,10 @@ export default function GroupTopBar({
             </button>
         </div>
     );
+
+    function toggleSideBar() {
+        if (isSideBarOpen) {
+            dispatch(setSideBarClosed());
+        } else [dispatch(setSideBarOpen())];
+    }
 }
