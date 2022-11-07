@@ -8,7 +8,11 @@ type props = {
 // Todo move into users
 export default function GroupUsers({ isUserMenuOpen }: props) {
     return (
-        <article className='flex flex-col flex-grow max-w-[250px]  sm:-translate-x-[100%] sm:fixed'>
+        <article
+            className={`flex flex-col flex-grow max-w-[250px] sm:fixed sm:right-0 sm:top-0 sm:h-screen sm:w-[90%] sm:${
+                isUserMenuOpen ? "translate-x-[0%]" : "-translate-x-[100%]"
+            }`}
+        >
             {/* <div className='bg-chat-bg drop-shadow-md flex items-center font-semibold py-2 px-4 w-full h-16 text-white'></div> */}
             <div className='bg-groupInfo-bg text-white flex-grow'>
                 {/* TODO add top bar with search */}
