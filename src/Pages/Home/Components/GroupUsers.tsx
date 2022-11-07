@@ -8,7 +8,7 @@ type props = {
 // Todo move into users
 export default function GroupUsers() {
     return (
-        <article className='flex flex-col flex-grow max-w-[250px]'>
+        <article className='flex flex-col flex-grow max-w-[250px]  sm:-translate-x-[100%] sm:fixed'>
             {/* <div className='bg-chat-bg drop-shadow-md flex items-center font-semibold py-2 px-4 w-full h-16 text-white'></div> */}
             <div className='bg-groupInfo-bg text-white flex-grow'>
                 {/* TODO add top bar with search */}
