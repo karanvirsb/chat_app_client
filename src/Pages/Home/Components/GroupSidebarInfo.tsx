@@ -7,7 +7,7 @@ import { setModal } from "../../../Redux/slices/modalSlice";
 export default function GroupSidebarInfo() {
     const dispatch = useAppDispatch();
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col sm:-translate-x-[100%] sm:fixed'>
             <DropDown
                 btnChildren='Group Name'
                 btnClass='btn font-bold h-16 rounded-none w-full'
