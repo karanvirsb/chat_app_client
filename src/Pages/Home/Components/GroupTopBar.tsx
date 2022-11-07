@@ -17,6 +17,7 @@ export default function GroupTopBar({
         <div className='bg-chat-bg border-b border-r-0 border-groupBar-bg flex items-center justify-between font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
             <div className='flex gap-4'>
                 <button onClick={toggleSideBar}>
+                    {/* DESKTOP */}
                     {isSideBarOpen ? (
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -48,6 +49,22 @@ export default function GroupTopBar({
                             />
                         </svg>
                     )}
+
+                    {/* MOBILE */}
+                    <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth={1.5}
+                        stroke='currentColor'
+                        className='w-6 h-6 m-sm:hidden'
+                    >
+                        <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+                        />
+                    </svg>
                 </button>
                 {/*TODO Channel name goes here*/}
                 <span>General</span>
