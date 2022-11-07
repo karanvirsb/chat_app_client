@@ -3,15 +3,16 @@ import Collapse from "../../../Components/Collapse/Collapse";
 import DropDown from "../../../Components/DropDown/DropDown";
 import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
+import { setSideBarClosed } from "../../../Redux/slices/SideBarSlice";
 
 export default function GroupSidebarInfo() {
     const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
     const dispatch = useAppDispatch();
     return (
         <div
-            className={`flex flex-col sm:${
+            className={`flex flex-col sm:fixed sm:top-0 sm:left-0 sm:bottom-0 sm:z-[5] sm:${
                 isSideBarOpen ? "translate-x-0" : "-translate-x-[100%]"
-            } sm:fixed`}
+            } `}
         >
             <DropDown
                 btnChildren='Group Name'
@@ -65,6 +66,25 @@ export default function GroupSidebarInfo() {
                     </ul>
                 </Collapse>
             </div>
+            <button
+                className='btn btn-circle absolute bottom-[10px] right-[10px]'
+                onClick={closeSideBar}
+            >
+                <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-6 h-6'
+                >
+                    <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M6 18L18 6M6 6l12 12'
+                    />
+                </svg>
+            </button>
         </div>
     );
 
@@ -91,5 +111,9 @@ export default function GroupSidebarInfo() {
         dispatch(
             setModal({ modalName: "leaveGroup", open: true, options: {} })
         );
+    }
+
+    function closeSideBar() {
+        dispatch(setSideBarClosed());
     }
 }
