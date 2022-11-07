@@ -3,14 +3,15 @@ import Tabs from "../../../Components/Tabs/Tabs";
 
 type props = {
     isUserMenuOpen: boolean;
+    toggleUserMenu: () => void;
 };
 // TODO add animation on close
 // Todo move into users
-export default function GroupUsers({ isUserMenuOpen }: props) {
+export default function GroupUsers({ isUserMenuOpen, toggleUserMenu }: props) {
     return (
         <article
-            className={`flex flex-col flex-grow max-w-[250px] sm:fixed sm:right-0 sm:top-0 sm:h-screen sm:w-[90%] sm:${
-                isUserMenuOpen ? "translate-x-[0%]" : "-translate-x-[100%]"
+            className={`flex flex-col flex-grow m-sm:max-w-[250px] sm:fixed sm:right-0 sm:top-0 sm:h-screen sm:w-full sm:${
+                isUserMenuOpen ? "translate-x-0" : "-translate-x-[100%]"
             }`}
         >
             {/* <div className='bg-chat-bg drop-shadow-md flex items-center font-semibold py-2 px-4 w-full h-16 text-white'></div> */}
@@ -22,6 +23,10 @@ export default function GroupUsers({ isUserMenuOpen }: props) {
                     tabs={createTabs()}
                 ></Tabs>
             </div>
+            <button
+                className='btn btn-circle absolute bottom-[10px] right-[10px]'
+                onClick={toggleUserMenu}
+            ></button>
         </article>
     );
 
