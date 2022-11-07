@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Logo from "../../../assets/logo-nobg.png";
 import { signOut } from "supertokens-auth-react/recipe/emailpassword";
 import DropDown from "../../../Components/DropDown/DropDown";
-import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { useNavigate } from "react-router";
 
@@ -12,13 +12,18 @@ type props = {
 };
 
 export default function Sidebar({ setTab, setTabId }: props) {
-    const dispatch = useAppDispatch();
     const [activeIndex, setActiveIndex] = useState(-1);
     const navigate = useNavigate();
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const dispatch = useAppDispatch();
     return (
         <>
             {/* TODO active index */}
-            <nav className='flex flex-col items-center bg-groupBar-bg py-4 px-2 sm:-translate-x-[100%] sm:fixed'>
+            <nav
+                className={`flex flex-col items-center bg-groupBar-bg py-4 px-2 sm:fixed sm:top-0  sm:left-0 sm:bottom-0 sm:z-[5] sm:${
+                    isSideBarOpen ? "translate-x-0" : "-translate-x-[100%]"
+                } `}
+            >
                 <button
                     className={`btn btn-circle z-10 ${
                         activeIndex === -1 && ""
