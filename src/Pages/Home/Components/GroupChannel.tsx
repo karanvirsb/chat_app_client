@@ -15,8 +15,8 @@ export default function GroupChannel() {
             <div
                 className={`flex flex-col flex-grow ${
                     isSideBarOpen
-                        ? "translate-x-[307.375px]"
-                        : "translate-x-[0px]"
+                        ? "sm:translate-x-[307.375px]"
+                        : "sm:translate-x-[0px]"
                 }`}
             >
                 <GroupTopBar
