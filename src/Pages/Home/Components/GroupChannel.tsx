@@ -11,7 +11,7 @@ export default function GroupChannel() {
     return (
         <>
             {isSideBarOpen && <GroupSidebarInfo></GroupSidebarInfo>}
-            <div className='flex flex-col flex-grow'>
+            <div className={`flex flex-col flex-grow`}>
                 <GroupTopBar
                     isSideBarOpen={isSideBarOpen}
                     isUserMenuOpen={isUserMenuOpen}
@@ -23,6 +23,7 @@ export default function GroupChannel() {
                     {isUserMenuOpen && (
                         <GroupUsers
                             isUserMenuOpen={isUserMenuOpen}
+                            toggleUserMenu={toggleUserMenu}
                         ></GroupUsers>
                     )}
                 </div>
