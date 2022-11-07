@@ -1,8 +1,15 @@
 import React from "react";
+import { useAppSelector } from "../../Hooks/reduxHooks";
 
 export default function BottomBar() {
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open); // to check if menu button was clicked
+
     return (
-        <nav className='fixed bottom-0 left-0 translate-y-[100%] bg-groupBar-bg flex justify-around min-h-[75px] w-full m-sm:hidden'>
+        <nav
+            className={`fixed bottom-0 left-0 z-[10] ${
+                isSideBarOpen ? "translate-y-0" : "translate-y-[100%]"
+            } bg-groupBar-bg flex justify-around min-h-[75px] w-full m-sm:hidden`}
+        >
             {/* CHAT ICON */}
             <button>
                 <svg
