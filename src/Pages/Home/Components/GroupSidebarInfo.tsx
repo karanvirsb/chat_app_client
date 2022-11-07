@@ -10,7 +10,7 @@ export default function GroupSidebarInfo() {
     const dispatch = useAppDispatch();
     return (
         <div
-            className={`flex flex-col sm:fixed sm:top-0 sm:left-0 sm:bottom-0 sm:z-[5] sm:${
+            className={`flex flex-col sm:fixed sm:top-0 sm:left-[72px] sm:bottom-0 sm:z-[5] sm:${
                 isSideBarOpen ? "translate-x-0" : "-translate-x-[100%]"
             } `}
         >
