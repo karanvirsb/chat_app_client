@@ -66,7 +66,7 @@ export default function GroupSidebarInfo() {
                     </ul>
                 </Collapse>
             </div>
-            <button
+            {/* <button
                 className='btn btn-circle absolute bottom-[10px] right-[10px]'
                 onClick={closeSideBar}
             >
@@ -84,7 +84,7 @@ export default function GroupSidebarInfo() {
                         d='M6 18L18 6M6 6l12 12'
                     />
                 </svg>
-            </button>
+            </button> */}
         </div>
     );
 
