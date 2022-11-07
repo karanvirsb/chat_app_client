@@ -1,21 +1,20 @@
 import React, { useState } from "react";
+import { useAppSelector } from "../../../Hooks/reduxHooks";
 import GroupChat from "./GroupChat";
 import GroupSidebarInfo from "./GroupSidebarInfo";
 import GroupTopBar from "./GroupTopBar";
 import GroupUsers from "./GroupUsers";
 
 export default function GroupChannel() {
-    const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+    // const [isSideBarOpen, setIsSideBarOpen] = useState(true);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
-
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
     return (
         <>
             {isSideBarOpen && <GroupSidebarInfo></GroupSidebarInfo>}
             <div className={`flex flex-col flex-grow`}>
                 <GroupTopBar
-                    isSideBarOpen={isSideBarOpen}
                     isUserMenuOpen={isUserMenuOpen}
-                    toggleSideBar={toggleSideBar}
                     toggleUserMenu={toggleUserMenu}
                 ></GroupTopBar>
                 <div className='flex flex-grow'>
@@ -30,11 +29,6 @@ export default function GroupChannel() {
             </div>
         </>
     );
-
-    function toggleSideBar() {
-        setIsSideBarOpen((prev) => !prev);
-    }
-
     function toggleUserMenu() {
         setIsUserMenuOpen((prev) => !prev);
     }
