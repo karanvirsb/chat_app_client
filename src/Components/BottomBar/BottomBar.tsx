@@ -2,7 +2,7 @@ import React from "react";
 
 export default function BottomBar() {
     return (
-        <nav className='absolute bottom-0 left-0 bg-groupBar-bg flex justify-around min-h-[75px] w-full m-sm:hidden'>
+        <nav className='fixed bottom-0 left-0 bg-groupBar-bg flex justify-around min-h-[75px] w-full m-sm:hidden'>
             {/* CHAT ICON */}
             <button>
                 <svg
