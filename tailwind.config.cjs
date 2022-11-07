@@ -7,11 +7,16 @@ module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}", "node_modules/preline/dist/*.js"],
     theme: {
         screens: {
-            sm: "460px",
-            md: "720px",
-            lg: "1196px",
-            xl: "1440px",
-            xxl: "1920px",
+            xl: { max: "2000px" },
+            lg: { max: "1176px" },
+            md: { max: "768px" },
+            sm: { max: "480px" },
+            xs: { max: "250px" },
+            "m-xl": { min: "2000px" },
+            "m-lg": { min: "1176px" },
+            "m-md": { min: "768px" },
+            "m-sm": { min: "480px" },
+            "m-xs": { min: "250px" },
         },
         extend: {
             colors: {
