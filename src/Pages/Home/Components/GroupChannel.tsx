@@ -20,7 +20,11 @@ export default function GroupChannel() {
                 ></GroupTopBar>
                 <div className='flex flex-grow'>
                     <GroupChat></GroupChat>
-                    {isUserMenuOpen && <GroupUsers></GroupUsers>}
+                    {isUserMenuOpen && (
+                        <GroupUsers
+                            isUserMenuOpen={isUserMenuOpen}
+                        ></GroupUsers>
+                    )}
                 </div>
             </div>
         </>
