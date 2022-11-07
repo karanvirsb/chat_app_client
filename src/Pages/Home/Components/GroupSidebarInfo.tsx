@@ -1,13 +1,18 @@
 import React from "react";
 import Collapse from "../../../Components/Collapse/Collapse";
 import DropDown from "../../../Components/DropDown/DropDown";
-import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
 export default function GroupSidebarInfo() {
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
     const dispatch = useAppDispatch();
     return (
-        <div className='flex flex-col sm:-translate-x-[100%] sm:fixed'>
+        <div
+            className={`flex flex-col sm:${
+                isSideBarOpen ? "translate-x-0" : "-translate-x-[100%]"
+            } sm:fixed`}
+        >
             <DropDown
                 btnChildren='Group Name'
                 btnClass='btn font-bold h-16 rounded-none w-full'
