@@ -39,6 +39,7 @@ export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
                                     <a
                                         className='tab bg-[#2A303C] rounded-tl-md rounded-bl-md  text-[#DFDFDF] w-full'
                                         onClick={() => setActiveTab(index)}
+                                        key={tab}
                                     >
                                         {tab}
                                     </a>
