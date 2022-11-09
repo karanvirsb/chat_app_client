@@ -24,7 +24,7 @@ export default function GroupUsers({ isUserMenuOpen, toggleUserMenu }: props) {
                 ></Tabs>
             </div>
             <button
-                className='btn btn-circle absolute bottom-[10px] right-[10px]'
+                className='btn btn-circle absolute bottom-[10px] right-[10px] m-sm:hidden'
                 onClick={toggleUserMenu}
             >
                 <svg
