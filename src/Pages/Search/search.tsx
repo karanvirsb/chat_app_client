@@ -1,5 +1,11 @@
 import React from "react";
+import MenuBtn from "../../Components/MenuBtn/menuBtn";
 
 export default function Search() {
-    return <div>Search</div>;
+    return (
+        <div>
+            <MenuBtn></MenuBtn>
+            Search
+        </div>
+    );
 }
