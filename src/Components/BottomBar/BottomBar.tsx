@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../Hooks/reduxHooks";
 import { setSideBarClosed } from "../../Redux/slices/SideBarSlice";
 
 export default function BottomBar() {
     const [activeTab, setActiveTab] = useState(0);
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open); // to check if menu button was clicked
 
@@ -95,6 +97,7 @@ export default function BottomBar() {
                 viewBox='0 0 24 24'
                 fill='currentColor'
                 className='w-8 h-8'
+                onClick={goToSettings}
             >
                 <path
                     fillRule='evenodd'
@@ -103,5 +106,10 @@ export default function BottomBar() {
                 />
             </svg>,
         ];
+    }
+
+    function goToSettings() {
+        dispatch(setSideBarClosed());
+        navigate("/settings");
     }
 }
