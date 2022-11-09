@@ -107,7 +107,7 @@ export default function BottomBar() {
             </svg>,
         ];
     }
-
+    // TODO add go to friends page and search page
     function goToSettings() {
         dispatch(setSideBarClosed());
         navigate("/settings");
