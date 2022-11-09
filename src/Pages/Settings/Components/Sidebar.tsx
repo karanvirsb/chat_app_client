@@ -17,7 +17,10 @@ export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
                 isSideBarOpen ? "sm:translate-x-0" : "sm:-translate-x-[100%]"
             }`}
         >
-            <button className='mt-4 px-4 self-start' onClick={goBackToHome}>
+            <button
+                className='mt-4 px-4 self-start sm:hidden'
+                onClick={goBackToHome}
+            >
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
