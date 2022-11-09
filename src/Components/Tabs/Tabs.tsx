@@ -17,6 +17,7 @@ export default function Tabs({ components, tabs }: props) {
                             <button
                                 className='btn border-b-2 border-b-red-400 flex-grow rounded-none'
                                 onClick={() => setTab(index)}
+                                key={tab}
                             >
                                 {tab}
                             </button>
