@@ -1,7 +1,9 @@
 import React from "react";
-import { useAppSelector } from "../../Hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../Hooks/reduxHooks";
+import { setSideBarClosed } from "../../Redux/slices/SideBarSlice";
 
 export default function BottomBar() {
+    const dispatch = useAppDispatch();
     const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open); // to check if menu button was clicked
 
     return (
@@ -11,7 +13,7 @@ export default function BottomBar() {
             } bg-groupBar-bg flex justify-around min-h-[75px] w-full m-sm:hidden`}
         >
             {/* CHAT ICON */}
-            <button>
+            <button onClick={closeSideBar}>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -71,4 +73,10 @@ export default function BottomBar() {
             </button>
         </nav>
     );
+
+    function closeSideBar() {
+        if (isSideBarOpen) {
+            dispatch(setSideBarClosed());
+        }
+    }
 }
