@@ -40,7 +40,7 @@ export default function BottomBar() {
     );
 
     function closeSideBar() {
-        if (isSideBarOpen) {
+        if (isSideBarOpen && activeTab === 0) {
             dispatch(setSideBarClosed());
         }
     }
