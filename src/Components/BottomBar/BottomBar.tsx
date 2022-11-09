@@ -104,8 +104,12 @@ export default function BottomBar() {
         ];
     }
     function goToChats() {
-        dispatch(setSideBarClosed());
-        navigate("/home");
+        if (isSideBarOpen && activeTab === 0) {
+            dispatch(setSideBarClosed());
+        } else {
+            dispatch(setSideBarClosed());
+            navigate("/home");
+        }
     }
 
     function goToFriends() {
@@ -117,7 +121,11 @@ export default function BottomBar() {
         navigate("/search");
     }
     function goToSettings() {
-        dispatch(setSideBarClosed());
-        navigate("/settings");
+        if (isSideBarOpen && activeTab === 3) {
+            dispatch(setSideBarClosed());
+        } else {
+            dispatch(setSideBarClosed());
+            navigate("/settings");
+        }
     }
 }
