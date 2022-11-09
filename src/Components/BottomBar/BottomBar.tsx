@@ -108,7 +108,7 @@ export default function BottomBar() {
             dispatch(setSideBarClosed());
         } else {
             dispatch(setSideBarClosed());
-            navigate("/home");
+            navigate("/");
         }
     }
 
