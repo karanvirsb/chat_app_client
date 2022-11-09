@@ -1,4 +1,5 @@
 import React from "react";
+import MenuBtn from "../../../Components/MenuBtn/menuBtn";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import UserInput from "./UserInput";
@@ -9,9 +10,12 @@ export default function AccountTab() {
     const dispatch = useAppDispatch();
     return (
         <div className='flex flex-col gap-4 items-center w-full'>
-            <h1 className='font-semibold px-4 py-2 text-gray-600 text-lg text-left uppercase w-full'>
-                Account
-            </h1>
+            <div className='flex justify-start px-4 w-full'>
+                <MenuBtn></MenuBtn>
+                <h1 className='font-semibold px-4 py-2 text-gray-600 text-lg text-left uppercase w-full'>
+                    Account
+                </h1>
+            </div>
             <div className='bg-[hsl(220,18%,15%)] flex flex-col gap-4 items-center py-4 rounded-md min-w-[150px] w-[70%] max-w-[700px]'>
                 <UserInput
                     labelName='Username'
