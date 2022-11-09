@@ -16,13 +16,21 @@ export default function BottomBar() {
             {generateBottomBarButtons().map((tab, index) => {
                 if (index === activeTab) {
                     return (
-                        <button className='[&>svg]:fill-yellow-300' key={index}>
+                        <button
+                            key={index}
+                            className='[&>svg]:fill-yellow-300'
+                            onClick={() => changeActiveTab(index)}
+                        >
                             {tab}
                         </button>
                     );
                 } else {
                     return (
-                        <button className='[&>svg]:fill-[#EBEBEB]' key={index}>
+                        <button
+                            key={index}
+                            className='[&>svg]:fill-[#EBEBEB]'
+                            onClick={() => changeActiveTab(index)}
+                        >
                             {tab}
                         </button>
                     );
@@ -35,6 +43,10 @@ export default function BottomBar() {
         if (isSideBarOpen) {
             dispatch(setSideBarClosed());
         }
+    }
+
+    function changeActiveTab(index: number) {
+        setActiveTab(() => index);
     }
 
     function generateBottomBarButtons() {
