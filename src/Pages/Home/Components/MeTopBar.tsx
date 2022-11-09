@@ -1,14 +1,19 @@
 import React from "react";
-import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
+import {
+    setSideBarClosed,
+    setSideBarOpen,
+} from "../../../Redux/slices/SideBarSlice";
 
-type props = {
-    isSideBarOpen: boolean;
-    toggleSideBar: () => void;
-};
+// type props = {
+//     isSideBarOpen: boolean;
+//     toggleSideBar: () => void;
+// };
 
-export default function MeTopBar({ isSideBarOpen, toggleSideBar }: props) {
+export default function MeTopBar() {
     const dispatch = useAppDispatch();
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
     return (
         <div className='bg-chat-bg border-b border-r-0 border-groupBar-bg flex items-center justify-between font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
             <div className='flex gap-4 items-center'>
@@ -56,6 +61,14 @@ export default function MeTopBar({ isSideBarOpen, toggleSideBar }: props) {
             </div>
         </div>
     );
+
+    function toggleSideBar() {
+        if (isSideBarOpen) {
+            dispatch(setSideBarClosed());
+        } else {
+            dispatch(setSideBarOpen());
+        }
+    }
 
     function displayAddFriendModal() {
         dispatch(
