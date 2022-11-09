@@ -108,6 +108,8 @@ export default function GroupTopBar({ isUserMenuOpen, toggleUserMenu }: props) {
     function toggleSideBar() {
         if (isSideBarOpen) {
             dispatch(setSideBarClosed());
-        } else [dispatch(setSideBarOpen())];
+        } else {
+            dispatch(setSideBarOpen());
+        }
     }
 }
