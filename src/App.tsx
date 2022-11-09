@@ -15,6 +15,8 @@ import ModalDisplay from "./Components/Modal/ModalDisplay";
 import Settings from "./Pages/Settings/settings";
 import socket from "./Sockets";
 import BottomBar from "./Components/BottomBar/BottomBar";
+import Friends from "./Pages/Friends/friends";
+import Search from "./Pages/Search/search";
 
 SuperTokens.init({
     appInfo: {
@@ -75,6 +77,22 @@ export default function App() {
                             element={
                                 <EmailPasswordAuth>
                                     <Settings></Settings>
+                                </EmailPasswordAuth>
+                            }
+                        ></Route>
+                        <Route
+                            path='/friends'
+                            element={
+                                <EmailPasswordAuth>
+                                    <Friends></Friends>
+                                </EmailPasswordAuth>
+                            }
+                        ></Route>
+                        <Route
+                            path='/search'
+                            element={
+                                <EmailPasswordAuth>
+                                    <Search></Search>
                                 </EmailPasswordAuth>
                             }
                         ></Route>
