@@ -11,7 +11,11 @@ export default function BottomBar() {
             className={`fixed bottom-0 left-0 z-[10] ${
                 isSideBarOpen ? "translate-y-0" : "translate-y-[100%]"
             } bg-groupBar-bg flex justify-around min-h-[75px] w-full m-sm:hidden`}
-        ></nav>
+        >
+            {generateBottomBarButtons().map((tab, index) => {
+                return <button>{tab}</button>;
+            })}
+        </nav>
     );
 
     function closeSideBar() {
