@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAppSelector } from "../../../Hooks/reduxHooks";
 
 type props = {
     tabs: string[];
@@ -9,8 +10,13 @@ type props = {
 
 export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
     const navigate = useNavigate();
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
     return (
-        <nav className='flex flex-col items-end bg-groupInfo-bg min-w-[250px] h-screen'>
+        <nav
+            className={`flex flex-col items-end bg-groupInfo-bg min-w-[250px] h-screen ${
+                isSideBarOpen ? "sm:translate-x-0" : "sm:-translate-x-[100%]"
+            }`}
+        >
             <button className='mt-4 px-4 self-start' onClick={goBackToHome}>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
