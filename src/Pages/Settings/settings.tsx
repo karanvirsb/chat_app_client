@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useAppSelector } from "../../Hooks/reduxHooks";
 import AccountTab from "./Components/AccountTab";
 import Sidebar from "./Components/Sidebar";
 
+const tabs = ["Accounts"];
 const settings = () => {
-    const tabs = ["Accounts"];
     const [activeIndex, setActiveIndex] = useState(0);
+    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
 
     return (
         <div className='flex'>
@@ -13,7 +15,15 @@ const settings = () => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
             ></Sidebar>
-            {activeIndex === 0 && <AccountTab></AccountTab>}
+            <div
+                className={`${
+                    isSideBarOpen
+                        ? "sm:translate-x-[250px]"
+                        : "sm:translate-x-0"
+                }`}
+            >
+                {activeIndex === 0 && <AccountTab></AccountTab>}
+            </div>
         </div>
     );
 };
