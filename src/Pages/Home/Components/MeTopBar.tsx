@@ -25,7 +25,7 @@ export default function MeTopBar() {
                             viewBox='0 0 24 24'
                             strokeWidth={1.5}
                             stroke='currentColor'
-                            className='w-6 h-6 hover:text-black'
+                            className='w-6 h-6 hover:text-black sm:hidden'
                         >
                             <path
                                 strokeLinecap='round'
@@ -40,7 +40,7 @@ export default function MeTopBar() {
                             viewBox='0 0 24 24'
                             strokeWidth={1.5}
                             stroke='currentColor'
-                            className='w-6 h-6 hover:text-black'
+                            className='w-6 h-6 hover:text-black sm:hidden'
                         >
                             <path
                                 strokeLinecap='round'
@@ -49,6 +49,22 @@ export default function MeTopBar() {
                             />
                         </svg>
                     )}
+
+                    {/* MOBILE */}
+                    <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth={1.5}
+                        stroke='currentColor'
+                        className='w-6 h-6 m-sm:hidden'
+                    >
+                        <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+                        />
+                    </svg>
                 </button>
                 {/*TODO Friends username goes here*/}
                 <span>Friends Name</span>
