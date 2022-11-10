@@ -16,7 +16,7 @@ export default function AccountTab() {
                     Account
                 </h1>
             </div>
-            <div className='bg-[hsl(220,18%,15%)] flex flex-col gap-4 items-center py-4 rounded-md min-w-[150px] w-[70%] max-w-[700px] md:w-full'>
+            <div className='bg-[hsl(220,18%,15%)] flex flex-col gap-4 items-center py-4 rounded-md min-w-[150px] m-md:w-[70%] max-w-[700px] md:w-full'>
                 <UserInput
                     labelName='Username'
                     value='username'
