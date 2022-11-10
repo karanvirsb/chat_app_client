@@ -16,7 +16,7 @@ function MenuBtn() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 m-sm:hidden'
+                className='w-6 h-6 m-md:hidden'
             >
                 <path
                     strokeLinecap='round'
