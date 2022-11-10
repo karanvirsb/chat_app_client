@@ -4,7 +4,7 @@ import {
     setSideBarClosed,
     setSideBarOpen,
 } from "../../Redux/slices/SideBarSlice";
-import MenuBtn from "../MenuBtn/menuBtn";
+import MenuBtn from "../MenuBtn/MenuBtn";
 
 export default function ToggleSidebarBtn() {
     const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
