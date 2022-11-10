@@ -16,7 +16,7 @@ const settings = () => {
                 setActiveIndex={setActiveIndex}
             ></Sidebar>
             <div
-                className={`${
+                className={`w-full ${
                     isSideBarOpen
                         ? "md:translate-x-[250px]"
                         : "md:translate-x-0"
