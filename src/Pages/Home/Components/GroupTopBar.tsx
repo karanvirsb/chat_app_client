@@ -1,9 +1,5 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
-import {
-    setSideBarClosed,
-    setSideBarOpen,
-} from "../../../Redux/slices/SideBarSlice";
+import ToggleSidebarBtn from "../../../Components/ToggleSidebarBtn/ToggleSidebarBtn";
 
 type props = {
     isUserMenuOpen: boolean;
@@ -11,61 +7,10 @@ type props = {
 };
 
 export default function GroupTopBar({ isUserMenuOpen, toggleUserMenu }: props) {
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
-    const dispatch = useAppDispatch();
     return (
         <div className='bg-chat-bg border-b border-r-0 border-groupBar-bg flex items-center justify-between font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
             <div className='flex gap-4'>
-                <button onClick={toggleSideBar}>
-                    {/* DESKTOP */}
-                    {isSideBarOpen ? (
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth={1.5}
-                            stroke='currentColor'
-                            className='w-6 h-6 hover:text-black sm:hidden'
-                        >
-                            <path
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                                d='M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75'
-                            />
-                        </svg>
-                    ) : (
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth={1.5}
-                            stroke='currentColor'
-                            className='w-6 h-6 hover:text-black sm:hidden'
-                        >
-                            <path
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                                d='M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9'
-                            />
-                        </svg>
-                    )}
-
-                    {/* MOBILE */}
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        strokeWidth={1.5}
-                        stroke='currentColor'
-                        className='w-6 h-6 m-sm:hidden'
-                    >
-                        <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
-                        />
-                    </svg>
-                </button>
+                <ToggleSidebarBtn></ToggleSidebarBtn>
                 {/*TODO Channel name goes here*/}
                 <span>General</span>
             </div>
@@ -104,12 +49,4 @@ export default function GroupTopBar({ isUserMenuOpen, toggleUserMenu }: props) {
             </button>
         </div>
     );
-
-    function toggleSideBar() {
-        if (isSideBarOpen) {
-            dispatch(setSideBarClosed());
-        } else {
-            dispatch(setSideBarOpen());
-        }
-    }
 }
