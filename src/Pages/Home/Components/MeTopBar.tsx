@@ -3,11 +3,6 @@ import ToggleSidebarBtn from "../../../Components/ToggleSidebarBtn/ToggleSidebar
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
-// type props = {
-//     isSideBarOpen: boolean;
-//     toggleSideBar: () => void;
-// };
-
 export default function MeTopBar() {
     const dispatch = useAppDispatch();
     return (
