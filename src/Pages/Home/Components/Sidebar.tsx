@@ -20,10 +20,10 @@ export default function Sidebar({ setTab, setTabId }: props) {
         <>
             {/* TODO active index */}
             <nav
-                className={`flex flex-col items-center bg-groupBar-bg py-4 px-2 sm:fixed sm:top-0  sm:left-0 sm:bottom-0 sm:z-[5] ${
+                className={`flex flex-col items-center bg-groupBar-bg py-4 px-2 md:fixed md:top-0  md:left-0 md:bottom-0 md:z-[5] ${
                     isSideBarOpen
-                        ? "sm:translate-x-0"
-                        : "sm:-translate-x-[100%]"
+                        ? "md:translate-x-0"
+                        : "md:-translate-x-[100%]"
                 } `}
             >
                 <button
