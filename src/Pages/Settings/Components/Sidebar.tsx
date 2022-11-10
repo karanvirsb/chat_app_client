@@ -13,12 +13,12 @@ export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
     const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
     return (
         <nav
-            className={`flex flex-col items-end bg-groupInfo-bg min-w-[250px] h-screen sm:fixed ${
-                isSideBarOpen ? "sm:translate-x-0" : "sm:-translate-x-[100%]"
+            className={`flex flex-col items-end bg-groupInfo-bg min-w-[250px] h-screen md:fixed ${
+                isSideBarOpen ? "md:translate-x-0" : "md:-translate-x-[100%]"
             }`}
         >
             <button
-                className='mt-4 px-4 self-start sm:hidden'
+                className='mt-4 px-4 self-start md:hidden'
                 onClick={goBackToHome}
             >
                 <svg
