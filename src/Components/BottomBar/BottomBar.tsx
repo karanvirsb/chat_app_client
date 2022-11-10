@@ -13,7 +13,7 @@ export default function BottomBar() {
         <nav
             className={`fixed bottom-0 left-0 z-[10] ${
                 isSideBarOpen ? "translate-y-0" : "translate-y-[100%]"
-            } bg-groupBar-bg flex justify-around min-h-[75px] w-full m-sm:hidden`}
+            } bg-groupBar-bg flex justify-around min-h-[75px] w-full m-md:hidden`}
         >
             {generateBottomBarButtons().map((tab, index) => {
                 if (index === activeTab) {
