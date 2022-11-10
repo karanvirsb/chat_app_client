@@ -1,5 +1,5 @@
 import React from "react";
-import MenuBtn from "../../../Components/MenuBtn/menuBtn";
+import MenuBtn from "../../../Components/MenuBtn//MenuBtn";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import UserInput from "./UserInput";
@@ -9,14 +9,14 @@ import UserInput from "./UserInput";
 export default function AccountTab() {
     const dispatch = useAppDispatch();
     return (
-        <div className='flex flex-col gap-4 items-center w-full sm:px-2'>
+        <div className='flex flex-col gap-4 items-center w-full md:px-2'>
             <div className='flex justify-start px-4 w-full'>
                 <MenuBtn></MenuBtn>
                 <h1 className='font-semibold px-4 py-2 text-gray-600 text-lg text-left uppercase w-full'>
                     Account
                 </h1>
             </div>
-            <div className='bg-[hsl(220,18%,15%)] flex flex-col gap-4 items-center py-4 rounded-md min-w-[150px] w-[70%] max-w-[700px] sm:w-full'>
+            <div className='bg-[hsl(220,18%,15%)] flex flex-col gap-4 items-center py-4 rounded-md min-w-[150px] w-[70%] max-w-[700px] md:w-full'>
                 <UserInput
                     labelName='Username'
                     value='username'
@@ -34,7 +34,7 @@ export default function AccountTab() {
                     onClick={displayEditPasswordModal}
                 ></UserInput>
             </div>
-            <div className='min-w-[150px] w-[70%] max-w-[700px] sm:w-full'>
+            <div className='min-w-[150px] w-[70%] max-w-[700px] md:w-full'>
                 <button
                     className='btn bg-btn-mutations border-none mt-6 text-btn-mutations-text hover:bg-btn-mutations-hover'
                     onClick={displayDeleteAccountModal}
