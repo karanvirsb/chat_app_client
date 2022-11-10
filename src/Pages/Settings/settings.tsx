@@ -18,8 +18,8 @@ const settings = () => {
             <div
                 className={`${
                     isSideBarOpen
-                        ? "sm:translate-x-[250px]"
-                        : "sm:translate-x-0"
+                        ? "md:translate-x-[250px]"
+                        : "md:translate-x-0"
                 }`}
             >
                 {activeIndex === 0 && <AccountTab></AccountTab>}
