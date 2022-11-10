@@ -9,7 +9,7 @@ const settings = () => {
     const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
 
     return (
-        <div className='flex'>
+        <div className='flex flex-grow w-full '>
             <Sidebar
                 tabs={tabs}
                 activeIndex={activeIndex}
