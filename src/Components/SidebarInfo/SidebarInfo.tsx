@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector } from "../../../Hooks/reduxHooks";
+import { useAppSelector } from "../../Hooks/reduxHooks";
 
 type props = {
     children: JSX.Element;
