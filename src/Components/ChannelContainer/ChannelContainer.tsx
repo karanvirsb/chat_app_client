@@ -11,7 +11,7 @@ export default function ChannelContainer({ children }: props) {
         <div
             className={`flex flex-col flex-grow ${
                 isSideBarOpen
-                    ? "md:translate-x-[307.375px]"
+                    ? "md:translate-x-[20.125rem]"
                     : "md:translate-x-[0px]"
             }`}
         >
