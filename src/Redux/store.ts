@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./slices/modalSlice";
-import SideBarReducer from "./slices/SideBarSlice";
+import SideBarReducer from "./slices/sideBarSlice";
+import { groupApiSlice } from "./slices/groupApiSlice.ts";
 
 export const store = configureStore({
     reducer: {
