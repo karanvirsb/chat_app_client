@@ -5,6 +5,7 @@ import DropDown from "../../../Components/DropDown/DropDown";
 import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { useNavigate } from "react-router";
+import GroupList from "./GroupList";
 
 type props = {
     setTab: React.Dispatch<React.SetStateAction<"group" | "me">>;
@@ -16,6 +17,7 @@ export default function Sidebar({ setTab, setTabId }: props) {
     const navigate = useNavigate();
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     const dispatch = useAppDispatch();
+
     return (
         <>
             {/* TODO active index */}
@@ -36,15 +38,17 @@ export default function Sidebar({ setTab, setTabId }: props) {
                 </button>
                 <div className='divider'></div>
                 {/* TODO Groups go here */}
+
                 <ul className='mb-4 flex flex-col gap-4'>
                     <li>
                         <button
                             className='btn btn-circle'
-                            onClick={() => setTabToGroup("1", 1)}
+                            onClick={() => setTabToGroup("1", 0)}
                         >
                             G
                         </button>
                     </li>
+                    <GroupList setTabToGroup={setTabToGroup}></GroupList>
                 </ul>
 
                 {/* Btn is to create a group  */}
