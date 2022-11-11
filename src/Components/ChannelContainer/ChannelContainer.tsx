@@ -6,7 +6,7 @@ type props = {
 };
 
 export default function ChannelContainer({ children }: props) {
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
         <div
             className={`flex flex-col flex-grow ${
