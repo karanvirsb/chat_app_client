@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../Hooks/reduxHooks";
-import { setSideBarClosed } from "../../Redux/slices/SideBarSlice";
+import { setSideBarClosed } from "../../Redux/slices/sideBarSlice";
 
 export default function BottomBar() {
     const [activeTab, setActiveTab] = useState(0);
