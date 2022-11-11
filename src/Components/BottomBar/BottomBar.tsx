@@ -7,7 +7,7 @@ export default function BottomBar() {
     const [activeTab, setActiveTab] = useState(0);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open); // to check if menu button was clicked
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open); // to check if menu button was clicked
 
     return (
         <nav
