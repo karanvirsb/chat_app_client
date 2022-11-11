@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../Hooks/reduxHooks";
 import {
     setSideBarClosed,
     setSideBarOpen,
-} from "../../Redux/slices/SideBarSlice";
+} from "../../Redux/slices/sideBarSlice";
 
 function MenuBtn() {
     const dispatch = useAppDispatch();
