@@ -6,7 +6,7 @@ import MeSideBarInfo from "./MeSideBarInfo";
 import MeTopBar from "./MeTopBar";
 
 export default function MeChannel() {
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
         <>
             {isSideBarOpen && <MeSideBarInfo></MeSideBarInfo>}

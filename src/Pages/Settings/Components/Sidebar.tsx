@@ -10,7 +10,7 @@ type props = {
 
 export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
     const navigate = useNavigate();
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
         <nav
             className={`flex flex-col items-end bg-groupInfo-bg min-w-[250px] h-screen md:fixed ${

@@ -6,7 +6,7 @@ import Sidebar from "./Components/Sidebar";
 const tabs = ["Accounts"];
 const settings = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
 
     return (
         <div className='flex flex-grow w-full '>

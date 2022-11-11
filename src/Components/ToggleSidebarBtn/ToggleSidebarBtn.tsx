@@ -7,7 +7,7 @@ import {
 import MenuBtn from "../MenuBtn/MenuBtn";
 
 export default function ToggleSidebarBtn() {
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     const dispatch = useAppDispatch();
     return (
         <>

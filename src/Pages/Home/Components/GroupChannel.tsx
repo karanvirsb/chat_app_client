@@ -8,7 +8,7 @@ import GroupUsers from "./GroupUsers";
 
 export default function GroupChannel() {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
         <>
             {isSideBarOpen && <GroupSidebarInfo></GroupSidebarInfo>}

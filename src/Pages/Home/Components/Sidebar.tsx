@@ -14,7 +14,7 @@ type props = {
 export default function Sidebar({ setTab, setTabId }: props) {
     const [activeIndex, setActiveIndex] = useState(-1);
     const navigate = useNavigate();
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     const dispatch = useAppDispatch();
     return (
         <>
