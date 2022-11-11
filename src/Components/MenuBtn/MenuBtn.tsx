@@ -7,7 +7,7 @@ import {
 
 function MenuBtn() {
     const dispatch = useAppDispatch();
-    const isSideBarOpen = useAppSelector((state) => state.SideBarReducer.open);
+    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
         <button onClick={toggleSideBar}>
             <svg
