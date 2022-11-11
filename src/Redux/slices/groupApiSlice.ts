@@ -13,7 +13,7 @@ export const groupApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/group" }),
     tagTypes: ["Groups"],
     endpoints: (builder) => ({
-        getGroups: builder.query<IGroup, string>({
+        getGroups: builder.query<IGroup[], string>({
             query: (userId) => ({ url: `userId/${userId}` }),
         }),
     }),
