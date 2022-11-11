@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from "../../Hooks/reduxHooks";
 import {
     setSideBarClosed,
     setSideBarOpen,
-} from "../../Redux/slices/SideBarSlice";
+} from "../../Redux/slices/sideBarSlice";
 import MenuBtn from "../MenuBtn/MenuBtn";
 
 export default function ToggleSidebarBtn() {
