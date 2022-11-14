@@ -8,12 +8,18 @@ export interface IGroup {
     dateCreated: Date;
 }
 
+export type returnData = {
+    success: boolean;
+    data: IGroup[] | undefined;
+    error: string;
+};
+
 export const groupApiSlice = createApi({
     reducerPath: "groups",
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/group" }),
     tagTypes: ["Groups"],
     endpoints: (builder) => ({
-        getGroups: builder.query<IGroup[], string>({
+        getGroups: builder.query<returnData, string>({
             query: (userId) => ({ url: `userId/${userId}` }),
         }),
     }),
