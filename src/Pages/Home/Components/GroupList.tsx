@@ -19,24 +19,28 @@ export default function GroupList({ setTabToGroup }: props) {
     if (isLoading) {
         content = <>Loading...</>;
     } else if (isSuccess) {
-        content = groups.map((group, index) => {
-            return (
-                <li>
-                    <button
-                        className='btn btn-circle'
-                        key={group.groupId}
-                        onClick={() => setTabToGroup(group.groupId, index)}
-                    >
-                        {
-                            group.groupName[0] // TODO split and get first index
-                        }
-                    </button>
-                </li>
-            );
-        });
+        if (groups.data === undefined) {
+            content = <></>;
+        } else {
+            content = groups.data.map((group, index) => {
+                return (
+                    <li>
+                        <button
+                            className='btn btn-circle'
+                            key={group.groupId}
+                            onClick={() => setTabToGroup(group.groupId, index)}
+                        >
+                            {
+                                group.groupName[0] // TODO split and get first index
+                            }
+                        </button>
+                    </li>
+                );
+            });
+        }
     } else if (isError) {
         content = <button className='btn btn-circle'>!</button>;
-        console.error(error);
+        console.error(groups?.error);
     }
     return <>{content}</>;
 }
