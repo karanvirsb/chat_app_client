@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
-import GroupChat from "./Components/GroupChat";
-import GroupTopBar from "./Components/GroupTopBar";
 import Sidebar from "./Components/Sidebar";
-import GroupSidebarInfo from "./Components/GroupSidebarInfo";
-import GroupUsers from "./Components/GroupUsers";
 import GroupChannel from "./Components/GroupChannel";
 import MeChannel from "./Components/MeChannel";
 
