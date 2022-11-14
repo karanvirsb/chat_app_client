@@ -1,4 +1,5 @@
 import React from "react";
+import useGetSession from "../../../Hooks/useGetSession";
 import { useGetGroupsQuery } from "../../../Redux/slices/groupApiSlice";
 
 type props = {
@@ -6,13 +7,14 @@ type props = {
 };
 
 export default function GroupList({ setTabToGroup }: props) {
+    const { sessionInfo } = useGetSession();
     const {
         data: groups,
         isLoading,
         isSuccess,
         isError,
         error,
-    } = useGetGroupsQuery("");
+    } = useGetGroupsQuery(sessionInfo?.userId ?? "1");
 
     let content;
 
