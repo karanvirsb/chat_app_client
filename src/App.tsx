@@ -56,7 +56,7 @@ SuperTokens.init({
 });
 
 export default function App() {
-    // socket.connect();
+    socket.connect();
     return (
         <>
             <ModalDisplay></ModalDisplay>
