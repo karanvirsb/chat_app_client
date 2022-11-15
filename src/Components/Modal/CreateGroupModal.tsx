@@ -40,6 +40,7 @@ export default function CreateGroupModal() {
                     <BtnCallToAction
                         text='Create'
                         onClick={handleSubmit}
+                        isLoading={isLoading}
                     ></BtnCallToAction>
                     <BtnCancelAction
                         text='Cancel'
