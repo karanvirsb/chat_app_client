@@ -8,9 +8,15 @@ export interface IGroup {
     dateCreated: Date;
 }
 
-export type returnData = {
+export type returnGroupsData = {
     success: boolean;
     data: IGroup[] | undefined;
+    error: string;
+};
+
+export type returnGroupData = {
+    success: boolean;
+    data: IGroup | undefined;
     error: string;
 };
 
@@ -19,8 +25,29 @@ export const groupApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/group" }),
     tagTypes: ["Groups"],
     endpoints: (builder) => ({
-        getGroups: builder.query<returnData, string>({
+        getGroups: builder.query<returnGroupsData, string>({
             query: (userId) => ({ url: `userId/${userId}` }),
+            providesTags: ["Groups"],
+        }),
+        createGroup: builder.mutation<
+            returnGroupData,
+            { groupInfo: Partial<IGroup>; userId: string }
+        >({
+            query: ({
+                groupInfo,
+                userId,
+            }: {
+                groupInfo: Partial<IGroup>;
+                userId: string;
+            }) => ({
+                url: `group/add`,
+                method: "POST",
+                body: {
+                    groupInfo,
+                    userId,
+                },
+            }),
+            invalidatesTags: ["Groups"],
         }),
     }),
 });
