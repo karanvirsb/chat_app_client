@@ -52,4 +52,4 @@ export const groupApiSlice = createApi({
     }),
 });
 
-export const { useGetGroupsQuery } = groupApiSlice;
+export const { useGetGroupsQuery, useCreateGroupMutation } = groupApiSlice;
