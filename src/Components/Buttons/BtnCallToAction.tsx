@@ -1,4 +1,5 @@
 import React from "react";
+import Spinner from "../Spinner/Spinner";
 
 type props = {
     text: string;
@@ -18,8 +19,7 @@ export default function BtnCallToAction({
             className={`btn bg-btn-cta  border-none font-bold tracking-wider hover:bg-btn-cta-hover text-white ${classname}`}
             onClick={onClick}
         >
-            // TODO add spinner
-            {isLoading ? "Loading" : text}
+            {isLoading ? <Spinner></Spinner> : text}
         </button>
     );
 }
