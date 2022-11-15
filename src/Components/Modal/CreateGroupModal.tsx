@@ -43,7 +43,9 @@ export default function CreateGroupModal() {
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setGroupName(() => e.target.value);
-        setErrorMessage("");
+        if (e.target.value.length > 0) {
+            setErrorMessage("");
+        }
     }
 
     function handleSubmit() {
