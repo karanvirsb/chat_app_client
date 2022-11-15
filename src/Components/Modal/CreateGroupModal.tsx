@@ -9,6 +9,7 @@ import Modal from "./Modal";
 // TODO
 export default function CreateGroupModal() {
     const [groupName, setGroupName] = useState("");
+    const [errorMsg, setErrorMessage] = useState("");
     const dispatch = useAppDispatch();
     return (
         <Modal modalName='Change Group Name' modalClass='flex'>
@@ -20,6 +21,7 @@ export default function CreateGroupModal() {
                     placeholder='Group Name'
                     inputId='groupName'
                     formClass='flex-grow'
+                    errorMsg={errorMsg}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
@@ -39,7 +41,12 @@ export default function CreateGroupModal() {
         dispatch(resetModal());
     }
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {}
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setGroupName(() => e.target.value);
+        setErrorMessage("");
+    }
 
-    function handleSubmit() {}
+    function handleSubmit() {
+        if (!groupName) setErrorMessage("Group name must be provided.");
+    }
 }
