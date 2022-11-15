@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
 import { useCreateGroupMutation } from "../../Redux/slices/groupApiSlice";
@@ -14,7 +14,14 @@ export default function CreateGroupModal() {
     const [errorMsg, setErrorMessage] = useState("");
     const dispatch = useAppDispatch();
     const { sessionInfo } = useGetSession();
-    const [createGroup, { isLoading }] = useCreateGroupMutation();
+    const [createGroup, { isLoading, isSuccess }] = useCreateGroupMutation();
+
+    useEffect(() => {
+        if (!isLoading && isSuccess) {
+            closeModal();
+        }
+    }, [isLoading, isSuccess]);
+
     return (
         <Modal modalName='Change Group Name' modalClass='flex'>
             <div className='flex flex-col flex-grow w-full gap-4 mt-6 justify-end'>
@@ -55,10 +62,14 @@ export default function CreateGroupModal() {
     function handleSubmit() {
         if (!groupName) setErrorMessage("Group name must be provided.");
         if (!isLoading) {
-            createGroup({
-                groupInfo: { groupName: groupName },
-                userId: sessionInfo ? sessionInfo?.userId : "",
-            });
+            try {
+                createGroup({
+                    groupInfo: { groupName: groupName },
+                    userId: sessionInfo ? sessionInfo?.userId : "",
+                });
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 }
