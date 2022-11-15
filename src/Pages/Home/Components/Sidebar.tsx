@@ -30,7 +30,7 @@ export default function Sidebar({ setTab, setTabId }: props) {
             >
                 <button
                     className={`btn btn-circle z-10 ${
-                        activeIndex === -1 && ""
+                        activeIndex === -1 && "bg-gray-400"
                     }`}
                     onClick={setTabToMe}
                 >
@@ -40,15 +40,10 @@ export default function Sidebar({ setTab, setTabId }: props) {
                 {/* TODO Groups go here */}
 
                 <ul className='mb-4 flex flex-col gap-4'>
-                    <li>
-                        <button
-                            className='btn btn-circle'
-                            onClick={() => setTabToGroup("1", 0)}
-                        >
-                            G
-                        </button>
-                    </li>
-                    <GroupList setTabToGroup={setTabToGroup}></GroupList>
+                    <GroupList
+                        activeIndex={activeIndex}
+                        setTabToGroup={setTabToGroup}
+                    ></GroupList>
                 </ul>
 
                 {/* Btn is to create a group  */}
