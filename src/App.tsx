@@ -59,8 +59,8 @@ export default function App() {
     socket.connect();
     return (
         <>
-            <ModalDisplay></ModalDisplay>
             <SuperTokensWrapper>
+                <ModalDisplay></ModalDisplay>
                 <Routes>
                     {getSuperTokensRoutesForReactRouterDom(reactRouterDom)}
                     <Route element={<MobileLayout></MobileLayout>}>
