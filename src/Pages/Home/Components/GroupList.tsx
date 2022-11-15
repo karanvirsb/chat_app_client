@@ -3,10 +3,11 @@ import useGetSession from "../../../Hooks/useGetSession";
 import { useGetGroupsQuery } from "../../../Redux/slices/groupApiSlice";
 
 type props = {
+    activeIndex: number;
     setTabToGroup: (id: string, index: number) => void;
 };
 
-export default function GroupList({ setTabToGroup }: props) {
+export default function GroupList({ setTabToGroup, activeIndex }: props) {
     const { sessionInfo } = useGetSession();
     const {
         data: groups,
@@ -25,19 +26,39 @@ export default function GroupList({ setTabToGroup }: props) {
             content = <></>;
         } else {
             content = groups.data.map((group, index) => {
-                return (
-                    <li>
-                        <button
-                            className='btn btn-circle'
-                            key={group.groupId}
-                            onClick={() => setTabToGroup(group.groupId, index)}
-                        >
-                            {
-                                group.groupName[0] // TODO split and get first index
-                            }
-                        </button>
-                    </li>
-                );
+                if (index === activeIndex) {
+                    return (
+                        <li>
+                            <button
+                                className='btn btn-circle bg-white text-black'
+                                key={group.groupId}
+                                onClick={() =>
+                                    setTabToGroup(group.groupId, index)
+                                }
+                            >
+                                {
+                                    group.groupName[0] // TODO split and get first index
+                                }
+                            </button>
+                        </li>
+                    );
+                } else {
+                    return (
+                        <li>
+                            <button
+                                className='btn btn-circle'
+                                key={group.groupId}
+                                onClick={() =>
+                                    setTabToGroup(group.groupId, index)
+                                }
+                            >
+                                {
+                                    group.groupName[0] // TODO split and get first index
+                                }
+                            </button>
+                        </li>
+                    );
+                }
             });
         }
     } else if (isError) {
