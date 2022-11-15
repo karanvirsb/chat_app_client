@@ -40,7 +40,7 @@ export const groupApiSlice = createApi({
                 groupInfo: Partial<IGroup>;
                 userId: string;
             }) => ({
-                url: `group/add`,
+                url: ``,
                 method: "POST",
                 body: {
                     groupInfo,
