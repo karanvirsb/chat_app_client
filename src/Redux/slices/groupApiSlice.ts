@@ -49,6 +49,23 @@ export const groupApiSlice = createApi({
             }),
             invalidatesTags: ["Groups"],
         }),
+        updateGroupName: builder.mutation<
+            returnGroupData,
+            { groupId: string; newName: string }
+        >({
+            query: ({
+                groupId,
+                newName,
+            }: {
+                groupId: string;
+                newName: string;
+            }) => ({
+                url: "/name",
+                method: "PUT",
+                body: { groupId, newName },
+            }),
+            invalidatesTags: ["Groups"],
+        }),
     }),
 });
 
