@@ -19,6 +19,8 @@ export default function CreateGroupModal() {
     useEffect(() => {
         if (!isLoading && isSuccess) {
             closeModal();
+            setGroupName("");
+            setErrorMessage("");
         }
     }, [isLoading, isSuccess]);
 
