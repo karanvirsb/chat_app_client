@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { useNavigate } from "react-router";
 import GroupList from "./GroupList";
+import useLocalStorage from "../../../Hooks/useLocalStorage";
 
 type props = {
     setTab: React.Dispatch<React.SetStateAction<"group" | "me">>;
@@ -13,14 +14,14 @@ type props = {
 };
 
 export default function Sidebar({ setTab, setTabId }: props) {
-    const [activeIndex, setActiveIndex] = useState(-1);
+    // const [activeIndex, setActiveIndex] = useState(-1);
+    const [activeIndex, setActiveIndex] = useLocalStorage("activeIndex", -1);
     const navigate = useNavigate();
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     const dispatch = useAppDispatch();
 
     return (
         <>
-            {/* TODO active index */}
             <nav
                 className={`flex flex-col items-center bg-groupBar-bg py-4 px-2 md:fixed md:top-0  md:left-0 md:bottom-0 md:z-[5] ${
                     isSideBarOpen
@@ -37,7 +38,7 @@ export default function Sidebar({ setTab, setTabId }: props) {
                     <img src={Logo} className='rounded-full'></img>
                 </button>
                 <div className='divider'></div>
-                {/* TODO Groups go here */}
+                {/* Groups go here */}
 
                 <ul className='mb-4 flex flex-col gap-4'>
                     <GroupList
