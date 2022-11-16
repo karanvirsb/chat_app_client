@@ -12,7 +12,7 @@ type props = {
 
 export default function GroupChannel({ groupId }: props) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
-    // const [selectedChannel, setSelectedChannel] = useState(''); TODO this is for when a different channel is selected for the chat
+    const [selectedChannel, setSelectedChannel] = useState(""); //TODO this is for when a different channel is selected for the chat
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
 
     return (
@@ -27,7 +27,7 @@ export default function GroupChannel({ groupId }: props) {
                         toggleUserMenu={toggleUserMenu}
                     ></GroupTopBar>
                     <div className='flex flex-grow'>
-                        <GroupChat groupId={groupId}></GroupChat>
+                        <GroupChat channelId={selectedChannel}></GroupChat>
                         {isUserMenuOpen && (
                             <GroupUsers
                                 isUserMenuOpen={isUserMenuOpen}
