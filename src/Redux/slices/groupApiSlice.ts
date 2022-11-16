@@ -87,9 +87,10 @@ export const groupApiSlice = createApi({
             }),
             invalidatesTags: ["Groups", "Group"],
         }),
-        getGroupUsers: builder.query({
+        getGroupUsers: builder.query<returnGroupUserData, string>({
             query: (groupId: string) => ({
                 url: `/group/users/${groupId}`,
+                method: "GET",
             }),
         }),
     }),
@@ -100,4 +101,5 @@ export const {
     useCreateGroupMutation,
     useGetGroupQuery,
     useUpdateGroupNameMutation,
+    useGetGroupUsersQuery,
 } = groupApiSlice;
