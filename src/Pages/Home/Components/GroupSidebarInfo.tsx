@@ -5,7 +5,9 @@ import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
-export default function GroupSidebarInfo() {
+type props = { groupId: string };
+
+export default function GroupSidebarInfo({ groupId }: props) {
     const dispatch = useAppDispatch();
     return (
         <SidebarInfo>
