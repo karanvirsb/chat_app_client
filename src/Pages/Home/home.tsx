@@ -14,7 +14,9 @@ export default function Home() {
             {/* TODO redo layout with navbar */}
             <div className='flex h-screen'>
                 <Sidebar setTab={setTab} setTabId={setTabId}></Sidebar>
-                {tab === "group" && <GroupChannel></GroupChannel>}
+                {tab === "group" && (
+                    <GroupChannel groupId={tabId}></GroupChannel>
+                )}
                 {tab === "me" && <MeChannel></MeChannel>}
             </div>
         </>
