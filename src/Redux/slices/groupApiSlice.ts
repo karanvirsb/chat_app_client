@@ -22,12 +22,19 @@ export type returnGroupData = {
 
 export const groupApiSlice = createApi({
     reducerPath: "groups",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/group" }),
-    tagTypes: ["Groups"],
+    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
+    tagTypes: ["Groups", "Group"],
     endpoints: (builder) => ({
         getGroups: builder.query<returnGroupsData, string>({
-            query: (userId) => ({ url: `userId/${userId}` }),
+            query: (userId) => ({ url: `/group/userId/${userId}` }),
             providesTags: ["Groups"],
+        }),
+        getGroup: builder.query<returnGroupData, string>({
+            query: (groupId: string) => ({
+                url: `/group/${groupId}`,
+                method: "GET",
+            }),
+            providesTags: ["Group"],
         }),
         createGroup: builder.mutation<
             returnGroupData,
@@ -40,7 +47,7 @@ export const groupApiSlice = createApi({
                 groupInfo: Partial<IGroup>;
                 userId: string;
             }) => ({
-                url: ``,
+                url: `/group`,
                 method: "POST",
                 body: {
                     groupInfo,
@@ -60,11 +67,11 @@ export const groupApiSlice = createApi({
                 groupId: string;
                 newName: string;
             }) => ({
-                url: "/name",
+                url: "/group/name",
                 method: "PUT",
                 body: { groupId, newName },
             }),
-            invalidatesTags: ["Groups"],
+            invalidatesTags: ["Groups", "Group"],
         }),
     }),
 });
