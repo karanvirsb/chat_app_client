@@ -17,7 +17,7 @@ export default function Home() {
                 {tab === "group" && (
                     <GroupChannel groupId={tabId}></GroupChannel>
                 )}
-                {tab === "me" && <MeChannel></MeChannel>}
+                {tab === "me" && <MeChannel userId={tabId}></MeChannel>}
             </div>
         </>
     );
