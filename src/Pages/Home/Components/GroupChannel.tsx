@@ -12,7 +12,9 @@ type props = {
 
 export default function GroupChannel({ groupId }: props) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
+    // const [selectedChannel, setSelectedChannel] = useState(''); TODO this is for when a different channel is selected for the chat
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
+
     return (
         <>
             {isSideBarOpen && (
