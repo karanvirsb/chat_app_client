@@ -28,6 +28,7 @@ export default function GroupChannel({ groupId }: props) {
                     <GroupTopBar
                         isUserMenuOpen={isUserMenuOpen}
                         toggleUserMenu={toggleUserMenu}
+                        selectedChannel={selectedChannel}
                     ></GroupTopBar>
                     <div className='flex flex-grow'>
                         <GroupChat channelId={selectedChannel}></GroupChat>
