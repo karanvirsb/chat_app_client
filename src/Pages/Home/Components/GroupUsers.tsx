@@ -79,6 +79,13 @@ export default function GroupUsers({
                     })}
                 </ul>
             );
+        } else if (
+            users?.success &&
+            users.data &&
+            users.data?.length < 0 &&
+            !users.error
+        ) {
+            return <li>No one is online ⁉</li>;
         } else {
             return <>{users?.error}</>;
         }
