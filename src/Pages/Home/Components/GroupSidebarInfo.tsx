@@ -5,9 +5,15 @@ import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
-type props = { groupId: string };
+type props = {
+    groupId: string;
+    setSelectedChannel: React.Dispatch<React.SetStateAction<string>>;
+};
 
-export default function GroupSidebarInfo({ groupId }: props) {
+export default function GroupSidebarInfo({
+    groupId,
+    setSelectedChannel,
+}: props) {
     const dispatch = useAppDispatch();
     return (
         <SidebarInfo>
