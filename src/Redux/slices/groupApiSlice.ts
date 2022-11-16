@@ -8,6 +8,14 @@ export interface IGroup {
     dateCreated: Date;
 }
 
+export interface IUser {
+    userId: string;
+    username: string;
+    email: string;
+    status: string;
+    time_joined: Date;
+}
+
 export type returnGroupsData = {
     success: boolean;
     data: IGroup[] | undefined;
@@ -17,6 +25,12 @@ export type returnGroupsData = {
 export type returnGroupData = {
     success: boolean;
     data: IGroup | undefined;
+    error: string;
+};
+
+export type returnGroupUserData = {
+    success: boolean;
+    data: IUser[] | undefined;
     error: string;
 };
 
@@ -72,6 +86,11 @@ export const groupApiSlice = createApi({
                 body: { groupId, newName },
             }),
             invalidatesTags: ["Groups", "Group"],
+        }),
+        getGroupUsers: builder.query({
+            query: (groupId: string) => ({
+                url: `/group/users/${groupId}`,
+            }),
         }),
     }),
 });
