@@ -5,11 +5,7 @@ import MeChat from "./MeChat";
 import MeSideBarInfo from "./MeSideBarInfo";
 import MeTopBar from "./MeTopBar";
 
-type props = {
-    userId: string;
-};
-
-export default function MeChannel({ userId }: props) {
+export default function MeChannel() {
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
         <>
