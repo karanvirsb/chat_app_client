@@ -11,7 +11,6 @@ export default function Home() {
 
     return (
         <>
-            {/* TODO redo layout with navbar */}
             <div className='flex h-screen'>
                 <Sidebar setTab={setTab} setTabId={setTabId}></Sidebar>
                 {tab === "group" && (
