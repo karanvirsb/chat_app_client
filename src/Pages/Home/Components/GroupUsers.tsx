@@ -59,7 +59,7 @@ export default function GroupUsers({
     function createComponents() {
         const components = new Map<string, JSX.Element>();
         components.set("online", <OnlineUsers></OnlineUsers>);
-        components.set("offline", <>Offline Users</>);
+        components.set("offline", <OfflineUsers></OfflineUsers>);
 
         return components;
     }
@@ -69,13 +69,15 @@ export default function GroupUsers({
         return tabs;
     }
 
+    // TODO memoize
     function OnlineUsers() {
         if (isLoading) return <Spinner></Spinner>;
         if (isSuccess && users.data) {
             return (
                 <ul>
                     {users.data.map((user) => {
-                        return <li key={user.userId}>{user.username}</li>;
+                        if (user.status === "offline")
+                            return <li key={user.userId}>{user.username}</li>;
                     })}
                 </ul>
             );
@@ -87,6 +89,30 @@ export default function GroupUsers({
             !users.error
         ) {
             return <li>No one is online ⁉</li>;
+        } else {
+            return <>{users?.error}</>;
+        }
+    }
+
+    function OfflineUsers() {
+        if (isLoading) return <Spinner></Spinner>;
+        if (isSuccess && users.data) {
+            return (
+                <ul>
+                    {users.data.map((user) => {
+                        if (user.status === "offline")
+                            return <li key={user.userId}>{user.username}</li>;
+                    })}
+                </ul>
+            );
+        } else if (
+            // if its successful but no users or error then no one is offline
+            users?.success &&
+            users.data &&
+            users.data?.length < 0 &&
+            !users.error
+        ) {
+            return <li>No one is offline ⁉</li>;
         } else {
             return <>{users?.error}</>;
         }
