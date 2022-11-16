@@ -76,7 +76,7 @@ export default function GroupUsers({
             return (
                 <ul>
                     {users.data.map((user) => {
-                        if (user.status === "offline")
+                        if (user.status === "online")
                             return <li key={user.userId}>{user.username}</li>;
                     })}
                 </ul>
