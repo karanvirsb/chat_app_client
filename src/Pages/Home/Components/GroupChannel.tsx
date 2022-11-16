@@ -6,7 +6,11 @@ import GroupSidebarInfo from "./GroupSidebarInfo";
 import GroupTopBar from "./GroupTopBar";
 import GroupUsers from "./GroupUsers";
 
-export default function GroupChannel() {
+type props = {
+    groupId: string;
+};
+
+export default function GroupChannel({ groupId }: props) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
