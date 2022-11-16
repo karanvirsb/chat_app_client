@@ -1,5 +1,7 @@
 import React from "react";
+import Spinner from "../../../Components/Spinner/Spinner";
 import Tabs from "../../../Components/Tabs/Tabs";
+import { useGetGroupUsersQuery } from "../../../Redux/slices/groupApiSlice";
 
 type props = {
     isUserMenuOpen: boolean;
@@ -13,6 +15,11 @@ export default function GroupUsers({
     toggleUserMenu,
     groupId,
 }: props) {
+    const {
+        data: users,
+        isLoading,
+        isSuccess,
+    } = useGetGroupUsersQuery(groupId);
     return (
         <article
             className={`flex flex-col flex-grow m-sm:max-w-[250px] sm:fixed sm:right-0 sm:top-0 sm:h-screen sm:w-full sm:${
@@ -51,7 +58,7 @@ export default function GroupUsers({
 
     function createComponents() {
         const components = new Map<string, JSX.Element>();
-        components.set("online", <>Online Users</>);
+        components.set("online", <OnlineUsers></OnlineUsers>);
         components.set("offline", <>Offline Users</>);
 
         return components;
@@ -60,5 +67,20 @@ export default function GroupUsers({
     function createTabs() {
         const tabs = ["online", "offline"];
         return tabs;
+    }
+
+    function OnlineUsers() {
+        if (isLoading) return <Spinner></Spinner>;
+        if (isSuccess && users.data) {
+            return (
+                <ul>
+                    {users.data.map((user) => {
+                        return <li key={user.userId}>{user.username}</li>;
+                    })}
+                </ul>
+            );
+        } else {
+            return <>{users?.error}</>;
+        }
     }
 }
