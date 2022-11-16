@@ -5,9 +5,14 @@ import TopBarContainer from "../../../Components/TopBarContainer/TopBarContainer
 type props = {
     isUserMenuOpen: boolean;
     toggleUserMenu: () => void;
+    selectedChannel: string;
 };
 
-export default function GroupTopBar({ isUserMenuOpen, toggleUserMenu }: props) {
+export default function GroupTopBar({
+    isUserMenuOpen,
+    toggleUserMenu,
+    selectedChannel,
+}: props) {
     return (
         <TopBarContainer>
             <>
