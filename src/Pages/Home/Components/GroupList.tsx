@@ -28,10 +28,9 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
             content = groups.data.map((group, index) => {
                 if (index === activeIndex) {
                     return (
-                        <li>
+                        <li key={group.groupId}>
                             <button
                                 className='btn btn-circle bg-white text-black'
-                                key={group.groupId}
                                 onClick={() =>
                                     setTabToGroup(group.groupId, index)
                                 }
@@ -44,10 +43,9 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
                     );
                 } else {
                     return (
-                        <li>
+                        <li key={group.groupId}>
                             <button
                                 className='btn btn-circle'
-                                key={group.groupId}
                                 onClick={() =>
                                     setTabToGroup(group.groupId, index)
                                 }
