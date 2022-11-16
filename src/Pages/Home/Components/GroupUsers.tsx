@@ -4,10 +4,15 @@ import Tabs from "../../../Components/Tabs/Tabs";
 type props = {
     isUserMenuOpen: boolean;
     toggleUserMenu: () => void;
+    groupId: string;
 };
 // TODO add animation on close
 // Todo move into users
-export default function GroupUsers({ isUserMenuOpen, toggleUserMenu }: props) {
+export default function GroupUsers({
+    isUserMenuOpen,
+    toggleUserMenu,
+    groupId,
+}: props) {
     return (
         <article
             className={`flex flex-col flex-grow m-sm:max-w-[250px] sm:fixed sm:right-0 sm:top-0 sm:h-screen sm:w-full sm:${
