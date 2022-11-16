@@ -18,7 +18,10 @@ export default function GroupChannel({ groupId }: props) {
     return (
         <>
             {isSideBarOpen && (
-                <GroupSidebarInfo groupId={groupId}></GroupSidebarInfo>
+                <GroupSidebarInfo
+                    groupId={groupId}
+                    setSelectedChannel={setSelectedChannel}
+                ></GroupSidebarInfo>
             )}
             <ChannelContainer>
                 <>
