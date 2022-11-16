@@ -2,7 +2,9 @@ import React from "react";
 import Collapse from "../../../Components/Collapse/Collapse";
 import DropDown from "../../../Components/DropDown/DropDown";
 import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
+import Spinner from "../../../Components/Spinner/Spinner";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { useGetGroupQuery } from "../../../Redux/slices/groupApiSlice";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
 type props = {
@@ -16,11 +18,13 @@ export default function GroupSidebarInfo({
     setSelectedChannel,
 }: props) {
     const dispatch = useAppDispatch();
+    const { data: groupInfo, isLoading } = useGetGroupQuery(groupId);
+
     return (
         <SidebarInfo>
             <>
                 <DropDown
-                    btnChildren='Group Name'
+                    btnChildren={getGroupName()}
                     btnClass='btn font-bold h-16 rounded-none w-full'
                     dropDownClass='flex flex-col items-center'
                     listClass='relative top-[125%] w-[90%]'
@@ -74,6 +78,16 @@ export default function GroupSidebarInfo({
             </>
         </SidebarInfo>
     );
+
+    function getGroupName() {
+        return isLoading ? (
+            <Spinner></Spinner>
+        ) : groupInfo && groupInfo.data ? (
+            groupInfo.data.groupName
+        ) : (
+            "Error Occurred"
+        );
+    }
 
     // TODO added pass through values
     function displayChangeGroupNameModal() {
