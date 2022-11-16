@@ -7,7 +7,7 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
 export default function Home() {
     // const [tab, setTab] = useState<"group" | "me">("me");
     const [tab, setTab] = useLocalStorage<"group" | "me">("groupOrMeTab", "me");
-    const [tabId, setTabId] = useState(""); // can be a userId or groupId
+    const [tabId, setTabId] = useLocalStorage<string>("tabId", "-1"); // can be a userId or groupId
 
     return (
         <>
