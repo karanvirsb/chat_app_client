@@ -80,6 +80,7 @@ export default function GroupUsers({
                 </ul>
             );
         } else if (
+            // if its successful but no users or error then no one is online
             users?.success &&
             users.data &&
             users.data?.length < 0 &&
