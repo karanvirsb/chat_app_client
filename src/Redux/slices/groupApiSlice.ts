@@ -76,4 +76,9 @@ export const groupApiSlice = createApi({
     }),
 });
 
-export const { useGetGroupsQuery, useCreateGroupMutation } = groupApiSlice;
+export const {
+    useGetGroupsQuery,
+    useCreateGroupMutation,
+    useGetGroupQuery,
+    useUpdateGroupNameMutation,
+} = groupApiSlice;
