@@ -1,10 +1,10 @@
 import React from "react";
 
 type props = {
-    groupId: string;
+    channelId: string;
 };
 
-export default function GroupChat({ groupId }: props) {
+export default function GroupChat({ channelId }: props) {
     return (
         <div className='bg-chat-bg flex flex-col flex-grow h-full'>
             <div className='flex-grow p-4 w-full '>
