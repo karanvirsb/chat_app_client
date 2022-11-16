@@ -10,6 +10,7 @@ type props = {
     setSelectedChannel: React.Dispatch<React.SetStateAction<string>>;
 };
 
+// TODO create channel components and set selected channel id
 export default function GroupSidebarInfo({
     groupId,
     setSelectedChannel,
