@@ -15,7 +15,9 @@ export default function GroupChannel({ groupId }: props) {
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
     return (
         <>
-            {isSideBarOpen && <GroupSidebarInfo></GroupSidebarInfo>}
+            {isSideBarOpen && (
+                <GroupSidebarInfo groupId={groupId}></GroupSidebarInfo>
+            )}
             <ChannelContainer>
                 <>
                     <GroupTopBar
@@ -23,11 +25,12 @@ export default function GroupChannel({ groupId }: props) {
                         toggleUserMenu={toggleUserMenu}
                     ></GroupTopBar>
                     <div className='flex flex-grow'>
-                        <GroupChat></GroupChat>
+                        <GroupChat groupId={groupId}></GroupChat>
                         {isUserMenuOpen && (
                             <GroupUsers
                                 isUserMenuOpen={isUserMenuOpen}
                                 toggleUserMenu={toggleUserMenu}
+                                groupId={groupId}
                             ></GroupUsers>
                         )}
                     </div>
