@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useGetSession from "../../../Hooks/useGetSession";
 import { useGetGroupsQuery } from "../../../Redux/slices/groupApiSlice";
+import socket from "../../../Sockets";
 
 type props = {
     activeIndex: number;
@@ -16,6 +17,21 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
         isError,
         error,
     } = useGetGroupsQuery(sessionInfo?.userId ?? "1");
+
+    useEffect(() => {
+        // check if its done loading and is successful then add groups into array and add rooms;
+        if (!isLoading && isSuccess) {
+            if (groups.success && groups.data) {
+                const groupIds = [];
+
+                for (const group of groups.data) {
+                    groupIds.push(group.groupId);
+                }
+
+                socket.emit("join_rooms", groupIds);
+            }
+        }
+    }, [isLoading, isSuccess]);
 
     let content;
 
