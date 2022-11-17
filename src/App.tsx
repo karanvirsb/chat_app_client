@@ -56,7 +56,6 @@ SuperTokens.init({
 });
 
 export default function App() {
-    socket.connect();
     return (
         <>
             <SuperTokensWrapper>
