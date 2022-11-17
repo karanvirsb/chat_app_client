@@ -28,7 +28,10 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
                     groupIds.push(group.groupId);
                 }
 
-                socket.emit("join_rooms", groupIds);
+                socket.emit("join_rooms", {
+                    rooms: groupIds,
+                    userId: sessionInfo?.userId,
+                });
             }
         }
     }, [isLoading, isSuccess]);
