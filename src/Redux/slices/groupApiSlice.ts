@@ -1,6 +1,7 @@
 // Import the RTK Query methods from the React-specific entry point
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import socket from "../../Sockets";
+import { isGroupArray } from "../../test/validation/schemaValidation";
 
 export interface IGroup {
     groupName: string;
@@ -127,7 +128,3 @@ export const {
     useGetGroupQuery,
     useGetGroupUsersQuery,
 } = groupApiSlice;
-
-function isGroupArray(arr: IGroup[] | string): arr is IGroup[] {
-    return (arr as IGroup[]).map !== undefined;
-}
