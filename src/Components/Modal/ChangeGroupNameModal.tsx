@@ -9,10 +9,11 @@ import Modal from "./Modal";
 
 type props = {
     groupId: string;
+    previousName: string;
 };
 
 // TODO give group id
-export default function ChangeGroupNameModal({ groupId }: props) {
+export default function ChangeGroupNameModal({ groupId, previousName }: props) {
     const [newName, setNewName] = useState<string>("");
     const [errMsg, setErrMsg] = useState("");
     const [updateGroupName, { isLoading, isSuccess }] =
@@ -33,7 +34,7 @@ export default function ChangeGroupNameModal({ groupId }: props) {
                 <ModalInput
                     labelName='Previous Name'
                     editable={false}
-                    value={""}
+                    value={previousName}
                     inputId='prevName'
                 ></ModalInput>
                 <ModalInput
