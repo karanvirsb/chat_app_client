@@ -119,6 +119,22 @@ export const groupApiSlice = createApi({
                 method: "GET",
             }),
         }),
+        updateGroupName: builder.mutation<
+            returnGroupData,
+            { groupId: string; newName: string }
+        >({
+            query: ({
+                groupId,
+                newName,
+            }: {
+                groupId: string;
+                newName: string;
+            }) => ({
+                url: "/group/name",
+                method: "PUT",
+                body: { groupId, newName },
+            }),
+        }),
     }),
 });
 
