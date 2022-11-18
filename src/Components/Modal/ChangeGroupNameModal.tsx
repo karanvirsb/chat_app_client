@@ -24,7 +24,6 @@ export default function ChangeGroupNameModal({ groupId }: props) {
                     editable={false}
                     value={""}
                     inputId='prevName'
-                    errorMsg={errMsg}
                 ></ModalInput>
                 <ModalInput
                     labelName='New Name'
@@ -32,6 +31,7 @@ export default function ChangeGroupNameModal({ groupId }: props) {
                     value={newName}
                     placeholder='New Group Name'
                     inputId='newName'
+                    errorMsg={errMsg}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
                     <BtnCallToAction
