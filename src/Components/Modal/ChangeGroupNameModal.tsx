@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import { useUpdateGroupNameMutation } from "../../Redux/slices/groupApiSlice";
 import { resetModal } from "../../Redux/slices/modalSlice";
@@ -15,8 +15,17 @@ type props = {
 export default function ChangeGroupNameModal({ groupId }: props) {
     const [newName, setNewName] = useState<string>("");
     const [errMsg, setErrMsg] = useState("");
+    const [updateGroupName, { isLoading, isSuccess }] =
+        useUpdateGroupNameMutation();
     const dispatch = useAppDispatch();
-    const [updateGroupName, { isLoading }] = useUpdateGroupNameMutation();
+
+    useEffect(() => {
+        if (!isLoading && isSuccess) {
+            closeModal();
+            setNewName("");
+            setErrMsg("");
+        }
+    }, [isLoading, isSuccess]);
 
     return (
         <Modal modalName='Change Group Name'>
