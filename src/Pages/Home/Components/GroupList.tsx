@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import useGetSession from "../../../Hooks/useGetSession";
 import { useGetGroupsQuery } from "../../../Redux/slices/groupApiSlice";
 import socket from "../../../Sockets";
+import { isGroupArray } from "../../../test/validation/schemaValidation";
 
 type props = {
     activeIndex: number;
@@ -20,19 +21,17 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
 
     useEffect(() => {
         // check if its done loading and is successful then add groups into array and add rooms;
-        if (!isLoading && isSuccess) {
-            if (groups.success && groups.data) {
-                const groupIds = [];
+        if (!isLoading && isSuccess && isGroupArray(groups)) {
+            const groupIds = [];
 
-                for (const group of groups.data) {
-                    groupIds.push(group.groupId);
-                }
-
-                socket.emit("join_rooms", {
-                    rooms: groupIds,
-                    userId: sessionInfo?.userId,
-                });
+            for (const group of groups) {
+                groupIds.push(group.groupId);
             }
+
+            socket.emit("join_rooms", {
+                rooms: groupIds,
+                userId: sessionInfo?.userId,
+            });
         }
     }, [isLoading, isSuccess]);
 
@@ -41,10 +40,10 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
     if (isLoading) {
         content = <>Loading...</>;
     } else if (isSuccess) {
-        if (groups.data === undefined) {
+        if (groups === undefined) {
             content = <></>;
-        } else {
-            content = groups.data.map((group, index) => {
+        } else if (isGroupArray(groups)) {
+            content = groups.map((group, index) => {
                 if (index === activeIndex) {
                     return (
                         <li key={group.groupId}>
@@ -78,9 +77,9 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
                 }
             });
         }
-    } else if (isError) {
+    } else {
         content = <button className='btn btn-circle'>!</button>;
-        console.error(groups?.error);
+        console.error(groups);
     }
     return <>{content}</>;
 }
