@@ -85,7 +85,14 @@ export default function GroupSidebarInfo({
     // TODO added pass through values
     function displayChangeGroupNameModal() {
         dispatch(
-            setModal({ modalName: "changeGroupName", open: true, options: {} })
+            setModal({
+                modalName: "changeGroupName",
+                open: true,
+                options: {
+                    groupId: groupData.groupId,
+                    previousName: groupData.groupName,
+                },
+            })
         );
     }
 
