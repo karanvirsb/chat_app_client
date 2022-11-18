@@ -134,6 +134,27 @@ export const groupApiSlice = createApi({
                 method: "PUT",
                 body: { groupId, newName },
             }),
+            async onQueryStarted({}, { queryFulfilled }) {
+                try {
+                    // checking if the query has been fullfilled
+                    const { data: updatedGroupName } = await queryFulfilled;
+
+                    // if successful emit an event to update else to display error
+                    if (
+                        updatedGroupName.success &&
+                        updatedGroupName.data !== undefined
+                    ) {
+                        socket.emit(
+                            "update_the_group_name",
+                            updatedGroupName.data
+                        );
+                    } else {
+                        socket.emit("error_occurred", updatedGroupName.error);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            },
         }),
     }),
 });
