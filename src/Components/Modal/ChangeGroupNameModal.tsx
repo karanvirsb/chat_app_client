@@ -6,9 +6,14 @@ import BtnCancelAction from "../Buttons/BtnCancelAction";
 import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
 
+type props = {
+    groupId: string;
+};
+
 // TODO give group id
-export default function ChangeGroupNameModal() {
+export default function ChangeGroupNameModal({ groupId }: props) {
     const [newName, setNewName] = useState<string>("");
+    const [errMsg, setErrMsg] = useState("");
     const dispatch = useAppDispatch();
 
     return (
@@ -19,6 +24,7 @@ export default function ChangeGroupNameModal() {
                     editable={false}
                     value={""}
                     inputId='prevName'
+                    errorMsg={errMsg}
                 ></ModalInput>
                 <ModalInput
                     labelName='New Name'
@@ -43,6 +49,12 @@ export default function ChangeGroupNameModal() {
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setNewName(() => e.target.value);
+
+        if (e.target.value.length > 0) {
+            setErrMsg("");
+        } else {
+            setErrMsg("Group name must be provided.");
+        }
     }
 
     function closeModal() {
@@ -50,7 +62,9 @@ export default function ChangeGroupNameModal() {
     }
 
     // api slice
-    function handleSubmit() {}
+    function handleSubmit() {
+        if (!newName) setErrMsg("Group name must be provided.");
+    }
 }
 
 {
