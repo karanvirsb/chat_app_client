@@ -41,7 +41,7 @@ export default function ChangeGroupNameModal({ groupId, previousName }: props) {
                     labelName='New Name'
                     onChange={handleChange}
                     value={newName}
-                    placeholder='New Group Name'
+                    placeholder='Enter New Group Name Here'
                     inputId='newName'
                     errorMsg={errMsg}
                 ></ModalInput>
