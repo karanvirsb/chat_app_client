@@ -4,21 +4,20 @@ import DropDown from "../../../Components/DropDown/DropDown";
 import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
 import Spinner from "../../../Components/Spinner/Spinner";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
-import { useGetGroupQuery } from "../../../Redux/slices/groupApiSlice";
+import { IGroup } from "../../../Redux/slices/groupApiSlice";
 import { setModal } from "../../../Redux/slices/modalSlice";
 
 type props = {
-    groupId: string;
+    groupData: IGroup;
     setSelectedChannel: React.Dispatch<React.SetStateAction<string>>;
 };
 
 // TODO create channel components and set selected channel id
 export default function GroupSidebarInfo({
-    groupId,
+    groupData,
     setSelectedChannel,
 }: props) {
     const dispatch = useAppDispatch();
-    const { data: groupInfo, isLoading } = useGetGroupQuery(groupId);
 
     return (
         <SidebarInfo>
@@ -80,13 +79,7 @@ export default function GroupSidebarInfo({
     );
 
     function getGroupName() {
-        return isLoading ? (
-            <Spinner></Spinner>
-        ) : groupInfo && groupInfo.data ? (
-            groupInfo.data.groupName
-        ) : (
-            "Error Occurred"
-        );
+        return groupData.groupName;
     }
 
     // TODO added pass through values
