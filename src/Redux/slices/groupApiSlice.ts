@@ -1,5 +1,6 @@
 // Import the RTK Query methods from the React-specific entry point
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import socket from "../../Sockets";
 
 export interface IGroup {
     groupName: string;
@@ -39,9 +40,50 @@ export const groupApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
     tagTypes: ["Groups", "Group"],
     endpoints: (builder) => ({
-        getGroups: builder.query<returnGroupsData, string>({
+        getGroups: builder.query<IGroup[] | string, string>({
             query: (userId) => ({ url: `/group/userId/${userId}` }),
+            transformResponse: (response: returnGroupsData) => {
+                if (response.success && response.data !== undefined) {
+                    return response.data;
+                } else {
+                    return response.error;
+                }
+            },
             providesTags: ["Groups"],
+            async onCacheEntryAdded(
+                arg,
+                { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+            ) {
+                // create a websocket connection when the cache subscription starts
+                try {
+                    // wait for the initial query to resolve before proceeding
+                    await cacheDataLoaded;
+                    // when data is received from the socket connection to the server,
+                    // if it is a message and for the appropriate channel,
+                    // update our query result with the received message
+                    const listener = (event: MessageEvent) => {
+                        const data: IGroup = JSON.parse(event.data);
+                        updateCachedData((draft: IGroup[] | string) => {
+                            if (isGroupArray(draft)) {
+                                draft.map((group) =>
+                                    group.groupId === data.groupId
+                                        ? data
+                                        : group
+                                );
+                                return draft;
+                            }
+                        });
+                    };
+                    socket.on("update_group_name", listener);
+                } catch {
+                    // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
+                    // in which case `cacheDataLoaded` will throw
+                }
+                // cacheEntryRemoved will resolve when the cache subscription is no longer active
+                await cacheEntryRemoved;
+                // perform cleanup steps once the `cacheEntryRemoved` promise resolves
+                socket.off("update_group_name");
+            },
         }),
         getGroup: builder.query<returnGroupData, string>({
             query: (groupId: string) => ({
@@ -70,23 +112,6 @@ export const groupApiSlice = createApi({
             }),
             invalidatesTags: ["Groups"],
         }),
-        updateGroupName: builder.mutation<
-            returnGroupData,
-            { groupId: string; newName: string }
-        >({
-            query: ({
-                groupId,
-                newName,
-            }: {
-                groupId: string;
-                newName: string;
-            }) => ({
-                url: "/group/name",
-                method: "PUT",
-                body: { groupId, newName },
-            }),
-            invalidatesTags: ["Groups", "Group"],
-        }),
         getGroupUsers: builder.query<returnGroupUserData, string>({
             query: (groupId: string) => ({
                 url: `/group/users/${groupId}`,
@@ -100,6 +125,9 @@ export const {
     useGetGroupsQuery,
     useCreateGroupMutation,
     useGetGroupQuery,
-    useUpdateGroupNameMutation,
     useGetGroupUsersQuery,
 } = groupApiSlice;
+
+function isGroupArray(arr: IGroup[] | string): arr is IGroup[] {
+    return (arr as IGroup[]).map !== undefined;
+}
