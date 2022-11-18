@@ -15,8 +15,6 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
         data: groups,
         isLoading,
         isSuccess,
-        isError,
-        error,
     } = useGetGroupsQuery(sessionInfo?.userId ?? "1");
 
     useEffect(() => {
