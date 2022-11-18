@@ -20,7 +20,10 @@ export default function ModalDisplay() {
     return (
         <>
             {modalOpen && modalName === "changeGroupName" && (
-                <ChangeGroupNameModal></ChangeGroupNameModal>
+                <ChangeGroupNameModal
+                    groupId={modalOptions.groupId}
+                    previousName={modalOptions.previousName}
+                ></ChangeGroupNameModal>
             )}
 
             {modalOpen && modalName === "inviteUser" && (
