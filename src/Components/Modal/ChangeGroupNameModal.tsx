@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
+import { useUpdateGroupNameMutation } from "../../Redux/slices/groupApiSlice";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
@@ -15,6 +16,7 @@ export default function ChangeGroupNameModal({ groupId }: props) {
     const [newName, setNewName] = useState<string>("");
     const [errMsg, setErrMsg] = useState("");
     const dispatch = useAppDispatch();
+    const [updateGroupName, { isLoading }] = useUpdateGroupNameMutation();
 
     return (
         <Modal modalName='Change Group Name'>
@@ -37,6 +39,7 @@ export default function ChangeGroupNameModal({ groupId }: props) {
                     <BtnCallToAction
                         text='Change'
                         onClick={handleSubmit}
+                        isLoading={isLoading}
                     ></BtnCallToAction>
                     <BtnCancelAction
                         text='Cancel'
@@ -64,6 +67,14 @@ export default function ChangeGroupNameModal({ groupId }: props) {
     // api slice
     function handleSubmit() {
         if (!newName) setErrMsg("Group name must be provided.");
+
+        if (!isLoading) {
+            try {
+                updateGroupName({ groupId, newName });
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 
