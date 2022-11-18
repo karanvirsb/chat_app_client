@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import ChannelContainer from "../../../Components/ChannelContainer/ChannelContainer";
 import { useAppSelector } from "../../../Hooks/reduxHooks";
+import { IGroup } from "../../../Redux/slices/groupApiSlice";
 import GroupChat from "./GroupChat";
 import GroupSidebarInfo from "./GroupSidebarInfo";
 import GroupTopBar from "./GroupTopBar";
 import GroupUsers from "./GroupUsers";
 
 type props = {
-    groupId: string;
+    groupData: IGroup;
 };
 
-export default function GroupChannel({ groupId }: props) {
+export default function GroupChannel({ groupData }: props) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
     const [selectedChannel, setSelectedChannel] = useState(""); //TODO this is for when a different channel is selected for the chat
     const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
@@ -19,7 +20,7 @@ export default function GroupChannel({ groupId }: props) {
         <>
             {isSideBarOpen && (
                 <GroupSidebarInfo
-                    groupId={groupId}
+                    groupData={groupData}
                     setSelectedChannel={setSelectedChannel}
                 ></GroupSidebarInfo>
             )}
@@ -36,7 +37,7 @@ export default function GroupChannel({ groupId }: props) {
                             <GroupUsers
                                 isUserMenuOpen={isUserMenuOpen}
                                 toggleUserMenu={toggleUserMenu}
-                                groupId={groupId}
+                                groupId={groupData.groupId}
                             ></GroupUsers>
                         )}
                     </div>
