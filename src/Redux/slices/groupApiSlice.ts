@@ -122,7 +122,10 @@ export const groupApiSlice = createApi({
                     console.log(err);
                 }
             },
-            invalidatesTags: ["Groups"],
+            invalidatesTags: (result, err, arg) => [
+                "Groups",
+                { type: "Group", id: arg.groupId },
+            ],
         }),
     }),
 });
