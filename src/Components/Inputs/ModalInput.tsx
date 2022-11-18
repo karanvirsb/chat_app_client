@@ -48,6 +48,7 @@ export default function ModalInput({
                     errorMsg && "outline outline-2 outline-red-400"
                 }`}
                 contentEditable={editable}
+                readOnly={!editable}
                 onChange={onChange ?? undefined}
                 value={value}
             />
