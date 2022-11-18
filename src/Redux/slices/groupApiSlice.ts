@@ -164,4 +164,5 @@ export const {
     useCreateGroupMutation,
     useGetGroupQuery,
     useGetGroupUsersQuery,
+    useUpdateGroupNameMutation,
 } = groupApiSlice;
