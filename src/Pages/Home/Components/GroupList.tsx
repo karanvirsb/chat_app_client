@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import useGetSession from "../../../Hooks/useGetSession";
-import { useGetGroupsQuery } from "../../../Redux/slices/groupApiSlice";
+import { IGroup, useGetGroupsQuery } from "../../../Redux/slices/groupApiSlice";
 import socket from "../../../Sockets";
 import { isGroupArray } from "../../../test/validation/schemaValidation";
 
 type props = {
     activeIndex: number;
     setTabToGroup: (id: string, index: number) => void;
+    setSelectedGroupData: React.Dispatch<React.SetStateAction<IGroup>>;
 };
 
-export default function GroupList({ setTabToGroup, activeIndex }: props) {
+export default function GroupList({
+    setTabToGroup,
+    setSelectedGroupData,
+    activeIndex,
+}: props) {
     const { sessionInfo } = useGetSession();
     const {
         data: groups,
@@ -47,9 +52,10 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
                         <li key={group.groupId}>
                             <button
                                 className='btn btn-circle bg-white text-black'
-                                onClick={() =>
-                                    setTabToGroup(group.groupId, index)
-                                }
+                                onClick={() => {
+                                    setTabToGroup(group.groupId, index);
+                                    setSelectedGroupData(group);
+                                }}
                             >
                                 {
                                     group.groupName[0] // TODO split and get first index
@@ -62,9 +68,10 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
                         <li key={group.groupId}>
                             <button
                                 className='btn btn-circle'
-                                onClick={() =>
-                                    setTabToGroup(group.groupId, index)
-                                }
+                                onClick={() => {
+                                    setTabToGroup(group.groupId, index);
+                                    setSelectedGroupData(group);
+                                }}
                             >
                                 {
                                     group.groupName[0] // TODO split and get first index
