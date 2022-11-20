@@ -25,7 +25,7 @@ export default function CreateGroupModal() {
     }, [isLoading, isSuccess]);
 
     return (
-        <Modal modalName='Change Group Name' modalClass='flex'>
+        <Modal modalName='Create Group' modalClass='flex'>
             <div className='flex flex-col flex-grow w-full gap-4 mt-6 justify-end'>
                 <ModalInput
                     labelName='Group Name'
