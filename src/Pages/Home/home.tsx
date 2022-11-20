@@ -13,7 +13,7 @@ export default function Home() {
         "selectedGroupData",
         { groupId: "", groupName: "", dateCreated: new Date(), inviteCode: "" }
     );
-
+    console.log(selectedGroupData);
     return (
         <>
             <div className='flex h-screen'>
