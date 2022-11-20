@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
+import { useDeleteGroupMutation } from "../../Redux/slices/groupApiSlice";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
 
-export default function DeleteGroupModal() {
+type props = {
+    groupId: string;
+};
+
+export default function DeleteGroupModal({ groupId }: props) {
     const dispatch = useAppDispatch();
+    const [deleteGroup, { isLoading, isSuccess }] = useDeleteGroupMutation();
+
+    useEffect(() => {
+        if (!isLoading && isSuccess) {
+            handleCancel();
+        }
+    }, [isLoading, isSuccess]);
+
     return (
         <MutationModal
             btnCTAName='Yes'
             btnCancelName='No'
             modalName='Delete Group'
             text='Are you sure you want to delete the group?'
+            loading={isLoading}
             handleCancel={handleCancel}
             handleSubmit={handleSubmit}
         ></MutationModal>
     );
 
-    // TODO handle deleting group
-    function handleSubmit() {}
+    function handleSubmit() {
+        deleteGroup(groupId);
+    }
 
     function handleCancel() {
         dispatch(resetModal());
