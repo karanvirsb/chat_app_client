@@ -107,7 +107,7 @@ export const groupApiSlice = createApi({
                 method: "PUT",
                 body: { groupId, newGroupName: newName },
             }),
-            async onQueryStarted({}, { queryFulfilled, dispatch }) {
+            async onQueryStarted({}, { queryFulfilled }) {
                 try {
                     // checking if the query has been fullfilled
                     const { data: updatedGroupName } = await queryFulfilled;
@@ -128,10 +128,27 @@ export const groupApiSlice = createApi({
                     console.log(err);
                 }
             },
-            invalidatesTags: (result, err, arg) => [
-                "Groups",
-                { type: "Group", id: arg.groupId },
-            ],
+            async onCacheEntryAdded(arg, { dispatch }) {
+                // create a websocket connection when the cache subscription starts
+
+                try {
+                    // when data is received from the socket connection to the server,
+                    // if it is a message and for the appropriate channel,
+                    // update our query result with the received message
+                    const listener = (event: MessageEvent) => {
+                        dispatch(
+                            groupApiSlice.util.invalidateTags([
+                                "Groups",
+                                "Group",
+                            ])
+                        );
+                    };
+
+                    socket.on("update_group_name", listener);
+                } catch (err) {
+                    console.error(err);
+                }
+            },
         }),
     }),
 });
