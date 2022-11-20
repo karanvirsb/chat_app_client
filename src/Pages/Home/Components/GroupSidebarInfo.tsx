@@ -104,9 +104,16 @@ export default function GroupSidebarInfo({
     }
 
     function displayInviteUserModal() {
-        dispatch(
-            setModal({ modalName: "inviteUser", open: true, options: {} })
-        );
+        if (isGroup(group))
+            dispatch(
+                setModal({
+                    modalName: "inviteUser",
+                    open: true,
+                    options: {
+                        inviteCode: group.inviteCode,
+                    },
+                })
+            );
     }
 
     function displayDeleteGroupModal() {
