@@ -4,20 +4,23 @@ import DropDown from "../../../Components/DropDown/DropDown";
 import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
 import Spinner from "../../../Components/Spinner/Spinner";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
-import { IGroup } from "../../../Redux/slices/groupApiSlice";
+import { IGroup, useGetGroupQuery } from "../../../Redux/slices/groupApiSlice";
 import { setModal } from "../../../Redux/slices/modalSlice";
+import { isGroup } from "../../../test/validation/schemaValidation";
 
 type props = {
-    groupData: IGroup;
+    groupId: string;
     setSelectedChannel: React.Dispatch<React.SetStateAction<string>>;
 };
 
 // TODO create channel components and set selected channel id
 export default function GroupSidebarInfo({
-    groupData,
+    groupId,
     setSelectedChannel,
 }: props) {
     const dispatch = useAppDispatch();
+
+    const { data: group, isLoading } = useGetGroupQuery(groupId);
 
     return (
         <SidebarInfo>
@@ -79,21 +82,25 @@ export default function GroupSidebarInfo({
     );
 
     function getGroupName() {
-        return groupData.groupName;
+        if (isLoading) {
+            return <Spinner></Spinner>;
+        }
+        return isGroup(group) ? group?.groupName : "";
     }
 
     // TODO added pass through values
     function displayChangeGroupNameModal() {
-        dispatch(
-            setModal({
-                modalName: "changeGroupName",
-                open: true,
-                options: {
-                    groupId: groupData.groupId,
-                    previousName: groupData.groupName,
-                },
-            })
-        );
+        if (isGroup(group))
+            dispatch(
+                setModal({
+                    modalName: "changeGroupName",
+                    open: true,
+                    options: {
+                        groupId: group.groupId,
+                        previousName: group.groupName,
+                    },
+                })
+            );
     }
 
     function displayInviteUserModal() {
