@@ -10,6 +10,7 @@ type props = {
     btnCTAName: string;
     btnCancelName: string;
     text: string;
+    loading: boolean;
 };
 
 export default function MutationModal({
@@ -19,6 +20,7 @@ export default function MutationModal({
     btnCTAName,
     btnCancelName,
     text,
+    loading,
 }: props) {
     return (
         <Modal modalName={modalName} modalClass='!max-w-[300px] flex'>
@@ -32,6 +34,7 @@ export default function MutationModal({
                     <BtnCallToAction
                         onClick={handleSubmit}
                         text={btnCTAName}
+                        isLoading={loading}
                     ></BtnCallToAction>
                     <BtnCancelAction
                         onClick={handleCancel}
