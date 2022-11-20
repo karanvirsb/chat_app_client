@@ -142,6 +142,8 @@ export const groupApiSlice = createApi({
                                 "Group",
                             ])
                         );
+
+                        socket.off("update_group_name"); // clean up
                     };
 
                     socket.on("update_group_name", listener);
