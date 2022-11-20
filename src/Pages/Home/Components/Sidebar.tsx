@@ -7,19 +7,13 @@ import { setModal } from "../../../Redux/slices/modalSlice";
 import { useNavigate } from "react-router";
 import GroupList from "./GroupList";
 import useLocalStorage from "../../../Hooks/useLocalStorage";
-import { IGroup } from "../../../Redux/slices/groupApiSlice";
 
 type props = {
     setTab: React.Dispatch<React.SetStateAction<"group" | "me">>;
     setTabId: React.Dispatch<React.SetStateAction<string>>;
-    setSelectedGroupData: React.Dispatch<React.SetStateAction<IGroup>>;
 };
 
-export default function Sidebar({
-    setTab,
-    setTabId,
-    setSelectedGroupData,
-}: props) {
+export default function Sidebar({ setTab, setTabId }: props) {
     // const [activeIndex, setActiveIndex] = useState(-1);
     const [activeIndex, setActiveIndex] = useLocalStorage("activeIndex", -1);
     const navigate = useNavigate();
@@ -50,7 +44,6 @@ export default function Sidebar({
                     <GroupList
                         activeIndex={activeIndex}
                         setTabToGroup={setTabToGroup}
-                        setSelectedGroupData={setSelectedGroupData}
                     ></GroupList>
                 </ul>
 
