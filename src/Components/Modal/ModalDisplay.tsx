@@ -31,7 +31,9 @@ export default function ModalDisplay() {
             )}
 
             {modalOpen && modalName === "deleteGroup" && (
-                <DeleteGroupModal></DeleteGroupModal>
+                <DeleteGroupModal
+                    groupId={modalOptions.groupId}
+                ></DeleteGroupModal>
             )}
 
             {modalOpen && modalName === "leaveGroup" && (
