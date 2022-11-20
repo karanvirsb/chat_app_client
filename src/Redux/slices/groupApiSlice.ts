@@ -53,11 +53,17 @@ export const groupApiSlice = createApi({
             },
             providesTags: ["Groups"],
         }),
-        getGroup: builder.query<returnGroupData, string>({
+        getGroup: builder.query<IGroup | string, string>({
             query: (groupId: string) => ({
                 url: `/group/${groupId}`,
                 method: "GET",
             }),
+            transformResponse: (response: returnGroupData) => {
+                if (response.success && response.data) {
+                    return response.data;
+                }
+                return response.error;
+            },
             providesTags: ["Group"],
         }),
         createGroup: builder.mutation<
