@@ -110,19 +110,16 @@ export const groupApiSlice = createApi({
             async onQueryStarted({}, { queryFulfilled }) {
                 try {
                     // checking if the query has been fullfilled
-                    const { data: updatedGroupName } = await queryFulfilled;
+                    const { data: deletedGroup } = await queryFulfilled;
 
                     // if successful emit an event to update else to display error
                     if (
-                        updatedGroupName.success &&
-                        updatedGroupName.data !== undefined
+                        deletedGroup.success &&
+                        deletedGroup.data !== undefined
                     ) {
-                        socket.emit(
-                            "update_the_group_name",
-                            updatedGroupName.data
-                        );
+                        socket.emit("update_the_group_name", deletedGroup.data);
                     } else {
-                        socket.emit("error_occurred", updatedGroupName.error);
+                        socket.emit("error_occurred", deletedGroup.error);
                     }
                 } catch (err) {
                     console.log(err);
@@ -147,6 +144,52 @@ export const groupApiSlice = createApi({
                     };
 
                     socket.on("update_group_name", listener);
+                } catch (err) {
+                    console.error(err);
+                }
+            },
+        }),
+        deleteGroup: builder.mutation({
+            query: (groupId: string) => ({
+                url: "group",
+                method: "DELETE",
+                body: { groupId },
+            }),
+            async onQueryStarted({}, { queryFulfilled }) {
+                try {
+                    // checking if the query has been fullfilled
+                    const { data: deletedGroup } = await queryFulfilled;
+
+                    // if successful emit an event to delete the group else to display error
+                    if (
+                        deletedGroup.success &&
+                        deletedGroup.data !== undefined
+                    ) {
+                        socket.emit("delete_the_group", deletedGroup.data);
+                    } else {
+                        socket.emit("error_occurred", deletedGroup.error);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            },
+            async onCacheEntryAdded(arg, { dispatch }) {
+                try {
+                    const listener = () => {
+                        dispatch(
+                            groupApiSlice.util.invalidateTags([
+                                "Groups",
+                                "Group",
+                            ])
+
+                            // TODO for anyone in the group show a modal message
+                            // TODO check if group is visible then show modal
+                        );
+
+                        socket.off("delete_group"); // clean up
+                    };
+
+                    socket.on("delete_group", listener);
                 } catch (err) {
                     console.error(err);
                 }
