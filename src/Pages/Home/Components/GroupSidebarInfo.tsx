@@ -110,9 +110,14 @@ export default function GroupSidebarInfo({
     }
 
     function displayDeleteGroupModal() {
-        dispatch(
-            setModal({ modalName: "deleteGroup", open: true, options: {} })
-        );
+        if (isGroup(group))
+            dispatch(
+                setModal({
+                    modalName: "deleteGroup",
+                    open: true,
+                    options: { groupId: group.groupId },
+                })
+            );
     }
 
     function displayLeaveGroupModal() {
