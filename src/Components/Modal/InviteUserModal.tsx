@@ -6,7 +6,11 @@ import BtnCancelAction from "../Buttons/BtnCancelAction";
 import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
 
-export default function InviteUserModal() {
+type props = {
+    inviteCode: string;
+};
+
+export default function InviteUserModal({ inviteCode }: props) {
     const [usernameSearch, setUsernameSearch] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
     const dispatch = useAppDispatch();
@@ -20,7 +24,7 @@ export default function InviteUserModal() {
                     inputId='inviteCode'
                     labelName='Invite Code'
                     editable={false}
-                    placeholder=''
+                    value={inviteCode}
                     formClass='items-baseline'
                     inputClass='mb-6'
                 >
