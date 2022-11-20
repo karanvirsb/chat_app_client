@@ -3,6 +3,7 @@ import { useAppDispatch } from "../../Hooks/reduxHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
+import CopiedPopUp from "../CopiedPopUp/CopiedPopUp";
 import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
 
@@ -13,53 +14,59 @@ type props = {
 export default function InviteUserModal({ inviteCode }: props) {
     const [usernameSearch, setUsernameSearch] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [copied, setCopied] = useState(false);
+
     const dispatch = useAppDispatch();
     // TODO useEffect that checks user name in database
 
     return (
-        <Modal modalName='Invite User'>
-            <div className='flex flex-col gap-4 mt-6'>
-                {/* TODO add invite url */}
-                <ModalInput
-                    inputId='inviteCode'
-                    labelName='Invite Code'
-                    editable={false}
-                    value={`http://localhost:3000/invite/${inviteCode}`}
-                    formClass='items-baseline'
-                    inputClass='mb-6'
-                >
-                    <BtnCallToAction
-                        text='Copy'
-                        onClick={handleCopyInviteCode}
-                    ></BtnCallToAction>
-                </ModalInput>
-                <ModalInput
-                    inputId='inviteUserSearch'
-                    labelName='Invite User'
-                    type='search'
-                    placeholder='Search User'
-                    value={usernameSearch}
-                    onChange={handleUserSearch}
-                    errorMsg={errorMsg}
-                ></ModalInput>
-                <div className='flex gap-4 mt-2'>
-                    <BtnCallToAction
-                        onClick={handleSubmit}
-                        text='Send'
-                    ></BtnCallToAction>
-                    <BtnCancelAction
-                        onClick={handleCancel}
-                        text='Cancel'
-                    ></BtnCancelAction>
+        <>
+            <Modal modalName='Invite User'>
+                <div className='flex flex-col gap-4 mt-6'>
+                    {/* TODO add invite url */}
+                    <ModalInput
+                        inputId='inviteCode'
+                        labelName='Invite Code'
+                        editable={false}
+                        value={`http://localhost:3000/invite/${inviteCode}`}
+                        formClass='items-baseline'
+                        inputClass='mb-6'
+                    >
+                        <BtnCallToAction
+                            text='Copy'
+                            onClick={handleCopyInviteCode}
+                        ></BtnCallToAction>
+                    </ModalInput>
+                    <ModalInput
+                        inputId='inviteUserSearch'
+                        labelName='Invite User'
+                        type='search'
+                        placeholder='Search User'
+                        value={usernameSearch}
+                        onChange={handleUserSearch}
+                        errorMsg={errorMsg}
+                    ></ModalInput>
+                    <div className='flex gap-4 mt-2'>
+                        <BtnCallToAction
+                            onClick={handleSubmit}
+                            text='Send'
+                        ></BtnCallToAction>
+                        <BtnCancelAction
+                            onClick={handleCancel}
+                            text='Cancel'
+                        ></BtnCancelAction>
+                    </div>
                 </div>
-            </div>
-        </Modal>
+            </Modal>
+            <CopiedPopUp copied={copied} setCopied={setCopied}></CopiedPopUp>
+        </>
     );
 
     function handleCopyInviteCode() {
         // TODO pop up message saying "Copied Text"
         const text = "copied code"; // TODO replace with invite code url
         navigator.clipboard.writeText(text);
+        setCopied(true);
     }
 
     function handleUserSearch(e: React.ChangeEvent<HTMLInputElement>) {
