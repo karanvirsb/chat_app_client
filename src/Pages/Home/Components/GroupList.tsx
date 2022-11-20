@@ -7,20 +7,15 @@ import { isGroupArray } from "../../../test/validation/schemaValidation";
 type props = {
     activeIndex: number;
     setTabToGroup: (id: string, index: number) => void;
-    setSelectedGroupData: React.Dispatch<React.SetStateAction<IGroup>>;
 };
 
-export default function GroupList({
-    setTabToGroup,
-    setSelectedGroupData,
-    activeIndex,
-}: props) {
+export default function GroupList({ setTabToGroup, activeIndex }: props) {
     const { sessionInfo } = useGetSession();
     const {
         data: groups,
         isLoading,
         isSuccess,
-    } = useGetGroupsQuery(sessionInfo?.userId ?? "1");
+    } = useGetGroupsQuery(sessionInfo?.userId);
 
     useEffect(() => {
         // check if its done loading and is successful then add groups into array and add rooms;
@@ -54,7 +49,6 @@ export default function GroupList({
                                 className='btn btn-circle bg-white text-black'
                                 onClick={() => {
                                     setTabToGroup(group.groupId, index);
-                                    setSelectedGroupData(group);
                                 }}
                             >
                                 {
@@ -70,7 +64,6 @@ export default function GroupList({
                                 className='btn btn-circle'
                                 onClick={() => {
                                     setTabToGroup(group.groupId, index);
-                                    setSelectedGroupData(group);
                                 }}
                             >
                                 {
