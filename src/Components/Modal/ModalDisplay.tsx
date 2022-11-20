@@ -27,7 +27,9 @@ export default function ModalDisplay() {
             )}
 
             {modalOpen && modalName === "inviteUser" && (
-                <InviteUserModal></InviteUserModal>
+                <InviteUserModal
+                    inviteCode={modalOptions.inviteCode}
+                ></InviteUserModal>
             )}
 
             {modalOpen && modalName === "deleteGroup" && (
