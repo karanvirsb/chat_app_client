@@ -151,7 +151,7 @@ export const groupApiSlice = createApi({
         }),
         deleteGroup: builder.mutation({
             query: (groupId: string) => ({
-                url: "group",
+                url: "/group",
                 method: "DELETE",
                 body: { groupId },
             }),
@@ -204,4 +204,5 @@ export const {
     useGetGroupQuery,
     useGetGroupUsersQuery,
     useUpdateGroupNameMutation,
+    useDeleteGroupMutation,
 } = groupApiSlice;
