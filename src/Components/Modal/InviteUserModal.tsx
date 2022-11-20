@@ -24,7 +24,7 @@ export default function InviteUserModal({ inviteCode }: props) {
                     inputId='inviteCode'
                     labelName='Invite Code'
                     editable={false}
-                    value={inviteCode}
+                    value={`http://localhost:3000/invite/${inviteCode}`}
                     formClass='items-baseline'
                     inputClass='mb-6'
                 >
