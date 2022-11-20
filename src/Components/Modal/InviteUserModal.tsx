@@ -19,6 +19,7 @@ export default function InviteUserModal({ inviteCode }: props) {
     const dispatch = useAppDispatch();
     // TODO useEffect that checks user name in database
 
+    const url = `http://localhost:3000/invite/${inviteCode}`;
     return (
         <>
             <Modal modalName='Invite User'>
@@ -28,7 +29,7 @@ export default function InviteUserModal({ inviteCode }: props) {
                         inputId='inviteCode'
                         labelName='Invite Code'
                         editable={false}
-                        value={`http://localhost:3000/invite/${inviteCode}`}
+                        value={url}
                         formClass='items-baseline'
                         inputClass='mb-6'
                     >
@@ -63,9 +64,7 @@ export default function InviteUserModal({ inviteCode }: props) {
     );
 
     function handleCopyInviteCode() {
-        // TODO pop up message saying "Copied Text"
-        const text = "copied code"; // TODO replace with invite code url
-        navigator.clipboard.writeText(text);
+        navigator.clipboard.writeText(url);
         setCopied(true);
     }
 
