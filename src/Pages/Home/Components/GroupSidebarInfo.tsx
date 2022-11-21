@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Collapse from "../../../Components/Collapse/Collapse";
 import DropDown from "../../../Components/DropDown/DropDown";
 import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
 import Spinner from "../../../Components/Spinner/Spinner";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
-import { IGroup, useGetGroupQuery } from "../../../Redux/slices/groupApiSlice";
+import useGetSession from "../../../Hooks/useGetSession";
+import { groupApiSlice } from "../../../Redux/slices/groupApiSlice";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { isGroup } from "../../../test/validation/schemaValidation";
+import useFilterGroups from "../Hooks/useFilterGroups";
 
 type props = {
     groupId: string;
@@ -20,7 +22,11 @@ export default function GroupSidebarInfo({
 }: props) {
     const dispatch = useAppDispatch();
 
-    const { data: group, isLoading } = useGetGroupQuery(groupId);
+    const { sessionInfo } = useGetSession();
+
+    const { data: groups, isLoading } =
+        groupApiSlice.endpoints.getGroups.useQuery(sessionInfo?.userId);
+    const group = useFilterGroups({ groups, groupId });
 
     return (
         <SidebarInfo>
