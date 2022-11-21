@@ -133,12 +133,7 @@ export const groupApiSlice = createApi({
                     // if it is a message and for the appropriate channel,
                     // update our query result with the received message
                     const listener = (event: MessageEvent) => {
-                        dispatch(
-                            groupApiSlice.util.invalidateTags([
-                                "Groups",
-                                "Group",
-                            ])
-                        );
+                        dispatch(groupApiSlice.util.invalidateTags(["Groups"]));
 
                         socket.off("update_group_name"); // clean up
                     };
@@ -177,10 +172,7 @@ export const groupApiSlice = createApi({
                 try {
                     const listener = () => {
                         dispatch(
-                            groupApiSlice.util.invalidateTags([
-                                "Groups",
-                                "Group",
-                            ])
+                            groupApiSlice.util.invalidateTags(["Groups"])
 
                             // TODO for anyone in the group show a modal message
                             // TODO check if group is visible then show modal
