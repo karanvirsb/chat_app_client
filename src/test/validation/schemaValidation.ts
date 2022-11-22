@@ -1,4 +1,4 @@
-import { IGroup, IGroupUser } from "../../Redux/slices/groupApiSlice";
+import { IGroup, IUser } from "../../Redux/slices/groupApiSlice";
 
 export function isGroupArray(
     arr: IGroup[] | string | undefined
@@ -12,9 +12,9 @@ export function isGroup(item: IGroup | string | undefined): item is IGroup {
     return (item as IGroup).groupId !== undefined;
 }
 
-export function isGroupUser(
-    item: IGroupUser | string | undefined
-): item is IGroupUser {
+export function areGroupUsers(
+    item: IUser[] | string | undefined
+): item is IUser[] {
     if (item === undefined) return false;
-    return (item as IGroupUser).gId !== undefined;
+    return (item as IUser[]).map !== undefined;
 }
