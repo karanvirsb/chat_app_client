@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import Spinner from "../../Components/Spinner/Spinner";
 import useGetSession from "../../Hooks/useGetSession";
 
-export default function invite() {
+export default function Invite() {
     const { sessionInfo } = useGetSession();
     const { inviteCode } = useParams();
     // get the location from
