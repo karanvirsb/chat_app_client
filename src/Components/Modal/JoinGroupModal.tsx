@@ -21,9 +21,6 @@ type props = {
     inviteCode: string;
 };
 
-// TODO have invite code as a parameter
-// TODO get group and members
-// TODO display are you sure you want to join [groupName] and then how many members are online and offline
 export default function JoinGroupModal({ inviteCode }: props) {
     const { sessionInfo } = useGetSession();
     const dispatch = useAppDispatch();
@@ -32,6 +29,9 @@ export default function JoinGroupModal({ inviteCode }: props) {
         isSuccess,
         isLoading,
     } = useGetGroupByInviteCodeQuery(inviteCode);
+    const { data: groups, isLoading: isGroupsLoading } = useGetGroupsQuery(
+        sessionInfo?.userId
+    ); // TODO instead of fetching all groups only fetch one
     const { data: groupUsers, isLoading: areUsersLoading } =
         useGetGroupUsersQuery(
             isGroup(group) && isSuccess ? group.groupId : "",
@@ -39,9 +39,6 @@ export default function JoinGroupModal({ inviteCode }: props) {
                 skip: !isSuccess,
             }
         );
-    const { data: groups, isLoading: isGroupsLoading } = useGetGroupsQuery(
-        sessionInfo?.userId
-    );
 
     if (areUsersLoading || isLoading || isGroupsLoading) {
         return (
