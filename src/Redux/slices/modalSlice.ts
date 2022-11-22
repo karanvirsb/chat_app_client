@@ -17,6 +17,7 @@ interface ModalState {
         | "editUsername"
         | "editEmail"
         | "editPassword"
+        | "joinGroup"
         | "";
 }
 
