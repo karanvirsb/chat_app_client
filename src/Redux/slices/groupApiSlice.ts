@@ -35,7 +35,7 @@ export type returnGroupUserData = {
     error: string;
 };
 
-export type groupUsers = {
+export type IGroupUser = {
     gId: string;
     uId: string;
     roles: number[];
@@ -43,7 +43,7 @@ export type groupUsers = {
 
 export type returnAddGroupUserData = {
     success: boolean;
-    data: groupUsers | undefined;
+    data: IGroupUser | undefined;
     error: string;
 };
 
