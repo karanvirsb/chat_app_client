@@ -11,7 +11,7 @@ import DeleteAccountModal from "./DeleteAccountModal";
 import EditUsernameModal from "./EditUsernameModal";
 import EditEmailModal from "./EditEmailModal";
 import EditPasswordModal from "./EditPasswordModal";
-import JoinGroupModal from "./joinGroupModal";
+import JoinGroupModal from "./JoinGroupModal";
 
 export default function ModalDisplay() {
     const modalOpen = useAppSelector((state) => state.modalReducer.open);
