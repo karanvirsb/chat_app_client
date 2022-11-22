@@ -35,7 +35,7 @@ export type returnGroupUserData = {
     error: string;
 };
 
-export type IGroupUser = {
+export type groupUsers = {
     gId: string;
     uId: string;
     roles: number[];
@@ -43,7 +43,7 @@ export type IGroupUser = {
 
 export type returnAddGroupUserData = {
     success: boolean;
-    data: IGroupUser | undefined;
+    data: groupUsers | undefined;
     error: string;
 };
 
@@ -111,11 +111,18 @@ export const groupApiSlice = createApi({
             }),
             invalidatesTags: ["Groups"],
         }),
-        getGroupUsers: builder.query<returnGroupUserData, string>({
+        getGroupUsers: builder.query<IUser[] | string, string>({
             query: (groupId: string) => ({
                 url: `/group/users/${groupId}`,
                 method: "GET",
             }),
+            transformResponse: (response: returnGroupUserData) => {
+                if (response.success && response.data) {
+                    return response.data;
+                } else {
+                    return response.error;
+                }
+            },
             providesTags: ["GroupUsers"],
         }),
         updateGroupName: builder.mutation<
