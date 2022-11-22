@@ -35,10 +35,22 @@ export type returnGroupUserData = {
     error: string;
 };
 
+export type groupUsers = {
+    gId: string;
+    uId: string;
+    roles: number[];
+};
+
+export type returnAddGroupUserData = {
+    success: boolean;
+    data: groupUsers | undefined;
+    error: string;
+};
+
 export const groupApiSlice = createApi({
     reducerPath: "groups",
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
-    tagTypes: ["Groups", "Group"],
+    tagTypes: ["Groups", "Group", "GroupUsers"],
     endpoints: (builder) => ({
         getGroups: builder.query<IGroup[] | string, string | undefined>({
             query: (userId) => {
@@ -91,6 +103,7 @@ export const groupApiSlice = createApi({
                 url: `/group/users/${groupId}`,
                 method: "GET",
             }),
+            providesTags: ["GroupUsers"],
         }),
         updateGroupName: builder.mutation<
             returnGroupData,
@@ -182,6 +195,61 @@ export const groupApiSlice = createApi({
                     };
 
                     socket.on("delete_group", listener);
+                } catch (err) {
+                    console.error(err);
+                }
+            },
+        }),
+        addUserToGroup: builder.mutation<
+            returnAddGroupUserData,
+            {
+                userId: string;
+                groupId: string;
+            }
+        >({
+            query: ({
+                userId,
+                groupId,
+            }: {
+                userId: string;
+                groupId: string;
+            }) => ({
+                url: "/group/user",
+                method: "POST",
+                body: {
+                    userId,
+                    groupId,
+                },
+            }),
+            async onQueryStarted({}, { queryFulfilled }) {
+                try {
+                    // checking if the query has been fullfilled
+                    const { data: addedUser } = await queryFulfilled;
+
+                    // if successful emit an event to add user to group else to display error
+                    if (addedUser.success && addedUser.data !== undefined) {
+                        socket.emit("added_user_to_the_group", addedUser.data);
+                    } else {
+                        socket.emit("error_occurred", addedUser.error);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            },
+            async onCacheEntryAdded(arg, { dispatch }) {
+                try {
+                    const listener = () => {
+                        dispatch(
+                            groupApiSlice.util.invalidateTags(["GroupUsers"])
+
+                            // TODO for anyone in the group show a modal message
+                            // TODO check if group is visible then show modal
+                        );
+
+                        socket.off("added_user"); // clean up
+                    };
+
+                    socket.on("added_user", listener);
                 } catch (err) {
                     console.error(err);
                 }
