@@ -1,6 +1,11 @@
 import React from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
+import {
+    useGetGroupByInviteCodeQuery,
+    useGetGroupUsersQuery,
+} from "../../Redux/slices/groupApiSlice";
 import { resetModal } from "../../Redux/slices/modalSlice";
+import { isGroup } from "../../test/validation/schemaValidation";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
 import Modal from "./Modal";
@@ -14,6 +19,12 @@ type props = {
 // TODO display are you sure you want to join [groupName] and then how many members are online and offline
 export default function JoinGroupModal({ inviteCode }: props) {
     const dispatch = useAppDispatch();
+    const { data: group } = useGetGroupByInviteCodeQuery(inviteCode);
+    const { data: groupUsers, isLoading: areUsersLoading } =
+        useGetGroupUsersQuery(isGroup(group) ? group.groupId : "", {
+            skip: group ? false : true,
+        });
+
     return (
         <Modal modalName='Join A Group' modalClass='flex'>
             <>
