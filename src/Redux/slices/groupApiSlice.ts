@@ -78,6 +78,19 @@ export const groupApiSlice = createApi({
             },
             providesTags: ["Group"],
         }),
+        getGroupByInviteCode: builder.query<IGroup | string, string>({
+            query: (invite: string) => ({
+                url: `/group/invite/${invite}`,
+                method: "GET",
+            }),
+            transformResponse: (response: returnGroupData) => {
+                if (response.success && response.data) {
+                    return response.data;
+                }
+                return response.error;
+            },
+            providesTags: ["Group"],
+        }),
         createGroup: builder.mutation<
             returnGroupData,
             { groupInfo: Partial<IGroup>; userId: string }
@@ -259,7 +272,9 @@ export const {
     useGetGroupsQuery,
     useCreateGroupMutation,
     useGetGroupQuery,
+    useGetGroupByInviteCodeQuery,
     useGetGroupUsersQuery,
     useUpdateGroupNameMutation,
     useDeleteGroupMutation,
+    useAddUserToGroupMutation,
 } = groupApiSlice;
