@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
+import useGetSession from "../../Hooks/useGetSession";
 import {
     useGetGroupByInviteCodeQuery,
     useGetGroupsQuery,
@@ -24,6 +25,7 @@ type props = {
 // TODO get group and members
 // TODO display are you sure you want to join [groupName] and then how many members are online and offline
 export default function JoinGroupModal({ inviteCode }: props) {
+    const { sessionInfo } = useGetSession();
     const dispatch = useAppDispatch();
     const {
         data: group,
@@ -38,10 +40,7 @@ export default function JoinGroupModal({ inviteCode }: props) {
             }
         );
     const { data: groups, isLoading: isGroupsLoading } = useGetGroupsQuery(
-        isGroup(group) && isSuccess ? group.groupId : "",
-        {
-            skip: !isSuccess,
-        }
+        sessionInfo?.userId
     );
 
     if (areUsersLoading || isLoading || isGroupsLoading) {
@@ -68,14 +67,15 @@ export default function JoinGroupModal({ inviteCode }: props) {
         return (
             <Modal modalName='Join A Group' modalClass='flex'>
                 <div className='flex flex-col flex-grow w-full gap-4 mt-6'>
-                    <p>
-                        Hey, it seems like you are already apart of that group!
+                    <p className='mt-auto mb-auto text-center text-lg'>
+                        Hey, it seems like you are already apart of "
+                        <strong>{group.groupName}</strong>"!
                     </p>
-                    <div className='justify-self-end'>
-                        <BtnCancelAction
+                    <div className=''>
+                        <BtnCallToAction
                             text='Ok'
                             onClick={closeModal}
-                        ></BtnCancelAction>
+                        ></BtnCallToAction>
                     </div>
                 </div>
             </Modal>
