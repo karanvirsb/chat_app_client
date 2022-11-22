@@ -228,7 +228,7 @@ export const groupApiSlice = createApi({
 
                     // if successful emit an event to add user to group else to display error
                     if (addedUser.success && addedUser.data !== undefined) {
-                        socket.emit("added_user_to_the_group", addedUser.data);
+                        socket.emit("added_user_to_group", addedUser.data);
                     } else {
                         socket.emit("error_occurred", addedUser.error);
                     }
@@ -241,9 +241,6 @@ export const groupApiSlice = createApi({
                     const listener = () => {
                         dispatch(
                             groupApiSlice.util.invalidateTags(["GroupUsers"])
-
-                            // TODO for anyone in the group show a modal message
-                            // TODO check if group is visible then show modal
                         );
 
                         socket.off("added_user"); // clean up
