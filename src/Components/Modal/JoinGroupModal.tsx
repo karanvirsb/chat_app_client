@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import {
     useGetGroupByInviteCodeQuery,
+    useGetGroupsQuery,
     useGetGroupUsersQuery,
 } from "../../Redux/slices/groupApiSlice";
 import { resetModal } from "../../Redux/slices/modalSlice";
-import { areGroupUsers, isGroup } from "../../test/validation/schemaValidation";
+import {
+    areGroupUsers,
+    isGroup,
+    isGroupArray,
+} from "../../test/validation/schemaValidation";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
 import Spinner from "../Spinner/Spinner";
@@ -32,8 +37,14 @@ export default function JoinGroupModal({ inviteCode }: props) {
                 skip: !isSuccess,
             }
         );
+    const { data: groups, isLoading: isGroupsLoading } = useGetGroupsQuery(
+        isGroup(group) && isSuccess ? group.groupId : "",
+        {
+            skip: !isSuccess,
+        }
+    );
 
-    if (areUsersLoading || isLoading) {
+    if (areUsersLoading || isLoading || isGroupsLoading) {
         return (
             <Modal modalName='Join A Group' modalClass='flex'>
                 <div className='flex justify-center items-center h-[100%] w-full'>
@@ -44,46 +55,31 @@ export default function JoinGroupModal({ inviteCode }: props) {
     }
 
     // if group is an error
-    if (!isGroup(group))
+    if (!isGroup(group)) {
+        return ErrorModal(group, closeModal);
+    }
+
+    // if users are errored
+    if (!areGroupUsers(groupUsers)) {
+        return ErrorModal(groupUsers, closeModal);
+    }
+
+    if (doesUserHaveGroup(group.groupId)) {
         return (
             <Modal modalName='Join A Group' modalClass='flex'>
-                <>
-                    <div>
-                        <p>
-                            Error:{" "}
-                            {group ??
-                                "Sorry an error has occurred while getting the group. Please try again. "}
-                        </p>
-                    </div>
-                    <div className='flex gap-4 mt-2'>
+                <div className='flex flex-col flex-grow w-full gap-4 mt-6'>
+                    <p>
+                        Hey, it seems like you are already apart of that group!
+                    </p>
+                    <div className='justify-self-end'>
                         <BtnCancelAction
                             text='Ok'
                             onClick={closeModal}
                         ></BtnCancelAction>
                     </div>
-                </>
+                </div>
             </Modal>
         );
-
-    // if users are errored
-    if (!areGroupUsers(groupUsers)) {
-        <Modal modalName='Join A Group' modalClass='flex'>
-            <>
-                <div>
-                    <p>
-                        Error:{" "}
-                        {groupUsers ??
-                            "Sorry an error has occurred while fetching the group. Please try again."}
-                    </p>
-                </div>
-                <div className='flex gap-4 mt-2'>
-                    <BtnCancelAction
-                        text='Ok'
-                        onClick={closeModal}
-                    ></BtnCancelAction>
-                </div>
-            </>
-        </Modal>;
     }
 
     return (
@@ -147,8 +143,38 @@ export default function JoinGroupModal({ inviteCode }: props) {
             : 0;
     }
 
+    // checking if user is already apart of the group
+    function doesUserHaveGroup(groupId: string) {
+        return (
+            isGroupArray(groups) &&
+            groups.find((group) => group.groupId === groupId) !== undefined
+        );
+    }
+
     function closeModal() {
         dispatch(resetModal());
     }
     function handleSubmit() {}
+}
+
+function ErrorModal(elem: string | undefined, closeModal: () => void) {
+    return (
+        <Modal modalName='Join A Group' modalClass='flex'>
+            <>
+                <div>
+                    <p>
+                        Error:{" "}
+                        {elem ??
+                            "Sorry an error has occurred while fetching the group. Please try again."}
+                    </p>
+                </div>
+                <div className='flex gap-4 mt-2'>
+                    <BtnCancelAction
+                        text='Ok'
+                        onClick={closeModal}
+                    ></BtnCancelAction>
+                </div>
+            </>
+        </Modal>
+    );
 }
