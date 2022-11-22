@@ -118,21 +118,11 @@ export default function JoinGroupModal({ inviteCode }: props) {
                     <div className='flex gap-4'>
                         <span>
                             <span className='bg-green-400 w-4 h-4 inline-block rounded-full mr-2'></span>
-                            Online{" "}
-                            {areGroupUsers(groupUsers) &&
-                                groupUsers.filter(
-                                    (user) =>
-                                        user.status.toLowerCase() === "online"
-                                ).length}
+                            Online {getMembersLength("online")}
                         </span>
                         <span>
                             <span className='bg-gray-400 w-4 h-4 inline-block rounded-full mr-2'></span>
-                            Offline{" "}
-                            {areGroupUsers(groupUsers) &&
-                                groupUsers.filter(
-                                    (user) =>
-                                        user.status.toLowerCase() === "offline"
-                                ).length}
+                            Offline {getMembersLength("offline")}
                         </span>
                     </div>
                 </div>
@@ -149,6 +139,13 @@ export default function JoinGroupModal({ inviteCode }: props) {
             </div>
         </Modal>
     );
+
+    function getMembersLength(filter: "online" | "offline"): number {
+        return areGroupUsers(groupUsers)
+            ? groupUsers.filter((user) => user.status.toLowerCase() === filter)
+                  .length
+            : 0;
+    }
 
     function closeModal() {
         dispatch(resetModal());
