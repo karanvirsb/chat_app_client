@@ -11,6 +11,7 @@ import DeleteAccountModal from "./DeleteAccountModal";
 import EditUsernameModal from "./EditUsernameModal";
 import EditEmailModal from "./EditEmailModal";
 import EditPasswordModal from "./EditPasswordModal";
+import JoinGroupModal from "./joinGroupModal";
 
 export default function ModalDisplay() {
     const modalOpen = useAppSelector((state) => state.modalReducer.open);
@@ -64,6 +65,12 @@ export default function ModalDisplay() {
 
             {modalOpen && modalName === "editPassword" && (
                 <EditPasswordModal></EditPasswordModal>
+            )}
+
+            {modalOpen && modalName === "joinGroup" && (
+                <JoinGroupModal
+                    inviteCode={modalOptions.inviteCode}
+                ></JoinGroupModal>
             )}
         </>
     );
