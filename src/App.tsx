@@ -17,6 +17,7 @@ import socket from "./Sockets";
 import BottomBar from "./Components/BottomBar/BottomBar";
 import Friends from "./Pages/Friends/friends";
 import Search from "./Pages/Search/search";
+import Invite from "./Pages/Invite/invite";
 
 SuperTokens.init({
     appInfo: {
@@ -92,6 +93,14 @@ export default function App() {
                             element={
                                 <EmailPasswordAuth>
                                     <Search></Search>
+                                </EmailPasswordAuth>
+                            }
+                        ></Route>
+                        <Route
+                            path='/invite/:invite'
+                            element={
+                                <EmailPasswordAuth>
+                                    <Invite></Invite>
                                 </EmailPasswordAuth>
                             }
                         ></Route>
