@@ -55,12 +55,12 @@ export default function JoinGroupModal({ inviteCode }: props) {
 
     // if group is an error
     if (!isGroup(group)) {
-        return ErrorModal(group, closeModal);
+        return ErrorModal(closeModal);
     }
 
     // if users are errored
     if (!areGroupUsers(groupUsers)) {
-        return ErrorModal(groupUsers, closeModal);
+        return ErrorModal(closeModal);
     }
 
     if (doesUserHaveGroup(group.groupId)) {
@@ -157,24 +157,22 @@ export default function JoinGroupModal({ inviteCode }: props) {
     function handleSubmit() {}
 }
 
-function ErrorModal(elem: string | undefined, closeModal: () => void) {
+function ErrorModal(closeModal: () => void) {
     return (
         <Modal modalName='Join A Group' modalClass='flex'>
-            <>
-                <div>
-                    <p>
-                        Error:{" "}
-                        {elem ??
-                            "Sorry an error has occurred while fetching the group. Please try again."}
-                    </p>
-                </div>
+            <div className='flex flex-col flex-grow w-full gap-4 mt-6'>
+                <p className='mt-auto mb-auto text-center text-lg'>
+                    Error: Sorry an error has occurred while fetching the group.{" "}
+                    <br></br>
+                    Please try again.
+                </p>
                 <div className='flex gap-4 mt-2'>
-                    <BtnCancelAction
+                    <BtnCallToAction
                         text='Ok'
                         onClick={closeModal}
-                    ></BtnCancelAction>
+                    ></BtnCallToAction>
                 </div>
-            </>
+            </div>
         </Modal>
     );
 }
