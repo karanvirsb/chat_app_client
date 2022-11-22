@@ -97,7 +97,7 @@ export default function App() {
                             }
                         ></Route>
                         <Route
-                            path='/invite/:invite'
+                            path='/invite/:inviteCode'
                             element={
                                 <EmailPasswordAuth>
                                     <Invite></Invite>
