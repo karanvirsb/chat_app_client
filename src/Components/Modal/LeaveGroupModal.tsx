@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
+import useGetSession from "../../Hooks/useGetSession";
+import { useLeaveGroupMutation } from "../../Redux/slices/groupApiSlice";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
 
-export default function LeaveGroupModal() {
+type props = {
+    groupId: string;
+};
+
+export default function LeaveGroupModal({ groupId }: props) {
     const dispatch = useAppDispatch();
+    const { sessionInfo } = useGetSession();
+    const [removeUserFromGroup, { isLoading, isSuccess }] =
+        useLeaveGroupMutation();
+
+    useEffect(() => {
+        if (!isLoading && isSuccess) handleCancel();
+    }, [isLoading, isSuccess]);
     return (
         <MutationModal
             btnCTAName='Yes'
@@ -13,11 +26,16 @@ export default function LeaveGroupModal() {
             text='Are you sure you want to leave the group?'
             handleCancel={handleCancel}
             handleSubmit={handleSubmit}
+            loading={isLoading}
         ></MutationModal>
     );
 
     // TODO handle leaving group
-    function handleSubmit() {}
+    function handleSubmit() {
+        if (sessionInfo) {
+            removeUserFromGroup({ userId: sessionInfo.userId, groupId });
+        }
+    }
 
     function handleCancel() {
         dispatch(resetModal());
