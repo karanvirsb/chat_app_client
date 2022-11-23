@@ -127,6 +127,7 @@ export default function JoinGroupModal({ inviteCode }: props) {
                     <BtnCallToAction
                         text='Join'
                         onClick={handleSubmit}
+                        isLoading={addToGroupLoading}
                     ></BtnCallToAction>
                     <BtnCancelAction
                         text='Cancel'
