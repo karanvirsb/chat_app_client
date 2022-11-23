@@ -299,13 +299,13 @@ export const groupApiSlice = createApi({
                     // checking if the query has been fullfilled
                     const { data: deletedUser } = await queryFulfilled;
 
-                    dispatch(groupApiSlice.util.invalidateTags(["Groups"])); // making the user who joined reload their groups
                     // if successful emit an event to add user to group else to display error
                     if (deletedUser.success && deletedUser.data !== undefined) {
                         socket.emit(
                             "removed_user_from_group",
                             deletedUser.data
                         );
+                        dispatch(groupApiSlice.util.invalidateTags(["Groups"])); // making the user who joined reload their groups
                     } else {
                         socket.emit("error_occurred", deletedUser.error);
                     }
@@ -343,4 +343,5 @@ export const {
     useUpdateGroupNameMutation,
     useDeleteGroupMutation,
     useAddUserToGroupMutation,
+    useLeaveGroupMutation,
 } = groupApiSlice;
