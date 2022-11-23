@@ -85,7 +85,7 @@ export default function GroupUsers({
         return (
             <ul>
                 {users.length > 0 ? (
-                    filterResults("offline")
+                    filterResults("online")
                 ) : (
                     <p>No one is online</p>
                 )}
