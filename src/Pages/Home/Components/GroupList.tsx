@@ -15,7 +15,7 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
         data: groups,
         isLoading,
         isSuccess,
-    } = useGetGroupsQuery(sessionInfo?.userId);
+    } = useGetGroupsQuery(sessionInfo?.userId, { skip: !sessionInfo });
 
     useEffect(() => {
         // check if its done loading and is successful then add groups into array and add rooms;
