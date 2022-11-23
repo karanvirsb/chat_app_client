@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Spinner from "../../../Components/Spinner/Spinner";
 import Tabs from "../../../Components/Tabs/Tabs";
 import { useGetGroupUsersQuery } from "../../../Redux/slices/groupApiSlice";
@@ -85,10 +85,7 @@ export default function GroupUsers({
         return (
             <ul>
                 {users.length > 0 ? (
-                    users.map((user) => {
-                        if (user.status === "online")
-                            return <li key={user.userId}>{user.username}</li>;
-                    })
+                    filterResults("offline")
                 ) : (
                     <p>No one is online</p>
                 )}
@@ -110,14 +107,22 @@ export default function GroupUsers({
         return (
             <ul>
                 {users.length > 0 ? (
-                    users.map((user) => {
-                        if (user.status === "offline")
-                            return <li key={user.userId}>{user.username}</li>;
-                    })
+                    filterResults("offline")
                 ) : (
                     <p>No one is offline</p>
                 )}
             </ul>
         );
+    }
+
+    function filterResults(filter: string) {
+        if (!areGroupUsers(users)) return [];
+
+        return useMemo(() => {
+            return users.map((user) => {
+                if (user.status === filter)
+                    return <li key={user.userId}>{user.username}</li>;
+            });
+        }, [users]);
     }
 }
