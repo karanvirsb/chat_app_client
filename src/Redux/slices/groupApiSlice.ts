@@ -143,16 +143,16 @@ export const groupApiSlice = createApi({
             async onQueryStarted({}, { queryFulfilled }) {
                 try {
                     // checking if the query has been fullfilled
-                    const { data: deletedGroup } = await queryFulfilled;
+                    const { data: updatedGroup } = await queryFulfilled;
 
                     // if successful emit an event to update else to display error
                     if (
-                        deletedGroup.success &&
-                        deletedGroup.data !== undefined
+                        updatedGroup.success &&
+                        updatedGroup.data !== undefined
                     ) {
-                        socket.emit("update_the_group_name", deletedGroup.data);
+                        socket.emit("update_the_group_name", updatedGroup.data);
                     } else {
-                        socket.emit("error_occurred", deletedGroup.error);
+                        socket.emit("error_occurred", updatedGroup.error);
                     }
                 } catch (err) {
                     console.log(err);
@@ -168,7 +168,7 @@ export const groupApiSlice = createApi({
                     const listener = (event: MessageEvent) => {
                         dispatch(groupApiSlice.util.invalidateTags(["Groups"]));
 
-                        socket.off("update_group_name"); // clean up
+                        // socket.off("update_group_name"); // clean up
                     };
 
                     socket.on("update_group_name", listener);
@@ -203,7 +203,7 @@ export const groupApiSlice = createApi({
             },
             async onCacheEntryAdded(arg, { dispatch }) {
                 try {
-                    const listener = () => {
+                    const listener = (event: MessageEvent) => {
                         dispatch(
                             groupApiSlice.util.invalidateTags(["Groups"])
 
@@ -211,7 +211,7 @@ export const groupApiSlice = createApi({
                             // TODO check if group is visible then show modal
                         );
 
-                        socket.off("delete_group"); // clean up
+                        // socket.off("delete_group"); // clean up
                     };
 
                     socket.on("delete_group", listener);
@@ -249,6 +249,10 @@ export const groupApiSlice = createApi({
                     dispatch(groupApiSlice.util.invalidateTags(["Groups"])); // making the user who joined reload their groups
                     // if successful emit an event to add user to group else to display error
                     if (addedUser.success && addedUser.data !== undefined) {
+                        socket.emit("join_rooms", {
+                            rooms: [addedUser.data.gId],
+                            userId: addedUser.data.uId,
+                        });
                         socket.emit("added_user_to_group", addedUser.data);
                     } else {
                         socket.emit("error_occurred", addedUser.error);
@@ -257,20 +261,28 @@ export const groupApiSlice = createApi({
                     console.log(err);
                 }
             },
-            async onCacheEntryAdded(arg, { dispatch }) {
+            async onCacheEntryAdded(
+                arg,
+                { dispatch, cacheDataLoaded, cacheEntryRemoved }
+            ) {
+                await cacheDataLoaded;
                 try {
-                    const listener = () => {
+                    const listener = (event: MessageEvent) => {
+                        console.log(
+                            "🚀 ~ file: groupApiSlice.ts ~ line 264 ~ listener ~ listener",
+                            event
+                        );
                         dispatch(
                             groupApiSlice.util.invalidateTags(["GroupUsers"])
                         );
-
-                        socket.off("added_user"); // clean up
                     };
 
                     socket.on("added_user", listener);
                 } catch (err) {
                     console.error(err);
                 }
+                await cacheEntryRemoved;
+                // socket.off("added_user"); // clean up
             },
         }),
         leaveGroup: builder.mutation<
@@ -305,7 +317,6 @@ export const groupApiSlice = createApi({
                             "removed_user_from_group",
                             deletedUser.data
                         );
-                        dispatch(groupApiSlice.util.invalidateTags(["Groups"])); // making the user who joined reload their groups
                     } else {
                         socket.emit("error_occurred", deletedUser.error);
                     }
@@ -314,15 +325,20 @@ export const groupApiSlice = createApi({
                 }
             },
             async onCacheEntryAdded(arg, { dispatch }) {
+                dispatch(groupApiSlice.util.invalidateTags(["Groups"])); // making the user who joined reload their groups
                 try {
-                    const listener = () => {
-                        dispatch(
-                            groupApiSlice.util.invalidateTags([
-                                { type: "GroupUsers", id: arg.groupId },
-                            ])
+                    const listener = (event: any) => {
+                        const data: groupUsers = event;
+                        console.log(
+                            "🚀 ~ file: groupApiSlice.ts ~ line 319 ~ listener ~ listener",
+                            event,
+                            arg
                         );
 
-                        socket.off("removed_user"); // clean up
+                        dispatch(
+                            groupApiSlice.util.invalidateTags(["GroupUsers"])
+                        );
+                        // socket.off("removed_user", listener); // clean up
                     };
 
                     socket.on("removed_user", listener);
