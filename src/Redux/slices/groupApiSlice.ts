@@ -273,6 +273,64 @@ export const groupApiSlice = createApi({
                 }
             },
         }),
+        leaveGroup: builder.mutation<
+            returnGroupUserData,
+            {
+                userId: string;
+                groupId: string;
+            }
+        >({
+            query: ({
+                userId,
+                groupId,
+            }: {
+                userId: string;
+                groupId: string;
+            }) => ({
+                url: "/group/user",
+                method: "DELETE",
+                body: {
+                    userId,
+                    groupId,
+                },
+            }),
+            async onQueryStarted({}, { queryFulfilled, dispatch }) {
+                try {
+                    // checking if the query has been fullfilled
+                    const { data: deletedUser } = await queryFulfilled;
+
+                    dispatch(groupApiSlice.util.invalidateTags(["Groups"])); // making the user who joined reload their groups
+                    // if successful emit an event to add user to group else to display error
+                    if (deletedUser.success && deletedUser.data !== undefined) {
+                        socket.emit(
+                            "removed_user_from_group",
+                            deletedUser.data
+                        );
+                    } else {
+                        socket.emit("error_occurred", deletedUser.error);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            },
+            async onCacheEntryAdded(arg, { dispatch }) {
+                try {
+                    const listener = () => {
+                        dispatch(
+                            groupApiSlice.util.invalidateTags([
+                                { type: "GroupUsers", id: arg.groupId },
+                            ])
+                        );
+
+                        socket.off("removed_user"); // clean up
+                    };
+
+                    socket.on("removed_user", listener);
+                } catch (err) {
+                    console.error(err);
+                }
+            },
+        }),
     }),
 });
 
