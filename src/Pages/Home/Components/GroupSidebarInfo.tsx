@@ -25,7 +25,9 @@ export default function GroupSidebarInfo({
     const { sessionInfo } = useGetSession();
 
     const { data: groups, isLoading } =
-        groupApiSlice.endpoints.getGroups.useQuery(sessionInfo?.userId);
+        groupApiSlice.endpoints.getGroups.useQuery(sessionInfo?.userId, {
+            skip: !sessionInfo,
+        });
     const group = useFilterGroups({ groups, groupId });
 
     return (
