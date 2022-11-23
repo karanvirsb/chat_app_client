@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
 import {
+    useAddUserToGroupMutation,
     useGetGroupByInviteCodeQuery,
     useGetGroupsQuery,
     useGetGroupUsersQuery,
@@ -39,6 +40,9 @@ export default function JoinGroupModal({ inviteCode }: props) {
                 skip: !isSuccess,
             }
         );
+
+    const [addUserToGroup, { isLoading: addToGroupLoading }] =
+        useAddUserToGroupMutation();
 
     if (areUsersLoading || isLoading || isGroupsLoading) {
         return (
@@ -151,7 +155,14 @@ export default function JoinGroupModal({ inviteCode }: props) {
     function closeModal() {
         dispatch(resetModal());
     }
-    function handleSubmit() {}
+
+    function handleSubmit() {
+        if (isGroup(group) && sessionInfo && sessionInfo.userId)
+            addUserToGroup({
+                userId: sessionInfo?.userId,
+                groupId: group.groupId,
+            });
+    }
 }
 
 function ErrorModal(closeModal: () => void) {
