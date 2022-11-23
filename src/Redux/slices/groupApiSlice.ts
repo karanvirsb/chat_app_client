@@ -241,11 +241,12 @@ export const groupApiSlice = createApi({
                     groupId,
                 },
             }),
-            async onQueryStarted({}, { queryFulfilled }) {
+            async onQueryStarted({}, { queryFulfilled, dispatch }) {
                 try {
                     // checking if the query has been fullfilled
                     const { data: addedUser } = await queryFulfilled;
 
+                    dispatch(groupApiSlice.util.invalidateTags(["Groups"])); // making the user who joined reload their groups
                     // if successful emit an event to add user to group else to display error
                     if (addedUser.success && addedUser.data !== undefined) {
                         socket.emit("added_user_to_group", addedUser.data);
