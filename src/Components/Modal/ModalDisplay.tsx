@@ -40,7 +40,9 @@ export default function ModalDisplay() {
             )}
 
             {modalOpen && modalName === "leaveGroup" && (
-                <LeaveGroupModal></LeaveGroupModal>
+                <LeaveGroupModal
+                    groupId={modalOptions.groupId}
+                ></LeaveGroupModal>
             )}
 
             {modalOpen && modalName === "createGroup" && (
