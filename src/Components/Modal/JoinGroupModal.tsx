@@ -41,8 +41,16 @@ export default function JoinGroupModal({ inviteCode }: props) {
             }
         );
 
-    const [addUserToGroup, { isLoading: addToGroupLoading }] =
-        useAddUserToGroupMutation();
+    const [
+        addUserToGroup,
+        { isLoading: addToGroupLoading, isSuccess: addToGroupSucceeded },
+    ] = useAddUserToGroupMutation();
+
+    useEffect(() => {
+        if (!addToGroupLoading && addToGroupSucceeded) {
+            closeModal();
+        }
+    }, [addToGroupLoading, addToGroupSucceeded]);
 
     if (areUsersLoading || isLoading || isGroupsLoading) {
         return (
@@ -158,11 +166,12 @@ export default function JoinGroupModal({ inviteCode }: props) {
     }
 
     function handleSubmit() {
-        if (isGroup(group) && sessionInfo && sessionInfo.userId)
+        if (isGroup(group) && sessionInfo && sessionInfo.userId) {
             addUserToGroup({
                 userId: sessionInfo?.userId,
                 groupId: group.groupId,
             });
+        }
     }
 }
 
