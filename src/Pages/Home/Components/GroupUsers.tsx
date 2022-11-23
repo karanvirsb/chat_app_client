@@ -2,6 +2,7 @@ import React from "react";
 import Spinner from "../../../Components/Spinner/Spinner";
 import Tabs from "../../../Components/Tabs/Tabs";
 import { useGetGroupUsersQuery } from "../../../Redux/slices/groupApiSlice";
+import { areGroupUsers } from "../../../test/validation/schemaValidation";
 
 type props = {
     isUserMenuOpen: boolean;
@@ -69,52 +70,54 @@ export default function GroupUsers({
         return tabs;
     }
 
-    // TODO memoize
+    // TODO memoize the filter
     function OnlineUsers() {
         if (isLoading) return <Spinner></Spinner>;
-        if (isSuccess && users.data) {
+
+        if (!areGroupUsers(users)) {
             return (
                 <ul>
-                    {users.data.map((user) => {
-                        if (user.status === "online")
-                            return <li key={user.userId}>{user.username}</li>;
-                    })}
+                    <li>{users}</li>
                 </ul>
             );
-        } else if (
-            // if its successful but no users or error then no one is online
-            users?.success &&
-            users.data &&
-            users.data?.length < 0 &&
-            !users.error
-        ) {
-            return <li>No one is online ⁉</li>;
-        } else {
-            return <>{users?.error}</>;
         }
+
+        return (
+            <ul>
+                {users.length > 0 ? (
+                    users.map((user) => {
+                        if (user.status === "online")
+                            return <li key={user.userId}>{user.username}</li>;
+                    })
+                ) : (
+                    <p>No one is online</p>
+                )}
+            </ul>
+        );
     }
 
     function OfflineUsers() {
         if (isLoading) return <Spinner></Spinner>;
-        if (isSuccess && users.data) {
+
+        if (!areGroupUsers(users)) {
             return (
                 <ul>
-                    {users.data.map((user) => {
-                        if (user.status === "offline")
-                            return <li key={user.userId}>{user.username}</li>;
-                    })}
+                    <li>{users}</li>
                 </ul>
             );
-        } else if (
-            // if its successful but no users or error then no one is offline
-            users?.success &&
-            users.data &&
-            users.data?.length < 0 &&
-            !users.error
-        ) {
-            return <li>No one is offline ⁉</li>;
-        } else {
-            return <>{users?.error}</>;
         }
+
+        return (
+            <ul>
+                {users.length > 0 ? (
+                    users.map((user) => {
+                        if (user.status === "offline")
+                            return <li key={user.userId}>{user.username}</li>;
+                    })
+                ) : (
+                    <p>No one is offline</p>
+                )}
+            </ul>
+        );
     }
 }
