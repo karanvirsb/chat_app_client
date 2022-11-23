@@ -135,7 +135,11 @@ export default function GroupSidebarInfo({
 
     function displayLeaveGroupModal() {
         dispatch(
-            setModal({ modalName: "leaveGroup", open: true, options: {} })
+            setModal({
+                modalName: "leaveGroup",
+                open: true,
+                options: { groupId },
+            })
         );
     }
 }
