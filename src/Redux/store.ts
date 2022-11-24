@@ -1,16 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./slices/modalSlice";
 import sideBarReducer from "./slices/SideBarSlice";
-import { groupApiSlice } from "./slices/groupApiSlice";
 
 export const store = configureStore({
     reducer: {
         modalReducer,
         sideBarReducer,
-        [groupApiSlice.reducerPath]: groupApiSlice.reducer,
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(groupApiSlice.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
