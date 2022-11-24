@@ -5,9 +5,9 @@ import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
 import Spinner from "../../../Components/Spinner/Spinner";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import useGetSession from "../../../Hooks/useGetSession";
-import { groupApiSlice } from "../../../Redux/slices/groupApiSlice";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { isGroup } from "../../../test/validation/schemaValidation";
+import { useGetGroupsQuery } from "../Hooks/groupHooks";
 import useFilterGroups from "../Hooks/useFilterGroups";
 
 type props = {
@@ -24,10 +24,14 @@ export default function GroupSidebarInfo({
 
     const { sessionInfo } = useGetSession();
 
-    const { data: groups, isLoading } =
-        groupApiSlice.endpoints.getGroups.useQuery(sessionInfo?.userId, {
-            skip: !sessionInfo,
-        });
+    const { data: groups, isLoading } = useGetGroupsQuery({
+        userId: sessionInfo?.userId,
+    });
+
+    // const { data: groups, isLoading } =
+    //     groupApiSlice.endpoints.getGroups.useQuery(sessionInfo?.userId, {
+    //         skip: !sessionInfo,
+    //     });
     const group = useFilterGroups({ groups, groupId });
 
     return (
