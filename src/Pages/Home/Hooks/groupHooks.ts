@@ -70,10 +70,10 @@ function useGetGroupQuery({ groupId }: { groupId: string }) {
     });
 }
 
-function useGetGroupByInviteCodeQuery({ invite }: { invite: string }) {
+function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
     const getGroups = async (): Promise<IGroup | string> => {
         const resp = await axios({
-            url: `${baseurl}/invite/${invite}`,
+            url: `${baseurl}/invite/${inviteCode}`,
             method: "GET",
         });
         const result: returnGroupData = resp.data;
@@ -86,9 +86,9 @@ function useGetGroupByInviteCodeQuery({ invite }: { invite: string }) {
     };
 
     return useQuery({
-        queryKey: [`group-invite-${invite}`],
+        queryKey: [`group-invite-${inviteCode}`],
         queryFn: getGroups,
-        enabled: invite !== undefined,
+        enabled: inviteCode !== undefined,
         staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
