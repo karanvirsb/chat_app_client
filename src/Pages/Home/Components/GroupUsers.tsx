@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import Spinner from "../../../Components/Spinner/Spinner";
 import Tabs from "../../../Components/Tabs/Tabs";
-import { useGetGroupUsersQuery } from "../../../Redux/slices/groupApiSlice";
+// import { useGetGroupUsersQuery } from "../../../Redux/slices/groupApiSlice";
+import { useGetGroupUsersQuery } from "../Hooks/groupHooks";
 import { areGroupUsers } from "../../../test/validation/schemaValidation";
 
 type props = {
@@ -20,7 +21,7 @@ export default function GroupUsers({
         data: users,
         isLoading,
         isSuccess,
-    } = useGetGroupUsersQuery(groupId);
+    } = useGetGroupUsersQuery({ groupId });
     return (
         <article
             className={`flex flex-col flex-grow m-sm:max-w-[250px] sm:fixed sm:right-0 sm:top-0 sm:h-screen sm:w-full sm:${
