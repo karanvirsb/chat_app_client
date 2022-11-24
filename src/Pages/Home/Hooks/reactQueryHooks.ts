@@ -2,7 +2,7 @@ import axios from "../../../API/axios";
 import { useQuery } from "@tanstack/react-query";
 
 // setting up global variables
-const baseurl = "/group";
+const baseurl = "http://localhost:8000/group";
 
 // types
 export interface IGroup {
@@ -36,7 +36,7 @@ function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
     return useQuery({
         queryKey: [`groups-${userId}`],
         queryFn: getGroups,
-        enabled: !userId,
+        enabled: userId !== undefined,
         staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
