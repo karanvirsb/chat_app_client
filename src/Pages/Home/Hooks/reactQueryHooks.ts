@@ -37,7 +37,7 @@ function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
         queryKey: [`groups-${userId}`],
         queryFn: getGroups,
         enabled: !userId,
-        staleTime: Infinity,
+        staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
 
