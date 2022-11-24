@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
-import { useCreateGroupMutation } from "../../Redux/slices/groupApiSlice";
+import { useCreateGroupMutation } from "../../Pages/Home/Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
@@ -14,7 +14,7 @@ export default function CreateGroupModal() {
     const [errorMsg, setErrorMessage] = useState("");
     const dispatch = useAppDispatch();
     const { sessionInfo } = useGetSession();
-    const [createGroup, { isLoading, isSuccess }] = useCreateGroupMutation();
+    const { mutate, isLoading, isSuccess } = useCreateGroupMutation();
 
     useEffect(() => {
         if (!isLoading && isSuccess) {
@@ -66,7 +66,7 @@ export default function CreateGroupModal() {
         if (!groupName) setErrorMessage("Group name must be provided.");
         if (!isLoading) {
             try {
-                createGroup({
+                mutate({
                     groupInfo: { groupName: groupName },
                     userId: sessionInfo ? sessionInfo?.userId : "",
                 });
