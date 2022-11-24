@@ -138,7 +138,6 @@ function useGetGroupUsersQuery({ groupId }: { groupId: string }) {
         queryKey: [`group-users-${groupId}`],
         queryFn: getGroupUsers,
         enabled: groupId !== undefined,
-        staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
 
@@ -252,8 +251,10 @@ function useAddUserToGroupMutation() {
     return useMutation({
         mutationFn: addUserToGroup,
         onSuccess: (data) => {
-            if (data.success && data.data)
+            if (data.success && data.data) {
+                queryClient.invalidateQueries([`groups`]);
                 queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
+            }
         },
     });
 }
@@ -282,8 +283,10 @@ function useLeaveGroupMutation() {
     return useMutation({
         mutationFn: removeUserFromGroup,
         onSuccess: (data) => {
-            if (data.success && data.data)
+            if (data.success && data.data) {
+                queryClient.invalidateQueries([`groups`]);
                 queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
+            }
         },
     });
 }
