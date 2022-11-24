@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
-import { useLeaveGroupMutation } from "../../Redux/slices/groupApiSlice";
+// import { useLeaveGroupMutation } from "../../Redux/slices/groupApiSlice";
+import { useLeaveGroupMutation } from "../../Pages/Home/Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
 
@@ -12,8 +13,11 @@ type props = {
 export default function LeaveGroupModal({ groupId }: props) {
     const dispatch = useAppDispatch();
     const { sessionInfo } = useGetSession();
-    const [removeUserFromGroup, { isLoading, isSuccess }] =
-        useLeaveGroupMutation();
+    const {
+        mutate: removeUserFromGroup,
+        isLoading,
+        isSuccess,
+    } = useLeaveGroupMutation();
 
     useEffect(() => {
         if (!isLoading && isSuccess) handleCancel();
