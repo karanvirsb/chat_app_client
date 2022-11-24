@@ -3,10 +3,10 @@ import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
 import {
     useAddUserToGroupMutation,
-    useGetGroupByInviteCodeQuery,
     useGetGroupsQuery,
     useGetGroupUsersQuery,
 } from "../../Redux/slices/groupApiSlice";
+import { useGetGroupByInviteCodeQuery } from "../../Pages/Home/Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import {
     areGroupUsers,
@@ -29,7 +29,7 @@ export default function JoinGroupModal({ inviteCode }: props) {
         data: group,
         isSuccess,
         isLoading,
-    } = useGetGroupByInviteCodeQuery(inviteCode);
+    } = useGetGroupByInviteCodeQuery({ inviteCode });
     const { data: groups, isLoading: isGroupsLoading } = useGetGroupsQuery(
         sessionInfo?.userId
     ); // TODO instead of fetching all groups only fetch one
