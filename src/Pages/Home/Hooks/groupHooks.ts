@@ -181,7 +181,7 @@ function useUpdateGroupNameMutation() {
         const result: returnGroupData = resp.data;
         return result;
     };
-
+    // TODO change with sockets for everyone
     return useMutation({
         mutationFn: updateGroupName,
         onSuccess: () => {
