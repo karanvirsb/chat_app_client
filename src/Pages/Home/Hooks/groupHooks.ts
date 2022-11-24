@@ -3,7 +3,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // setting up global variables
 const baseurl = "http://localhost:8000/group";
-const queryClient = useQueryClient();
 
 // types
 export interface IGroup {
@@ -94,14 +93,15 @@ function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
     });
 }
 
-function useCreateGroupMutation({
-    groupInfo,
-    userId,
-}: {
-    groupInfo: Partial<IGroup>;
-    userId: string;
-}) {
-    const createGroup = async (): Promise<returnGroupData> => {
+function useCreateGroupMutation() {
+    const queryClient = useQueryClient();
+    const createGroup = async ({
+        groupInfo,
+        userId,
+    }: {
+        groupInfo: Partial<IGroup>;
+        userId: string;
+    }): Promise<returnGroupData> => {
         const resp = await axios({
             url: `${baseurl}`,
             method: "POST",
