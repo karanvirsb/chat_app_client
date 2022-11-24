@@ -18,6 +18,12 @@ export type returnGroupsData = {
     error: string;
 };
 
+export type returnGroupData = {
+    success: boolean;
+    data: IGroup | undefined;
+    error: string;
+};
+
 function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
     const getGroups = async (): Promise<IGroup[] | string> => {
         const resp = await axios({
@@ -41,4 +47,27 @@ function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
     });
 }
 
-export { useGetGroupsQuery };
+function useGetGroupQuery({ groupId }: { groupId: string }) {
+    const getGroups = async (): Promise<IGroup | string> => {
+        const resp = await axios({
+            url: `${baseurl}/${groupId}`,
+            method: "GET",
+        });
+        const result: returnGroupData = resp.data;
+
+        if (result.success && result.data !== undefined) {
+            return result.data;
+        } else {
+            return result.error;
+        }
+    };
+
+    return useQuery({
+        queryKey: [`group-${groupId}`],
+        queryFn: getGroups,
+        enabled: groupId !== undefined,
+        staleTime: 10 * 60 * 1000, // mins * sec * ms
+    });
+}
+
+export { useGetGroupsQuery, useGetGroupQuery };
