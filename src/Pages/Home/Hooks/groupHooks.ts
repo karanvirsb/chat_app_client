@@ -12,6 +12,14 @@ export interface IGroup {
     dateCreated: Date;
 }
 
+export interface IUser {
+    userId: string;
+    username: string;
+    email: string;
+    status: string;
+    time_joined: Date;
+}
+
 export type returnGroupsData = {
     success: boolean;
     data: IGroup[] | undefined;
@@ -21,6 +29,12 @@ export type returnGroupsData = {
 export type returnGroupData = {
     success: boolean;
     data: IGroup | undefined;
+    error: string;
+};
+
+export type returnGroupUserData = {
+    success: boolean;
+    data: IUser[] | undefined;
     error: string;
 };
 
@@ -93,6 +107,31 @@ function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
     });
 }
 
+function useGetGroupUsersQuery({ groupId }: { groupId: string }) {
+    const getGroupUsers = async (): Promise<IUser[] | string> => {
+        const resp = await axios({
+            url: `${baseurl}/users/${groupId}`,
+            method: "GET",
+        });
+        const result: returnGroupUserData = resp.data;
+
+        if (result.success && result.data !== undefined) {
+            return result.data;
+        } else {
+            return result.error;
+        }
+    };
+
+    return useQuery({
+        queryKey: [`group-users-${groupId}`],
+        queryFn: getGroupUsers,
+        enabled: groupId !== undefined,
+        staleTime: 10 * 60 * 1000, // mins * sec * ms
+    });
+}
+
+// MUTATIONS
+
 function useCreateGroupMutation() {
     const queryClient = useQueryClient();
     const createGroup = async ({
@@ -127,4 +166,5 @@ export {
     useGetGroupQuery,
     useGetGroupByInviteCodeQuery,
     useCreateGroupMutation,
+    useGetGroupUsersQuery,
 };
