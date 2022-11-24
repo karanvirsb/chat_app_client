@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
-// import { useUpdateGroupNameMutation } from "../../Redux/slices/groupApiSlice";
 import { useUpdateGroupNameMutation } from "../../Pages/Home/Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";

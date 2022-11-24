@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
-// import { useDeleteGroupMutation } from "../../Redux/slices/groupApiSlice";
 import { useDeleteGroupMutation } from "../../Pages/Home/Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
