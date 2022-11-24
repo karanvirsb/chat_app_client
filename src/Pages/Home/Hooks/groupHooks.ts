@@ -190,6 +190,32 @@ function useUpdateGroupNameMutation() {
     });
 }
 
+function useDeleteGroupMutation() {
+    const queryClient = useQueryClient();
+    const deleteGroup = async ({
+        groupId,
+    }: {
+        groupId: string;
+    }): Promise<returnGroupData> => {
+        const resp = await axios({
+            url: `${baseurl}`,
+            method: "DELETE",
+            data: {
+                groupId,
+            },
+        });
+        const result: returnGroupData = resp.data;
+        return result;
+    };
+    // TODO change with sockets for everyone
+    return useMutation({
+        mutationFn: deleteGroup,
+        onSuccess: () => {
+            queryClient.invalidateQueries(["groups"]);
+        },
+    });
+}
+
 export {
     useGetGroupsQuery,
     useGetGroupQuery,
@@ -197,4 +223,5 @@ export {
     useCreateGroupMutation,
     useGetGroupUsersQuery,
     useUpdateGroupNameMutation,
+    useDeleteGroupMutation,
 };
