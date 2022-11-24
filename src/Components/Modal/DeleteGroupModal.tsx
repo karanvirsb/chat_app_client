@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
-import { useDeleteGroupMutation } from "../../Redux/slices/groupApiSlice";
+// import { useDeleteGroupMutation } from "../../Redux/slices/groupApiSlice";
+import { useDeleteGroupMutation } from "../../Pages/Home/Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
 
@@ -10,7 +11,11 @@ type props = {
 
 export default function DeleteGroupModal({ groupId }: props) {
     const dispatch = useAppDispatch();
-    const [deleteGroup, { isLoading, isSuccess }] = useDeleteGroupMutation();
+    const {
+        mutate: deleteGroup,
+        isLoading,
+        isSuccess,
+    } = useDeleteGroupMutation();
 
     useEffect(() => {
         if (!isLoading && isSuccess) {
@@ -31,7 +36,7 @@ export default function DeleteGroupModal({ groupId }: props) {
     );
 
     function handleSubmit() {
-        deleteGroup(groupId);
+        deleteGroup({ groupId });
     }
 
     function handleCancel() {
