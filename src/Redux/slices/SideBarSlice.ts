@@ -27,6 +27,5 @@ export const sideBarSlice = createSlice({
 export const { setSideBarOpen, setSideBarClosed } = sideBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-// export const selectSideBarState = (state: RootState) => state.counter.value;
 
 export default sideBarSlice.reducer;
