@@ -6,7 +6,7 @@ import {
     useAddUserToGroupMutation,
     useGetGroupByInviteCodeQuery,
     useGetGroupUsersQuery,
-} from "../../Pages/Home/Hooks/groupHooks";
+} from "../../Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import {
     areGroupUsers,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
-import { useCreateGroupMutation } from "../../Pages/Home/Hooks/groupHooks";
+import { useCreateGroupMutation } from "../../Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";

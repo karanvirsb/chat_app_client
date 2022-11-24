@@ -7,7 +7,7 @@ import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import useGetSession from "../../../Hooks/useGetSession";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { isGroup } from "../../../test/validation/schemaValidation";
-import { useGetGroupsQuery } from "../Hooks/groupHooks";
+import { useGetGroupsQuery } from "../../../Hooks/groupHooks";
 import useFilterGroups from "../Hooks/useFilterGroups";
 
 type props = {

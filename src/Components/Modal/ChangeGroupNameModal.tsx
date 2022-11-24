@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
-import { useUpdateGroupNameMutation } from "../../Pages/Home/Hooks/groupHooks";
+import { useUpdateGroupNameMutation } from "../../Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";

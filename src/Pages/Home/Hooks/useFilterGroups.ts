@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IGroup } from "./groupHooks";
+import { IGroup } from "../../../Hooks/groupHooks";
 import { isGroupArray } from "../../../test/validation/schemaValidation";
 
 type props = {

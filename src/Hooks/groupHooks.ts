@@ -1,4 +1,4 @@
-import axios from "../../../API/axios";
+import axios from "../API/axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // setting up global variables

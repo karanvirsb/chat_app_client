@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Spinner from "../../../Components/Spinner/Spinner";
 import Tabs from "../../../Components/Tabs/Tabs";
-import { useGetGroupUsersQuery } from "../Hooks/groupHooks";
+import { useGetGroupUsersQuery } from "../../../Hooks/groupHooks";
 import { areGroupUsers } from "../../../test/validation/schemaValidation";
 
 type props = {

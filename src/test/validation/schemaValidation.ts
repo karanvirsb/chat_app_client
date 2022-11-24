@@ -1,4 +1,4 @@
-import { IUser, IGroup } from "../../Pages/Home/Hooks/groupHooks";
+import { IUser, IGroup } from "../../Hooks/groupHooks";
 
 export function isGroupArray(
     arr: IGroup[] | string | undefined

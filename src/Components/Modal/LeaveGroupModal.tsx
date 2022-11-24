@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
-import { useLeaveGroupMutation } from "../../Pages/Home/Hooks/groupHooks";
+import { useLeaveGroupMutation } from "../../Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
 
