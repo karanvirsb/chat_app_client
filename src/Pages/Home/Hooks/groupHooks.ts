@@ -161,10 +161,40 @@ function useCreateGroupMutation() {
     });
 }
 
+function useUpdateGroupNameMutation() {
+    const queryClient = useQueryClient();
+    const updateGroupName = async ({
+        groupId,
+        newGroupName,
+    }: {
+        groupId: string;
+        newGroupName: string;
+    }): Promise<returnGroupData> => {
+        const resp = await axios({
+            url: `${baseurl}/name`,
+            method: "PUT",
+            data: {
+                groupId,
+                newGroupName,
+            },
+        });
+        const result: returnGroupData = resp.data;
+        return result;
+    };
+
+    return useMutation({
+        mutationFn: updateGroupName,
+        onSuccess: () => {
+            queryClient.invalidateQueries(["groups"]);
+        },
+    });
+}
+
 export {
     useGetGroupsQuery,
     useGetGroupQuery,
     useGetGroupByInviteCodeQuery,
     useCreateGroupMutation,
     useGetGroupUsersQuery,
+    useUpdateGroupNameMutation,
 };
