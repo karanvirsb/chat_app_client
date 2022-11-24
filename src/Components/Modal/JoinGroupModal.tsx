@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
-import { useGetGroupsQuery } from "../../Redux/slices/groupApiSlice";
-import { useAddUserToGroupMutation } from "../../Pages/Home/Hooks/groupHooks";
 import {
+    useGetGroupsQuery,
+    useAddUserToGroupMutation,
     useGetGroupByInviteCodeQuery,
     useGetGroupUsersQuery,
 } from "../../Pages/Home/Hooks/groupHooks";
@@ -30,9 +30,9 @@ export default function JoinGroupModal({ inviteCode }: props) {
         isSuccess,
         isLoading,
     } = useGetGroupByInviteCodeQuery({ inviteCode });
-    const { data: groups, isLoading: isGroupsLoading } = useGetGroupsQuery(
-        sessionInfo?.userId
-    ); // TODO instead of fetching all groups only fetch one
+    const { data: groups, isLoading: isGroupsLoading } = useGetGroupsQuery({
+        userId: sessionInfo?.userId,
+    }); // TODO instead of fetching all groups only fetch one
     const { data: groupUsers, isLoading: areUsersLoading } =
         useGetGroupUsersQuery({
             groupId: isGroup(group) && isSuccess ? group.groupId : "",
