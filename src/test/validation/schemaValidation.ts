@@ -1,4 +1,4 @@
-import { IGroup, IUser } from "../../Redux/slices/groupApiSlice";
+import { IUser, IGroup } from "../../Pages/Home/Hooks/groupHooks";
 
 export function isGroupArray(
     arr: IGroup[] | string | undefined
