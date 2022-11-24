@@ -20,6 +20,12 @@ export interface IUser {
     time_joined: Date;
 }
 
+export type IGroupUsers = {
+    gId: string;
+    uId: string;
+    roles: number[];
+};
+
 export type returnGroupsData = {
     success: boolean;
     data: IGroup[] | undefined;
@@ -35,6 +41,12 @@ export type returnGroupData = {
 export type returnGroupUserData = {
     success: boolean;
     data: IUser[] | undefined;
+    error: string;
+};
+
+export type returnAddGroupUserData = {
+    success: boolean;
+    data: IGroupUsers | undefined;
     error: string;
 };
 
@@ -216,6 +228,36 @@ function useDeleteGroupMutation() {
     });
 }
 
+function useAddUserToGroupMutation() {
+    const queryClient = useQueryClient();
+    const addUserToGroup = async ({
+        userId,
+        groupId,
+    }: {
+        userId: string;
+        groupId: string;
+    }): Promise<returnAddGroupUserData> => {
+        const resp = await axios({
+            url: `${baseurl}/user`,
+            method: "POST",
+            data: {
+                userId,
+                groupId,
+            },
+        });
+        const result: returnAddGroupUserData = resp.data;
+        return result;
+    };
+    // TODO change with sockets for everyone
+    return useMutation({
+        mutationFn: addUserToGroup,
+        onSuccess: (data) => {
+            if (data.success && data.data)
+                queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
+        },
+    });
+}
+
 export {
     useGetGroupsQuery,
     useGetGroupQuery,
@@ -224,4 +266,5 @@ export {
     useGetGroupUsersQuery,
     useUpdateGroupNameMutation,
     useDeleteGroupMutation,
+    useAddUserToGroupMutation,
 };
