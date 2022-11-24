@@ -1,9 +1,8 @@
 import axios from "../../../API/axios";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 // setting up global variables
 const baseurl = "/group";
-const queryClient = useQueryClient();
 
 // types
 export interface IGroup {
@@ -19,7 +18,7 @@ export type returnGroupsData = {
     error: string;
 };
 
-function useGetGroupsQuery({ userId }: { userId: string }) {
+function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
     const getGroups = async (): Promise<IGroup[] | string> => {
         const resp = await axios({
             url: `${baseurl}/userId/${userId}`,
@@ -34,10 +33,12 @@ function useGetGroupsQuery({ userId }: { userId: string }) {
         }
     };
 
-    return useQuery(
-        { queryKey: [`groups-${userId}`], queryFn: getGroups },
-        { staleTime: Infinity }
-    );
+    return useQuery({
+        queryKey: [`groups-${userId}`],
+        queryFn: getGroups,
+        enabled: !userId,
+        staleTime: Infinity,
+    });
 }
 
 export { useGetGroupsQuery };
