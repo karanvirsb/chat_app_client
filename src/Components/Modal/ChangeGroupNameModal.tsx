@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
-import { useUpdateGroupNameMutation } from "../../Redux/slices/groupApiSlice";
+// import { useUpdateGroupNameMutation } from "../../Redux/slices/groupApiSlice";
+import { useUpdateGroupNameMutation } from "../../Pages/Home/Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
@@ -14,16 +15,15 @@ type props = {
 
 // TODO give group id
 export default function ChangeGroupNameModal({ groupId, previousName }: props) {
-    const [newName, setNewName] = useState<string>("");
+    const [newGroupName, setnewGroupName] = useState<string>("");
     const [errMsg, setErrMsg] = useState("");
-    const [updateGroupName, { isLoading, isSuccess }] =
-        useUpdateGroupNameMutation();
+    const { mutate, isLoading, isSuccess } = useUpdateGroupNameMutation();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!isLoading && isSuccess) {
             closeModal();
-            setNewName("");
+            setnewGroupName("");
             setErrMsg("");
         }
     }, [isLoading, isSuccess]);
@@ -40,9 +40,9 @@ export default function ChangeGroupNameModal({ groupId, previousName }: props) {
                 <ModalInput
                     labelName='New Name'
                     onChange={handleChange}
-                    value={newName}
+                    value={newGroupName}
                     placeholder='Enter New Group Name Here'
-                    inputId='newName'
+                    inputId='newGroupName'
                     errorMsg={errMsg}
                 ></ModalInput>
                 <div className='flex gap-4 mt-2'>
@@ -61,7 +61,7 @@ export default function ChangeGroupNameModal({ groupId, previousName }: props) {
     );
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setNewName(() => e.target.value);
+        setnewGroupName(() => e.target.value);
 
         if (e.target.value.length > 0) {
             setErrMsg("");
@@ -76,45 +76,14 @@ export default function ChangeGroupNameModal({ groupId, previousName }: props) {
 
     // api slice
     function handleSubmit() {
-        if (!newName) setErrMsg("Group name must be provided.");
+        if (!newGroupName) setErrMsg("Group name must be provided.");
 
         if (!isLoading) {
             try {
-                updateGroupName({ groupId, newName });
+                mutate({ groupId, newGroupName });
             } catch (error) {
                 console.log(error);
             }
         }
     }
-}
-
-{
-    /* <div className='form-control w-full'>
-                        <label className='label' htmlFor='prevName'>
-                            <span className='label-text text-white'>
-                                Previous Name
-                            </span>
-                        </label>
-                        <input
-                            id='prevName'
-                            type='text'
-                            placeholder=''
-                            className='input input-bordered bg-[#2A303C] w-full'
-                            contentEditable={false}
-                        />
-                    </div> */
-}
-{
-    /* <div className='form-control w-full'>
-                    <label className='label' htmlFor='newName'>
-                        <span className='label-text text-white'>New Name</span>
-                    </label>
-                    <input
-                        id='newName'
-                        type='text'
-                        placeholder='New group name'
-                        className='input input-bordered bg-[#2A303C] w-full'
-                        onChange={handleChange}
-                    />
-                </div> */
 }
