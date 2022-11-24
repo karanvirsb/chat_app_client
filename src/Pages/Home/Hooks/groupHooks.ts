@@ -1,8 +1,9 @@
 import axios from "../../../API/axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // setting up global variables
 const baseurl = "http://localhost:8000/group";
+const queryClient = useQueryClient();
 
 // types
 export interface IGroup {
@@ -40,7 +41,7 @@ function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
     };
 
     return useQuery({
-        queryKey: [`groups-${userId}`],
+        queryKey: [`groups`],
         queryFn: getGroups,
         enabled: userId !== undefined,
         staleTime: 10 * 60 * 1000, // mins * sec * ms
@@ -48,7 +49,7 @@ function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
 }
 
 function useGetGroupQuery({ groupId }: { groupId: string }) {
-    const getGroups = async (): Promise<IGroup | string> => {
+    const getGroup = async (): Promise<IGroup | string> => {
         const resp = await axios({
             url: `${baseurl}/${groupId}`,
             method: "GET",
@@ -64,14 +65,14 @@ function useGetGroupQuery({ groupId }: { groupId: string }) {
 
     return useQuery({
         queryKey: [`group-${groupId}`],
-        queryFn: getGroups,
+        queryFn: getGroup,
         enabled: groupId !== undefined,
         staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
 
 function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
-    const getGroups = async (): Promise<IGroup | string> => {
+    const getGroup = async (): Promise<IGroup | string> => {
         const resp = await axios({
             url: `${baseurl}/invite/${inviteCode}`,
             method: "GET",
@@ -87,10 +88,43 @@ function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
 
     return useQuery({
         queryKey: [`group-invite-${inviteCode}`],
-        queryFn: getGroups,
+        queryFn: getGroup,
         enabled: inviteCode !== undefined,
         staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
 
-export { useGetGroupsQuery, useGetGroupQuery, useGetGroupByInviteCodeQuery };
+function useCreateGroupMutation({
+    groupInfo,
+    userId,
+}: {
+    groupInfo: Partial<IGroup>;
+    userId: string;
+}) {
+    const createGroup = async (): Promise<returnGroupData> => {
+        const resp = await axios({
+            url: `${baseurl}`,
+            method: "POST",
+            data: {
+                groupInfo,
+                userId,
+            },
+        });
+        const result: returnGroupData = resp.data;
+        return result;
+    };
+
+    return useMutation({
+        mutationFn: createGroup,
+        onSuccess: () => {
+            queryClient.invalidateQueries(["groups"]);
+        },
+    });
+}
+
+export {
+    useGetGroupsQuery,
+    useGetGroupQuery,
+    useGetGroupByInviteCodeQuery,
+    useCreateGroupMutation,
+};
