@@ -38,13 +38,13 @@ export type returnGroupData = {
     error: string;
 };
 
-export type returnGroupUserData = {
+export type returnGroupUsersData = {
     success: boolean;
     data: IUser[] | undefined;
     error: string;
 };
 
-export type returnAddGroupUserData = {
+export type returnGroupUserData = {
     success: boolean;
     data: IGroupUsers | undefined;
     error: string;
@@ -125,7 +125,7 @@ function useGetGroupUsersQuery({ groupId }: { groupId: string }) {
             url: `${baseurl}/users/${groupId}`,
             method: "GET",
         });
-        const result: returnGroupUserData = resp.data;
+        const result: returnGroupUsersData = resp.data;
 
         if (result.success && result.data !== undefined) {
             return result.data;
@@ -236,7 +236,7 @@ function useAddUserToGroupMutation() {
     }: {
         userId: string;
         groupId: string;
-    }): Promise<returnAddGroupUserData> => {
+    }): Promise<returnGroupUserData> => {
         const resp = await axios({
             url: `${baseurl}/user`,
             method: "POST",
@@ -245,12 +245,42 @@ function useAddUserToGroupMutation() {
                 groupId,
             },
         });
-        const result: returnAddGroupUserData = resp.data;
+        const result: returnGroupUserData = resp.data;
         return result;
     };
     // TODO change with sockets for everyone
     return useMutation({
         mutationFn: addUserToGroup,
+        onSuccess: (data) => {
+            if (data.success && data.data)
+                queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
+        },
+    });
+}
+
+function useLeaveGroupMutation() {
+    const queryClient = useQueryClient();
+    const removeUserFromGroup = async ({
+        userId,
+        groupId,
+    }: {
+        userId: string;
+        groupId: string;
+    }): Promise<returnGroupUserData> => {
+        const resp = await axios({
+            url: `${baseurl}/user`,
+            method: "DELETE",
+            data: {
+                userId,
+                groupId,
+            },
+        });
+        const result: returnGroupUserData = resp.data;
+        return result;
+    };
+    // TODO change with sockets for everyone
+    return useMutation({
+        mutationFn: removeUserFromGroup,
         onSuccess: (data) => {
             if (data.success && data.data)
                 queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
@@ -267,4 +297,5 @@ export {
     useUpdateGroupNameMutation,
     useDeleteGroupMutation,
     useAddUserToGroupMutation,
+    useLeaveGroupMutation,
 };
