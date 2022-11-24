@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useGetSession from "../../../Hooks/useGetSession";
-import { IGroup, useGetGroupsQuery } from "../../../Redux/slices/groupApiSlice";
+import { useGetGroupsQuery } from "../Hooks/reactQueryHooks";
 import socket from "../../../Sockets";
 import { isGroupArray } from "../../../test/validation/schemaValidation";
 
@@ -15,7 +15,7 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
         data: groups,
         isLoading,
         isSuccess,
-    } = useGetGroupsQuery(sessionInfo?.userId, { skip: !sessionInfo });
+    } = useGetGroupsQuery({ userId: sessionInfo?.userId });
 
     useEffect(() => {
         // check if its done loading and is successful then add groups into array and add rooms;
