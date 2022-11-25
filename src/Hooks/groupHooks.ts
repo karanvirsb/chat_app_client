@@ -1,5 +1,6 @@
 import axios from "../API/axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import useGroupSockets from "../Sockets/Hooks/useGroupSockets";
 
 // setting up global variables
 const baseurl = "http://localhost:8000/group";
@@ -174,6 +175,7 @@ function useCreateGroupMutation() {
 
 function useUpdateGroupNameMutation() {
     const queryClient = useQueryClient();
+    const send = useGroupSockets();
     const updateGroupName = async ({
         groupId,
         newGroupName,
@@ -195,8 +197,13 @@ function useUpdateGroupNameMutation() {
     // TODO change with sockets for everyone
     return useMutation({
         mutationFn: updateGroupName,
-        onSuccess: () => {
-            queryClient.invalidateQueries(["groups"]);
+        onSuccess: (data) => {
+            // queryClient.invalidateQueries(["groups"]);
+            if (data.data)
+                send("updated_group_name", {
+                    groupId: data.data?.groupId,
+                    payload: { groupName: data.data.groupName },
+                });
         },
     });
 }
