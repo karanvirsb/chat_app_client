@@ -6,6 +6,7 @@ import { store } from "./Redux/store";
 import App from "./App";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SocketHandler from "./Sockets/SocketHandler";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <QueryClientProvider client={queryClient}>
             <Router>
                 <Provider store={store}>
-                    <App />
+                    <SocketHandler>
+                        <App />
+                    </SocketHandler>
                 </Provider>
             </Router>
         </QueryClientProvider>
