@@ -146,6 +146,7 @@ function useGetGroupUsersQuery({ groupId }: { groupId: string }) {
 
 function useCreateGroupMutation() {
     const queryClient = useQueryClient();
+    const send = useGroupSockets();
     const createGroup = async ({
         groupInfo,
         userId,
@@ -167,14 +168,16 @@ function useCreateGroupMutation() {
 
     return useMutation({
         mutationFn: createGroup,
-        onSuccess: () => {
+        onSuccess: (data) => {
             queryClient.invalidateQueries(["groups"]);
+            if (data.data)
+                send("join_group", { rooms: [data.data.groupId], userId: "" });
         },
     });
 }
 
 function useUpdateGroupNameMutation() {
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
     const send = useGroupSockets();
     const updateGroupName = async ({
         groupId,
@@ -209,7 +212,8 @@ function useUpdateGroupNameMutation() {
 }
 
 function useDeleteGroupMutation() {
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
+    const send = useGroupSockets();
     const deleteGroup = async ({
         groupId,
     }: {
@@ -228,8 +232,13 @@ function useDeleteGroupMutation() {
     // TODO change with sockets for everyone
     return useMutation({
         mutationFn: deleteGroup,
-        onSuccess: () => {
-            queryClient.invalidateQueries(["groups"]);
+        onSuccess: (data) => {
+            // queryClient.invalidateQueries(["groups"]);
+            if (data.data)
+                send("delete_the_group", {
+                    groupId: data.data?.groupId,
+                    payload: {},
+                });
         },
     });
 }
