@@ -22,7 +22,12 @@ export type DeleteEvent = {
     payload: {};
 };
 
-export type socketEvent = InvalidateEvent | UpdateEvent;
+export type JoinRoomEvent = {
+    rooms: string[];
+    userId: string;
+};
+
+export type socketEvent = InvalidateEvent | UpdateEvent | JoinRoomEvent;
 
 export default function SocketHandler({ children }: props) {
     const queryClient = useQueryClient();
