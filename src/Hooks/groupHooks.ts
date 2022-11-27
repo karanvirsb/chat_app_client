@@ -1,6 +1,7 @@
 import axios from "../API/axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useGroupSockets from "../Sockets/Hooks/useGroupSockets";
+import useGetSession from "./useGetSession";
 
 // setting up global variables
 const baseurl = "http://localhost:8000/group";
@@ -147,6 +148,7 @@ function useGetGroupUsersQuery({ groupId }: { groupId: string }) {
 function useCreateGroupMutation() {
     const queryClient = useQueryClient();
     const send = useGroupSockets();
+    const { sessionInfo } = useGetSession();
     const createGroup = async ({
         groupInfo,
         userId,
@@ -171,7 +173,10 @@ function useCreateGroupMutation() {
         onSuccess: (data) => {
             queryClient.invalidateQueries(["groups"]);
             if (data.data)
-                send("join_group", { rooms: [data.data.groupId], userId: "" });
+                send("join_rooms", {
+                    rooms: [data.data.groupId],
+                    userId: sessionInfo?.userId ? sessionInfo?.userId : "",
+                });
         },
     });
 }
