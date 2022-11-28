@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import useGetSession from "../../Hooks/useGetSession";
-import { useCreateGroupMutation } from "../../Hooks/groupHooks";
+import {
+    returnGroupData,
+    useCreateGroupMutation,
+} from "../../Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
 import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
+import { AxiosError } from "axios";
 
 // TODO
 export default function CreateGroupModal() {
@@ -14,7 +18,8 @@ export default function CreateGroupModal() {
     const [errorMsg, setErrorMessage] = useState("");
     const dispatch = useAppDispatch();
     const { sessionInfo } = useGetSession();
-    const { mutate, isLoading, isSuccess } = useCreateGroupMutation();
+    const { mutate, isLoading, isSuccess, isError, error } =
+        useCreateGroupMutation();
 
     useEffect(() => {
         if (!isLoading && isSuccess) {
@@ -22,7 +27,13 @@ export default function CreateGroupModal() {
             setGroupName("");
             setErrorMessage("");
         }
-    }, [isLoading, isSuccess]);
+        if (!isLoading && isError) {
+            if (error instanceof AxiosError) {
+                const errorMessage: returnGroupData = error.response?.data;
+                setErrorMessage(errorMessage.error);
+            }
+        }
+    }, [isLoading, isSuccess, isError, error]);
 
     return (
         <Modal modalName='Add Group' modalClass='flex'>
