@@ -37,12 +37,18 @@ export type LeaveRoomEvent = {
     payload: { userId: string };
 };
 
+export type LeaveGroupEvent = {
+    groupId: string;
+    payload: { userId: string };
+};
+
 export type socketEvent =
     | InvalidateEvent
     | UpdateEvent
     | JoinRoomEvent
     | UpdateGroupUsersEvent
-    | LeaveRoomEvent;
+    | LeaveRoomEvent
+    | LeaveGroupEvent;
 
 export default function SocketHandler({ children }: props) {
     const queryClient = useQueryClient();
@@ -73,6 +79,17 @@ export default function SocketHandler({ children }: props) {
                         return [...arr, data.payload.userInfo];
                     };
                     return Array.isArray(oldData) && pushResult(oldData);
+                }
+            );
+        });
+
+        socket.on("removed_user", (data: LeaveGroupEvent) => {
+            queryClient.setQueriesData(
+                [`group-users-${data.groupId}`],
+                (oldData: unknown) => {
+                    const removeUser = (user: IUser) =>
+                        user.userId !== data.payload.userId;
+                    return Array.isArray(oldData) && oldData.filter(removeUser);
                 }
             );
         });
