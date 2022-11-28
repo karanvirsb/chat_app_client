@@ -8,7 +8,8 @@ export default function useGroupSockets() {
             | "delete_the_group"
             | "join_rooms"
             | "update_the_group_users"
-            | "leave_room",
+            | "leave_room"
+            | "leave_the_group",
         data: socketEvent
     ) => {
         socket.emit(event, data);
