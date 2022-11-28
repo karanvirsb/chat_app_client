@@ -63,10 +63,10 @@ export default function SocketHandler({ children }: props) {
             queryClient.setQueriesData(
                 [`group-users-${data.groupId}`],
                 (oldData: unknown) => {
-                    return (
-                        Array.isArray(oldData) &&
-                        oldData.push(data.payload.userInfo)
-                    );
+                    const pushResult = (arr: IUser[]) => {
+                        return [...arr, data.payload.userInfo];
+                    };
+                    return Array.isArray(oldData) && pushResult(oldData);
                 }
             );
         });
