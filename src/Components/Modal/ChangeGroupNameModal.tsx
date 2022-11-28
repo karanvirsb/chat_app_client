@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
-import { useUpdateGroupNameMutation } from "../../Hooks/groupHooks";
+import {
+    returnGroupData,
+    useUpdateGroupNameMutation,
+} from "../../Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import BtnCallToAction from "../Buttons/BtnCallToAction";
 import BtnCancelAction from "../Buttons/BtnCancelAction";
 import ModalInput from "../Inputs/ModalInput";
 import Modal from "./Modal";
+import { AxiosError } from "axios";
 
 type props = {
     groupId: string;
@@ -16,7 +20,8 @@ type props = {
 export default function ChangeGroupNameModal({ groupId, previousName }: props) {
     const [newGroupName, setnewGroupName] = useState<string>("");
     const [errMsg, setErrMsg] = useState("");
-    const { mutate, isLoading, isSuccess } = useUpdateGroupNameMutation();
+    const { mutate, isLoading, isSuccess, isError, error } =
+        useUpdateGroupNameMutation();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -24,6 +29,12 @@ export default function ChangeGroupNameModal({ groupId, previousName }: props) {
             closeModal();
             setnewGroupName("");
             setErrMsg("");
+        }
+        if (!isLoading && isError) {
+            if (error instanceof AxiosError) {
+                const errorMessage: returnGroupData = error.response?.data;
+                setErrMsg(errorMessage.error);
+            }
         }
     }, [isLoading, isSuccess]);
 
