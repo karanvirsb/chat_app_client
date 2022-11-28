@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import socket from ".";
-import { IGroup } from "../Hooks/groupHooks";
+import { IGroup, IUser } from "../Hooks/groupHooks";
 
 type props = {
     children: JSX.Element;
@@ -9,7 +9,7 @@ type props = {
 
 export type InvalidateEvent = {
     queryTags: string[];
-    id: string;
+    groupId: string;
 };
 
 export type UpdateEvent = {
@@ -27,7 +27,16 @@ export type JoinRoomEvent = {
     userId: string;
 };
 
-export type socketEvent = InvalidateEvent | UpdateEvent | JoinRoomEvent;
+export type UpdateGroupUsersEvent = {
+    groupId: string;
+    payload: { userInfo: IUser };
+};
+
+export type socketEvent =
+    | InvalidateEvent
+    | UpdateEvent
+    | JoinRoomEvent
+    | UpdateGroupUsersEvent;
 
 export default function SocketHandler({ children }: props) {
     const queryClient = useQueryClient();
@@ -43,7 +52,6 @@ export default function SocketHandler({ children }: props) {
         });
 
         socket.on("delete_group", (data: DeleteEvent) => {
-            console.log(data);
             queryClient.setQueriesData(["groups"], (oldData: unknown) => {
                 const deleteGroup = (group: IGroup) =>
                     group.groupId !== data.groupId;
@@ -51,9 +59,22 @@ export default function SocketHandler({ children }: props) {
             });
         });
 
+        socket.on("update_group_users", (data: UpdateGroupUsersEvent) => {
+            queryClient.setQueriesData(
+                [`group-users-${data.groupId}`],
+                (oldData: unknown) => {
+                    return (
+                        Array.isArray(oldData) &&
+                        oldData.push(data.payload.userInfo)
+                    );
+                }
+            );
+        });
+
         return () => {
             socket.off("update_group_name"); // clean up
             socket.off("delete_group");
+            socket.off("update_group_users");
         };
     }, [queryClient]);
     return children;
