@@ -215,11 +215,12 @@ function useUpdateGroupNameMutation() {
         mutationFn: updateGroupName,
         onSuccess: (data) => {
             // queryClient.invalidateQueries(["groups"]);
-            if (data.data)
+            if (data.data) {
                 send("updated_group_name", {
                     groupId: data.data?.groupId,
                     payload: { groupName: data.data.groupName },
                 });
+            }
         },
     });
 }
