@@ -335,6 +335,11 @@ function useLeaveGroupMutation() {
                         userId: data.data.uId,
                     },
                 });
+
+                send("leave_the_group", {
+                    groupId: data.data.gId,
+                    payload: { userId: data.data.uId },
+                });
                 // queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
             }
         },
