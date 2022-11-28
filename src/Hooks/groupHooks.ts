@@ -79,7 +79,7 @@ function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
         queryKey: [`groups`],
         queryFn: getGroups,
         enabled: userId !== undefined,
-        staleTime: 10 * 60 * 1000, // mins * sec * ms
+        // staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
 
@@ -102,7 +102,7 @@ function useGetGroupQuery({ groupId }: { groupId: string }) {
         queryKey: [`group-${groupId}`],
         queryFn: getGroup,
         enabled: groupId !== undefined,
-        staleTime: 10 * 60 * 1000, // mins * sec * ms
+        // staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
 
@@ -125,7 +125,7 @@ function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
         queryKey: [`group-invite-${inviteCode}`],
         queryFn: getGroup,
         enabled: inviteCode !== undefined,
-        staleTime: 10 * 60 * 1000, // mins * sec * ms
+        // staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
 
