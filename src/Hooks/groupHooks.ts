@@ -20,6 +20,8 @@ export interface IUser {
     email: string;
     status: string;
     time_joined: Date;
+    roles: string[];
+    groupId: string;
 }
 
 export type IGroupUsers = {
@@ -37,6 +39,12 @@ export type returnGroupsData = {
 export type returnGroupData = {
     success: boolean;
     data: IGroup | undefined;
+    error: string;
+};
+
+export type returnUserData = {
+    success: boolean;
+    data: IUser | undefined;
     error: string;
 };
 
@@ -258,7 +266,7 @@ function useAddUserToGroupMutation() {
     }: {
         userId: string;
         groupId: string;
-    }): Promise<returnGroupUserData> => {
+    }): Promise<returnUserData> => {
         const resp = await axios({
             url: `${baseurl}/user`,
             method: "POST",
@@ -267,7 +275,7 @@ function useAddUserToGroupMutation() {
                 groupId,
             },
         });
-        const result: returnGroupUserData = resp.data;
+        const result: returnUserData = resp.data;
         return result;
     };
     // TODO change with sockets for everyone
@@ -276,12 +284,19 @@ function useAddUserToGroupMutation() {
         onSuccess: (data) => {
             if (data.success && data.data) {
                 queryClient.invalidateQueries([`groups`]);
-                queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
-                if (data.data)
+                // queryClient.invalidateQueries([`group-users-${data.data.groupId}`]);
+                if (data.data) {
+                    // send request to join room socket
                     send("join_rooms", {
-                        rooms: [data.data.gId],
+                        rooms: [data.data.groupId],
                         userId: sessionInfo?.userId ? sessionInfo?.userId : "",
                     });
+                    // send to invalidate group users
+                    send("update_the_group_users", {
+                        groupId: data.data.groupId,
+                        payload: { userInfo: { ...data.data } },
+                    });
+                }
             }
         },
     });
