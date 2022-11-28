@@ -304,6 +304,8 @@ function useAddUserToGroupMutation() {
 
 function useLeaveGroupMutation() {
     const queryClient = useQueryClient();
+    const send = useGroupSockets();
+    const { sessionInfo } = useGetSession();
     const removeUserFromGroup = async ({
         userId,
         groupId,
@@ -328,7 +330,14 @@ function useLeaveGroupMutation() {
         onSuccess: (data) => {
             if (data.success && data.data) {
                 queryClient.invalidateQueries([`groups`]);
-                queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
+
+                send("leave_room", {
+                    groupId: data.data.gId,
+                    payload: {
+                        userId: sessionInfo?.userId ? sessionInfo?.userId : "",
+                    },
+                });
+                // queryClient.invalidateQueries([`group-users-${data.data.gId}`]);
             }
         },
     });
