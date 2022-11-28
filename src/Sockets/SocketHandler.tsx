@@ -32,11 +32,17 @@ export type UpdateGroupUsersEvent = {
     payload: { userInfo: IUser };
 };
 
+export type LeaveRoomEvent = {
+    groupId: string;
+    payload: { userId: string };
+};
+
 export type socketEvent =
     | InvalidateEvent
     | UpdateEvent
     | JoinRoomEvent
-    | UpdateGroupUsersEvent;
+    | UpdateGroupUsersEvent
+    | LeaveRoomEvent;
 
 export default function SocketHandler({ children }: props) {
     const queryClient = useQueryClient();
