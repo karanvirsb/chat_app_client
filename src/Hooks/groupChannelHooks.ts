@@ -4,7 +4,7 @@ import useGroupSockets from "../Sockets/Hooks/useGroupSockets";
 import useGetSession from "./useGetSession";
 
 // setting up global variables
-const baseurl = "http://localhost:8000/channel";
+const baseurl = "http://localhost:8000/groupChannel";
 
 export interface IGroupChannel {
     channelId: string;
@@ -42,18 +42,19 @@ function useGetGroupChannelQuery({ channelId }: { channelId: string }) {
 }
 
 function useGetGroupChannelsQuery({ groupId }: { groupId: string }) {
-    const getChannels = async (): Promise<IGroupChannel[] | undefined> => {
+    const getChannels = async (): Promise<IGroupChannel[]> => {
         const data = await axios({
-            url: `baseurl/all/${groupId}`,
+            url: `${baseurl}/all/${groupId}`,
             method: "GET",
         });
         const resp: returnGroupChannels = data.data;
-        return resp.data;
+        return resp.data ?? [];
     };
 
     return useQuery({
         queryKey: [`group-channels-${groupId}`],
         queryFn: getChannels,
+        enabled: groupId !== undefined || groupId !== "",
     });
 }
 
