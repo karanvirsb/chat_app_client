@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Collapse from "../../../Components/Collapse/Collapse";
 import DropDown from "../../../Components/DropDown/DropDown";
 import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
@@ -21,8 +21,8 @@ export default function GroupSidebarInfo({
     groupId,
     setSelectedChannel,
 }: props) {
+    const [activeChannel, setActiveChannel] = useState("");
     const dispatch = useAppDispatch();
-
     const { sessionInfo } = useGetSession();
 
     // TODO use cached data
@@ -30,9 +30,15 @@ export default function GroupSidebarInfo({
         userId: sessionInfo?.userId,
     });
 
+    // filtering out groups to only get one
     const group = useFilterGroups({ groups, groupId });
+
     const { data: channels, isLoading: isChannelsLoading } =
         useGetGroupChannelsQuery({ groupId: group.groupId });
+
+    useEffect(() => {
+        setSelectedChannel(activeChannel);
+    }, [activeChannel]);
 
     return (
         <SidebarInfo>
@@ -84,13 +90,30 @@ export default function GroupSidebarInfo({
                 </div> */}
                 <div className='bg-groupInfo-bg flex-grow text-white'>
                     <Collapse title='Text Channels'>
-                        <ul>
+                        <ul className='flex justify-center w-full capitalize'>
                             {channels?.map((channel) => {
-                                return (
-                                    <li key={channel.channelId}>
-                                        {channel.channelName}
-                                    </li>
-                                );
+                                if (channel.channelId === activeChannel) {
+                                    return (
+                                        <li key={channel.channelId}>
+                                            <span className='mr-2'>#</span>
+                                            {channel.channelName}
+                                        </li>
+                                    );
+                                } else {
+                                    return (
+                                        <li
+                                            key={channel.channelId}
+                                            onClick={() =>
+                                                setActiveChannel(
+                                                    channel.channelId
+                                                )
+                                            }
+                                            className='cursor-pointer'
+                                        >
+                                            {channel.channelName}
+                                        </li>
+                                    );
+                                }
                             })}
                         </ul>
                     </Collapse>
