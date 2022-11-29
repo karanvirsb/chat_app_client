@@ -173,18 +173,31 @@ function useCreateGroupMutation() {
             },
         });
         const result: returnGroupData = resp.data;
+
         return result;
     };
 
     return useMutation({
         mutationFn: createGroup,
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             queryClient.invalidateQueries(["groups"]);
-            if (data.data)
+            if (data.data) {
+                await axios({
+                    url: "http://localhost:8000/groupChannel",
+                    method: "POST",
+                    data: {
+                        channelInfo: {
+                            channelName: "general",
+                            groupId: data.data.groupId,
+                        },
+                    },
+                });
+
                 send("join_rooms", {
                     rooms: [data.data.groupId],
                     userId: sessionInfo?.userId ? sessionInfo?.userId : "",
                 });
+            }
         },
     });
 }
