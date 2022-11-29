@@ -7,9 +7,10 @@ import { useAppDispatch } from "../../../Hooks/reduxHooks";
 import useGetSession from "../../../Hooks/useGetSession";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { isGroup } from "../../../test/validation/schemaValidation";
-import { useGetGroupsQuery } from "../../../Hooks/groupHooks";
+import { IGroup, useGetGroupsQuery } from "../../../Hooks/groupHooks";
 import useFilterGroups from "../Hooks/useFilterGroups";
 import { useGetGroupChannelsQuery } from "../../../Hooks/groupChannelHooks";
+import { useQueryClient } from "@tanstack/react-query";
 
 type props = {
     groupId: string;
@@ -24,14 +25,18 @@ export default function GroupSidebarInfo({
     const [activeChannel, setActiveChannel] = useState("");
     const dispatch = useAppDispatch();
     const { sessionInfo } = useGetSession();
+    const queryClient = useQueryClient();
 
     // TODO use cached data
-    const { data: groups, isLoading } = useGetGroupsQuery({
-        userId: sessionInfo?.userId,
-    });
+    // const { data: groups, isLoading } = useGetGroupsQuery({
+    //     userId: sessionInfo?.userId,
+    // });
 
+    const data: IGroup[] | string | undefined = queryClient.getQueryData([
+        "groups",
+    ]);
     // filtering out groups to only get one
-    const group = useFilterGroups({ groups, groupId });
+    const group = useFilterGroups({ groups: data, groupId });
 
     const { data: channels, isLoading: isChannelsLoading } =
         useGetGroupChannelsQuery({ groupId: group.groupId });
@@ -123,9 +128,9 @@ export default function GroupSidebarInfo({
     );
 
     function getGroupName() {
-        if (isLoading) {
-            return <Spinner></Spinner>;
-        }
+        // if (isLoading) {
+        //     return <Spinner></Spinner>;
+        // }
         return isGroup(group) ? group?.groupName : "";
     }
 
