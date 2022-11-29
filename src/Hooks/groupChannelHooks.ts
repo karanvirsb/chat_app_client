@@ -19,6 +19,12 @@ export type returnGroupChannel = {
     error: string;
 };
 
+export type returnGroupChannels = {
+    success: boolean;
+    data: IGroupChannel[] | undefined;
+    error: string;
+};
+
 function useGetGroupChannelQuery({ channelId }: { channelId: string }) {
     const getChannel = async (): Promise<IGroupChannel | undefined> => {
         const data = await axios({
@@ -35,4 +41,20 @@ function useGetGroupChannelQuery({ channelId }: { channelId: string }) {
     });
 }
 
-export { useGetGroupChannelQuery };
+function useGetGroupChannelsQuery({ groupId }: { groupId: string }) {
+    const getChannels = async (): Promise<IGroupChannel[] | undefined> => {
+        const data = await axios({
+            url: `baseurl/all/${groupId}`,
+            method: "GET",
+        });
+        const resp: returnGroupChannels = data.data;
+        return resp.data;
+    };
+
+    return useQuery({
+        queryKey: [`group-channels-${groupId}`],
+        queryFn: getChannels,
+    });
+}
+
+export { useGetGroupChannelQuery, useGetGroupChannelsQuery };
