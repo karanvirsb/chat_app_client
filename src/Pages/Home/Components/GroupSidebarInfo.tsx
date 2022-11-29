@@ -9,6 +9,7 @@ import { setModal } from "../../../Redux/slices/modalSlice";
 import { isGroup } from "../../../test/validation/schemaValidation";
 import { useGetGroupsQuery } from "../../../Hooks/groupHooks";
 import useFilterGroups from "../Hooks/useFilterGroups";
+import { useGetGroupChannelsQuery } from "../../../Hooks/groupChannelHooks";
 
 type props = {
     groupId: string;
@@ -24,15 +25,14 @@ export default function GroupSidebarInfo({
 
     const { sessionInfo } = useGetSession();
 
+    // TODO use cached data
     const { data: groups, isLoading } = useGetGroupsQuery({
         userId: sessionInfo?.userId,
     });
 
-    // const { data: groups, isLoading } =
-    //     groupApiSlice.endpoints.getGroups.useQuery(sessionInfo?.userId, {
-    //         skip: !sessionInfo,
-    //     });
     const group = useFilterGroups({ groups, groupId });
+    const { data: channels, isLoading: isChannelsLoading } =
+        useGetGroupChannelsQuery({ groupId: group.groupId });
 
     return (
         <SidebarInfo>
@@ -85,7 +85,13 @@ export default function GroupSidebarInfo({
                 <div className='bg-groupInfo-bg flex-grow text-white'>
                     <Collapse title='Text Channels'>
                         <ul>
-                            <li>general</li>
+                            {channels?.map((channel) => {
+                                return (
+                                    <li key={channel.channelId}>
+                                        {channel.channelName}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </Collapse>
                 </div>
