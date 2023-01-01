@@ -94,7 +94,10 @@ export default function GroupSidebarInfo({
                     Group Name
                 </div> */}
         <div className="bg-groupInfo-bg flex-grow text-white">
-          <Collapse title="Text Channels">
+          <Collapse
+            title="Text Channels"
+            clickEvent={displayCreateChannelModal}
+          >
             <ul className="flex justify-center w-full capitalize">
               {channels?.map((channel) => {
                 if (channel.channelId === activeChannel) {
@@ -170,6 +173,16 @@ export default function GroupSidebarInfo({
     dispatch(
       setModal({
         modalName: "leaveGroup",
+        open: true,
+        options: { groupId },
+      })
+    );
+  }
+
+  function displayCreateChannelModal() {
+    dispatch(
+      setModal({
+        modalName: "createGroupChannel",
         open: true,
         options: { groupId },
       })
