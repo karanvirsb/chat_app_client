@@ -15,7 +15,7 @@ import {
 type props = {
   groupId: string;
 };
-export default function CreateGroupChannel({ groupId }: props) {
+export default function CreateGroupChannelModal({ groupId }: props) {
   const [channelName, setChannelName] = useState("");
   const [errorMsg, setErrorMessage] = useState("");
   const dispatch = useAppDispatch();
