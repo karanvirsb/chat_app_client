@@ -1,3 +1,5 @@
+import { IGroup, IUser } from "../Hooks/groupHooks";
+
 export type InvalidateEvent = {
   queryTags: string[];
   groupId: string;
