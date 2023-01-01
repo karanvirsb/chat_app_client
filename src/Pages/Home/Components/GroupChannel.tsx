@@ -7,44 +7,45 @@ import GroupTopBar from "./GroupTopBar";
 import GroupUsers from "./GroupUsers";
 
 type props = {
-    groupId: string;
+  groupId: string;
 };
 
 export default function GroupChannel({ groupId }: props) {
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
-    const [selectedChannel, setSelectedChannel] = useState(""); //TODO this is for when a different channel is selected for the chat
-    const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(true);
+  const [selectedChannel, setSelectedChannel] = useState(""); //TODO this is for when a different channel is selected for the chat
+  const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
 
-    return (
+  return (
+    <>
+      {isSideBarOpen && (
+        <GroupSidebarInfo
+          groupId={groupId}
+          setSelectedChannel={setSelectedChannel}
+        ></GroupSidebarInfo>
+      )}
+      <ChannelContainer>
         <>
-            {isSideBarOpen && (
-                <GroupSidebarInfo
-                    groupId={groupId}
-                    setSelectedChannel={setSelectedChannel}
-                ></GroupSidebarInfo>
+          <GroupTopBar
+            isUserMenuOpen={isUserMenuOpen}
+            toggleUserMenu={toggleUserMenu}
+            selectedChannel={selectedChannel}
+            groupId={groupId}
+          ></GroupTopBar>
+          <div className="flex flex-grow">
+            <GroupChat channelId={selectedChannel}></GroupChat>
+            {isUserMenuOpen && (
+              <GroupUsers
+                isUserMenuOpen={isUserMenuOpen}
+                toggleUserMenu={toggleUserMenu}
+                groupId={groupId}
+              ></GroupUsers>
             )}
-            <ChannelContainer>
-                <>
-                    <GroupTopBar
-                        isUserMenuOpen={isUserMenuOpen}
-                        toggleUserMenu={toggleUserMenu}
-                        selectedChannel={selectedChannel}
-                    ></GroupTopBar>
-                    <div className='flex flex-grow'>
-                        <GroupChat channelId={selectedChannel}></GroupChat>
-                        {isUserMenuOpen && (
-                            <GroupUsers
-                                isUserMenuOpen={isUserMenuOpen}
-                                toggleUserMenu={toggleUserMenu}
-                                groupId={groupId}
-                            ></GroupUsers>
-                        )}
-                    </div>
-                </>
-            </ChannelContainer>
+          </div>
         </>
-    );
-    function toggleUserMenu() {
-        setIsUserMenuOpen((prev) => !prev);
-    }
+      </ChannelContainer>
+    </>
+  );
+  function toggleUserMenu() {
+    setIsUserMenuOpen((prev) => !prev);
+  }
 }
