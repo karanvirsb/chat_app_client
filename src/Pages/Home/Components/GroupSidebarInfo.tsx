@@ -98,7 +98,7 @@ export default function GroupSidebarInfo({
             title="Text Channels"
             clickEvent={displayCreateChannelModal}
           >
-            <ul className="flex justify-center w-full capitalize">
+            <ul className="flex flex-col items-center justify-center w-full capitalize">
               {channels?.map((channel) => {
                 if (channel.channelId === activeChannel) {
                   return (
