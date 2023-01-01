@@ -95,7 +95,7 @@ export default function SocketHandler({ children }: props) {
       socket.off("delete_group");
       socket.off("update_group_users");
       socket.off("removed_user");
-      socket.off("update_channel_lists");
+      socket.off("update_channel_list");
     };
   }, [queryClient]);
   return children;
