@@ -35,7 +35,6 @@ export default function GroupTopBar({
       <>
         <div className="flex gap-4 items-center">
           <ToggleSidebarBtn></ToggleSidebarBtn>
-          {/*TODO Channel name goes here*/}
           <span>{toCapitalize(channel?.channelName)}</span>
         </div>
         <button onClick={toggleUserMenu}>
