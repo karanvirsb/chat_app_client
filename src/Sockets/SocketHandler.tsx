@@ -18,7 +18,7 @@ type props = {
   children: JSX.Element;
 };
 
-type groupEvents =
+export type groupSocketEvents =
   | InvalidateEvent
   | UpdateEvent
   | JoinRoomEvent
@@ -26,9 +26,7 @@ type groupEvents =
   | LeaveRoomEvent
   | LeaveGroupEvent;
 
-type groupChannelEvents = UpdateChannelsListEvent;
-
-export type socketEvent = groupEvents;
+export type groupChannelSocketEvents = UpdateChannelsListEvent;
 
 export default function SocketHandler({ children }: props) {
   const queryClient = useQueryClient();
