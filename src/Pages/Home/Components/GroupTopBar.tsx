@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import ToggleSidebarBtn from "../../../Components/ToggleSidebarBtn/ToggleSidebarBtn";
 import TopBarContainer from "../../../Components/TopBarContainer/TopBarContainer";
@@ -13,6 +14,10 @@ export default function GroupTopBar({
     toggleUserMenu,
     selectedChannel,
 }: props) {
+    const queryClient = useQueryClient();
+
+    const channel = queryClient.getQueryData([``]);
+
     return (
         <TopBarContainer>
             <>
