@@ -1,8 +1,8 @@
 import socket from "..";
-import { socketEvent } from "../SocketHandler";
+import { groupChannelSocketEvents } from "../SocketHandler";
 
 export default function useGroupChannelSockets() {
-  return (event: "update_channel_list", data: socketEvent) => {
+  return (event: "update_channels_list", data: groupChannelSocketEvents) => {
     socket.emit(event, data);
   };
 }
