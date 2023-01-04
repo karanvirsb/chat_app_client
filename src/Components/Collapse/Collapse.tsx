@@ -13,7 +13,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
     <>
       <div className="flex flex-col items-start px-4">
         <p className="flex items-center">
-          <div
+          <span
             className="collapse-title text-md flex items-center gap-4"
             onClick={() => setClicked((prev) => !prev)}
           >
@@ -49,7 +49,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
               </svg>
             )}
             <span>{title}</span>
-          </div>
+          </span>
           {/* TODO hover color */}
           {clickEvent ? (
             <span
