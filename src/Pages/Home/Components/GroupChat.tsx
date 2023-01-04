@@ -6,6 +6,7 @@ type props = {
 };
 
 export default function GroupChat({ channelId }: props) {
+  // TODO after inital load need to set dateCreated to last message.
   const {
     data: chatMessages,
     isFetching,
