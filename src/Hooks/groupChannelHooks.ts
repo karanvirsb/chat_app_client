@@ -1,5 +1,10 @@
 import axios from "../API/axios";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import useGroupChannelSockets from "../Sockets/Hooks/useGroupChannelSockets";
 
 // setting up global variables
@@ -34,7 +39,7 @@ function useGetGroupChannelQuery({ channelId }: { channelId: string }) {
     return resp.data;
   };
 
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: [`group-channel-${channelId}`],
     queryFn: getChannel,
   });
