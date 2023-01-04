@@ -1,5 +1,10 @@
 import axios from "../API/axios";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 
 export interface IMessage {
   userId: string;
@@ -39,9 +44,10 @@ function useGetGroupMessagesByChannelIdQuery({
     return data.data;
   };
 
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: [`group-messages-${channelId}`],
     queryFn: getMessages,
+    enabled: !!channelId,
   });
 }
 
