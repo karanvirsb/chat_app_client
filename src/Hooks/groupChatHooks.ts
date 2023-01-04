@@ -16,9 +16,15 @@ export interface IMessage {
   channelId: string;
 }
 
-interface ReturnGroupChannels {
+interface ReturnGroupMessages {
   success: boolean;
   data: IMessage[] | undefined;
+  error: string;
+}
+
+interface ReturnGroupMessage {
+  success: boolean;
+  data: IMessage | undefined;
   error: string;
 }
 
@@ -40,7 +46,7 @@ function useGetGroupMessagesByChannelIdQuery({
       params: { channelId, dateCreated, limit },
       method: "GET",
     });
-    const data: ReturnGroupChannels = resp.data;
+    const data: ReturnGroupMessages = resp.data;
     return data.data;
   };
 
@@ -51,4 +57,44 @@ function useGetGroupMessagesByChannelIdQuery({
   });
 }
 
-export { useGetGroupMessagesByChannelIdQuery };
+// MUTATIONS
+
+function useCreateGroupMessageMutation({
+  channelId,
+  dateCreated,
+  text,
+  userId,
+}: {
+  channelId: string;
+  dateCreated: Date;
+  text: string;
+  userId: string;
+}) {
+  const queryClient = useQueryClient();
+  const createMessage = async () => {
+    const resp = await axios({
+      url: `${baseurl}`,
+      method: "POST",
+      data: { messageInfo: { channelId, dateCreated, userId, text } },
+    });
+
+    const data: ReturnGroupMessage = resp.data;
+
+    return data;
+  };
+
+  return useMutation({
+    mutationFn: createMessage,
+    onSuccess: async (data) => {
+      queryClient.invalidateQueries([`group-messages-${data.data?.channelId}`]);
+      //  if (data.data) {
+      //    send("update_channel_lists", {
+      //      groupId: data.data.groupId,
+      //      payload: { channelInfo: data.data },
+      //    });
+      //  }
+    },
+  });
+}
+
+export { useGetGroupMessagesByChannelIdQuery, useCreateGroupMessageMutation };
