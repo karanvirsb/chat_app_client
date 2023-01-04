@@ -127,7 +127,7 @@ export default function GroupSidebarInfo({
   );
 
   function getGroupName() {
-    return isGroup(group) ? group?.groupName : "";
+    return group?.groupName;
   }
 
   // TODO added pass through values
