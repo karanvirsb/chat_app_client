@@ -59,19 +59,19 @@ function useGetGroupMessagesByChannelIdQuery({
 
 // MUTATIONS
 
-function useCreateGroupMessageMutation({
-  channelId,
-  dateCreated,
-  text,
-  userId,
-}: {
-  channelId: string;
-  dateCreated: Date;
-  text: string;
-  userId: string;
-}) {
+function useCreateGroupMessageMutation() {
   const queryClient = useQueryClient();
-  const createMessage = async () => {
+  const createMessage = async ({
+    channelId,
+    dateCreated,
+    text,
+    userId,
+  }: {
+    channelId: string;
+    dateCreated: Date;
+    text: string;
+    userId: string;
+  }) => {
     const resp = await axios({
       url: `${baseurl}`,
       method: "POST",
