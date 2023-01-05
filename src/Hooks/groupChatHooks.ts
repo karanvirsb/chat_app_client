@@ -43,8 +43,8 @@ function useGetGroupMessagesByChannelIdQuery({
   const getMessages = async (): Promise<IMessage[] | undefined> => {
     const resp = await axios({
       url: `${baseurl}/channel`,
-      params: { channelId, dateCreated, limit },
-      method: "GET",
+      data: { channelId, dateCreated, limit },
+      method: "POST",
     });
     const data: ReturnGroupMessages = resp.data;
     return data.data;
