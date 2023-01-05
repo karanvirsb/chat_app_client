@@ -1,5 +1,9 @@
 import React, { InputHTMLAttributes, useRef } from "react";
-import { useGetGroupMessagesByChannelIdQuery } from "../../../Hooks/groupChatHooks";
+import {
+  useCreateGroupMessageMutation,
+  useGetGroupMessagesByChannelIdQuery,
+} from "../../../Hooks/groupChatHooks";
+import useGetSession from "../../../Hooks/useGetSession";
 
 type props = {
   channelId: string;
@@ -18,10 +22,15 @@ export default function GroupChat({ channelId }: props) {
     dateCreated: new Date(),
     limit: 10,
   });
+  const { mutate, isError: createMessageError } =
+    useCreateGroupMessageMutation();
+
+  const { sessionInfo } = useGetSession();
   return (
     <div className="bg-chat-bg flex flex-col flex-grow h-full">
       <div className="flex-grow p-4 w-full ">
         {/* TODO Create chat component */}
+        {JSON.stringify(chatMessages)}
       </div>
 
       <form className="input-group p-4" onSubmit={handleMessageSubmit}>
@@ -37,6 +46,12 @@ export default function GroupChat({ channelId }: props) {
 
   function handleMessageSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(messageRef.current?.value);
+    if (messageRef.current && sessionInfo)
+      mutate({
+        channelId,
+        dateCreated: new Date(),
+        text: messageRef.current.value,
+        userId: sessionInfo?.userId,
+      });
   }
 }
