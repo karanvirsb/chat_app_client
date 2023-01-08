@@ -54,7 +54,7 @@ function useGetGroupMessagesByChannelIdQuery({
   return useInfiniteQuery({
     queryKey: [`group-messages-${channelId}`],
     queryFn: getMessages,
-    enabled: !!channelId,
+    enabled: !!channelId && !!dateCreated,
   });
 }
 
