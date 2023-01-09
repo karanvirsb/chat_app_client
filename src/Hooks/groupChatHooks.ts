@@ -5,7 +5,7 @@ import {
   useQueryClient,
   useInfiniteQuery,
 } from "@tanstack/react-query";
-import { Pagination } from "../utilities/types/pagination";
+import { PaginatedGroupMessages } from "../utilities/types/pagination";
 
 export interface IMessage {
   userId: string;
@@ -19,7 +19,7 @@ export interface IMessage {
 
 interface ReturnGroupMessages {
   success: boolean;
-  data: Pagination<IMessage> | undefined;
+  data: PaginatedGroupMessages<IMessage> | undefined;
   error: string;
 }
 
@@ -41,12 +41,15 @@ function useGetGroupMessagesByChannelIdQuery({
   dateCreated: Date;
   limit: number;
 }) {
-  const getMessages = async (): Promise<Pagination<IMessage> | undefined> => {
+  const getMessages = async ({
+    pageParam = `${baseurl}/channel/messages?channelId=${channelId}&limit=${limit}&dateCreated=${dateCreated.toISOString()}`,
+  }): Promise<PaginatedGroupMessages<IMessage> | undefined> => {
+    if (pageParam.length === 0) return undefined;
     const resp = await axios({
-      url: `${baseurl}/channel`,
-      data: { channelId, dateCreated, limit },
-      method: "POST",
+      url: pageParam,
+      method: "GET",
     });
+
     const data: ReturnGroupMessages = resp.data;
     return data.data;
   };
@@ -55,6 +58,7 @@ function useGetGroupMessagesByChannelIdQuery({
     queryKey: [`group-messages-${channelId}`],
     queryFn: getMessages,
     enabled: !!channelId && !!dateCreated,
+    getNextPageParam: (last, page) => last?.nextPage,
   });
 }
 
