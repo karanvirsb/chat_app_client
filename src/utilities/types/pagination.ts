@@ -1,5 +1,5 @@
-export interface Pagination<T> {
+export interface PaginatedGroupMessages<T> {
   hasNextPage: boolean;
-  cursor: Date | null;
+  nextPage: string | null;
   data: T[];
 }
