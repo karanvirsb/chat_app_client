@@ -14,6 +14,8 @@ export default function GroupChat({ channelId }: props) {
   // TODO after inital load need to set dateCreated to last message.
   const {
     data: chatMessages,
+    fetchNextPage,
+    hasNextPage,
     isFetching,
     isLoading,
     isError,
@@ -30,7 +32,16 @@ export default function GroupChat({ channelId }: props) {
     <div className="bg-chat-bg flex flex-col flex-grow h-full">
       <div className="flex-grow p-4 w-full ">
         {/* TODO Create chat component */}
-        {JSON.stringify(chatMessages)}
+        {chatMessages &&
+          chatMessages.pages.map((page) => {
+            return (
+              <div>
+                <p>{page && JSON.stringify(page.nextPage)}</p>
+                <div>{JSON.stringify(page?.data)}</div>
+              </div>
+            );
+          })}
+        <button onClick={() => fetchNextPage()}>fetch next messages</button>
       </div>
 
       <form className="input-group p-4" onSubmit={handleMessageSubmit}>
