@@ -35,11 +35,11 @@ export default function GroupChat({ channelId, groupId }: props) {
       <div className="flex-grow p-4 w-full ">
         {/* TODO Create chat component */}
         {chatMessages
-          ? chatMessages?.pages.map((messages) => {
+          ? chatMessages?.pages.map((_, index, pages) => {
               return (
                 <Messages
                   groupId={groupId}
-                  messages={messages?.data}
+                  messages={pages[pages.length - 1 - index]?.data}
                 ></Messages>
               );
             })
