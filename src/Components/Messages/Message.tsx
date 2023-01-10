@@ -23,7 +23,7 @@ export default function Message({ message, username }: props) {
         <span className="italic">{message.dateModified ? "Edited" : null}</span>
       </div>
       <p className="text-[#D9D9D9]">{message.text}</p>
-      <div className="hidden group-hover:block">
+      <div className="absolute -top-3 gap-3 right-0 hidden p-2 rounded-md group-hover:flex bg-[#1F242D] drop-shadow-sm">
         {/* edit btn */}
         <button>
           <svg
@@ -32,7 +32,7 @@ export default function Message({ message, username }: props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 hover:text-yellow-200"
           >
             <path
               strokeLinecap="round"
@@ -50,7 +50,7 @@ export default function Message({ message, username }: props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 hover:text-yellow-200"
           >
             <path
               strokeLinecap="round"
