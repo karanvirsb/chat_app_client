@@ -5,6 +5,7 @@ dayjs.extend(localizedFormat);
 import { IMessage } from "../../Hooks/groupChatHooks";
 import { IUser } from "../../Hooks/groupHooks";
 import { useQueryClient } from "@tanstack/react-query";
+import Message from "./Message";
 
 type props = {
   messages: IMessage[] | undefined;
@@ -25,20 +26,7 @@ export default function Messages({ messages, groupId }: props) {
           : undefined;
 
         return (
-          <div
-            key={message.messageId}
-            className="flex flex-col gap-2 py-2 px-4 rounded-md hover:bg-[#2A303C]"
-          >
-            <div className="flex items-center gap-4">
-              <span className="text-white font-semibold">
-                {foundUser?.username}
-              </span>
-              <span className="text-sm text-[#ABABAB]">
-                {dayjs(message.dateCreated).format("L LTS")}
-              </span>
-            </div>
-            <p className="text-[#D9D9D9]">{message.text}</p>
-          </div>
+          <Message message={message} username={foundUser?.username}></Message>
         );
       })}
     </>
