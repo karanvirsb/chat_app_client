@@ -36,7 +36,10 @@ export default function GroupChannel({ groupId }: props) {
             groupId={groupId}
           ></GroupTopBar>
           <div className="flex flex-grow">
-            <GroupChat channelId={selectedChannel}></GroupChat>
+            <GroupChat
+              channelId={selectedChannel}
+              groupId={groupId}
+            ></GroupChat>
             {isUserMenuOpen && (
               <GroupUsers
                 isUserMenuOpen={isUserMenuOpen}
