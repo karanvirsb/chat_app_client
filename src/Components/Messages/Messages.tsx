@@ -25,12 +25,19 @@ export default function Messages({ messages, groupId }: props) {
           : undefined;
         console.log(foundUser);
         return (
-          <div key={message.messageId}>
-            <div>
-              <span>{foundUser?.username}</span>
-              <span>{dayjs(message.dateCreated).format("ll LTS")}</span>
-              <p>{message.text}</p>
+          <div
+            key={message.messageId}
+            className="flex flex-col gap-2 py-2 px-4 rounded-md hover:bg-[#2A303C]"
+          >
+            <div className="flex items-center gap-4">
+              <span className="text-white font-semibold">
+                {foundUser?.username}
+              </span>
+              <span className="text-sm text-[#ABABAB]">
+                {dayjs(message.dateCreated).format("L LTS")}
+              </span>
             </div>
+            <p className="text-[#D9D9D9]">{message.text}</p>
           </div>
         );
       })}
