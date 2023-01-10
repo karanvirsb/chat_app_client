@@ -32,7 +32,7 @@ export default function GroupChat({ channelId, groupId }: props) {
   const { sessionInfo } = useGetSession();
   return (
     <div className="bg-chat-bg flex flex-col flex-grow h-full">
-      <div className="flex-grow p-4 w-full ">
+      <div className="flex-grow flex flex-col gap-6 p-4 w-full ">
         {/* TODO Create chat component */}
         {chatMessages
           ? chatMessages?.pages.map((_, index, pages) => {
