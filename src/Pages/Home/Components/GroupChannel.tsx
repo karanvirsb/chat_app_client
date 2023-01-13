@@ -6,6 +6,7 @@ import GroupSidebarInfo from "./GroupSidebarInfo";
 import GroupTopBar from "./GroupTopBar";
 import GroupUsers from "./GroupUsers";
 import useLocalStorage from "../../../Hooks/useLocalStorage";
+import ScrollWrapper from "../../../Components/ScrollWrapper/ScrollWrapper";
 
 type props = {
   groupId: string;
@@ -35,19 +36,21 @@ export default function GroupChannel({ groupId }: props) {
             selectedChannel={selectedChannel}
             groupId={groupId}
           ></GroupTopBar>
-          <div className="flex flex-grow">
+          <ScrollWrapper>
             <GroupChat
               channelId={selectedChannel}
               groupId={groupId}
             ></GroupChat>
-            {isUserMenuOpen && (
-              <GroupUsers
-                isUserMenuOpen={isUserMenuOpen}
-                toggleUserMenu={toggleUserMenu}
-                groupId={groupId}
-              ></GroupUsers>
-            )}
-          </div>
+            <>
+              {isUserMenuOpen ? (
+                <GroupUsers
+                  isUserMenuOpen={isUserMenuOpen}
+                  toggleUserMenu={toggleUserMenu}
+                  groupId={groupId}
+                ></GroupUsers>
+              ) : null}
+            </>
+          </ScrollWrapper>
         </>
       </ChannelContainer>
     </>
