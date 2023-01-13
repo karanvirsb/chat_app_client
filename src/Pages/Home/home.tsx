@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex h-screen max-h-screen min-h-screen">
+      <div className="flex h-screen min-h-screen">
         <Sidebar setTab={setTab} setTabId={setTabId}></Sidebar>
         {tab === "group" && <GroupChannel groupId={tabId}></GroupChannel>}
         {tab === "me" && <MeChannel></MeChannel>}
