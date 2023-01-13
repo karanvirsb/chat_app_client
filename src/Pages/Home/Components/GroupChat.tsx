@@ -55,7 +55,7 @@ export default function GroupChat({ channelId, groupId }: props) {
           <input
             type="text"
             placeholder="Send a message"
-            className="input input-bordered bg-[#2a303c] w-full focus:outline-none"
+            className="input input-bordered !rounded-full bg-[#2a303c] w-full focus:outline-none"
             ref={messageRef}
           />
         </form>
