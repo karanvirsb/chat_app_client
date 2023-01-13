@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useRef } from "react";
+import React, { useRef } from "react";
 import {
   useCreateGroupMessageMutation,
   useGetGroupMessagesByChannelIdQuery,
@@ -31,8 +31,8 @@ export default function GroupChat({ channelId, groupId }: props) {
 
   const { sessionInfo } = useGetSession();
   return (
-    <div className="bg-chat-bg flex flex-col flex-grow h-full">
-      <div className="flex-grow flex flex-col gap-6 p-4 w-full ">
+    <div className="flex flex-col flex-grow overflow-auto bg-chat-bg">
+      <div className="flex flex-col w-full gap-6 p-4 ">
         {/* TODO Create chat component */}
         {chatMessages
           ? chatMessages?.pages.map((_, index, pages) => {
@@ -47,7 +47,7 @@ export default function GroupChat({ channelId, groupId }: props) {
         <button onClick={() => fetchNextPage()}>fetch next messages</button>
       </div>
 
-      <form className="input-group p-4" onSubmit={handleMessageSubmit}>
+      <form className="p-4 input-group" onSubmit={handleMessageSubmit}>
         <input
           type="text"
           placeholder="Send a message"
