@@ -31,7 +31,7 @@ export default function GroupChat({ channelId, groupId }: props) {
 
   const { sessionInfo } = useGetSession();
   return (
-    <div className="flex flex-col flex-grow overflow-auto bg-chat-bg">
+    <div className="flex relative flex-col flex-grow overflow-auto bg-chat-bg">
       <div className="flex flex-col w-full gap-6 p-4 ">
         {/* TODO Create chat component */}
         {chatMessages
@@ -46,15 +46,19 @@ export default function GroupChat({ channelId, groupId }: props) {
           : null}
         <button onClick={() => fetchNextPage()}>fetch next messages</button>
       </div>
-
-      <form className="p-4 input-group" onSubmit={handleMessageSubmit}>
-        <input
-          type="text"
-          placeholder="Send a message"
-          className="input input-bordered bg-[#2a303c] w-full focus:outline-none"
-          ref={messageRef}
-        />
-      </form>
+      {channelId ? (
+        <form
+          className="p-4 input-group sticky bottom-0 bg-chat-bg"
+          onSubmit={handleMessageSubmit}
+        >
+          <input
+            type="text"
+            placeholder="Send a message"
+            className="input input-bordered bg-[#2a303c] w-full focus:outline-none"
+            ref={messageRef}
+          />
+        </form>
+      ) : null}
     </div>
   );
 
