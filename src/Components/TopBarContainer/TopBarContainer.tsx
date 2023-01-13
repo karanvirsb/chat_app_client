@@ -1,13 +1,13 @@
 import React from "react";
 
 type props = {
-    children: JSX.Element;
+  children: JSX.Element;
 };
 
 export default function TopBarContainer({ children }: props) {
-    return (
-        <div className='bg-chat-bg border-b border-r-0 border-groupBar-bg flex items-center justify-between font-semibold drop-shadow-md py-2 px-4 w-full h-16 text-white'>
-            {children}
-        </div>
-    );
+  return (
+    <div className="flex items-center justify-between flex-none w-full h-16 px-4 py-2 font-semibold text-white border-b border-r-0 bg-chat-bg border-groupBar-bg drop-shadow-md">
+      {children}
+    </div>
+  );
 }
