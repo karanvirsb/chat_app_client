@@ -47,6 +47,7 @@ export default function GroupChat({ channelId, groupId }: props) {
         <button onClick={() => fetchNextPage()}>fetch next messages</button>
       </div>
       {channelId ? (
+        // made it sticky so it will stay at the bottom
         <form
           className="p-4 input-group sticky bottom-0 bg-chat-bg"
           onSubmit={handleMessageSubmit}
