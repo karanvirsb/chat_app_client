@@ -49,6 +49,12 @@ export default function GroupChat({ channelId, groupId }: props) {
     }
   }, [chatMessages]);
 
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  }, [channelId]);
+
   return (
     <div
       className="flex relative flex-col flex-grow overflow-auto bg-chat-bg"
