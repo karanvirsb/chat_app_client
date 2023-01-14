@@ -7,10 +7,11 @@ type props = {
   username: string | undefined;
 };
 
-export default function Message({ message, username }: props) {
-  return (
+const Message = React.forwardRef(
+  ({ message, username }: props, ref: React.ForwardedRef<HTMLDivElement>) => (
     <div
       key={message.messageId}
+      ref={ref}
       className="flex flex-col gap-2 py-2 px-4 rounded-md hover:bg-[#2A303C] group relative"
     >
       <div className="flex items-center gap-4">
@@ -61,5 +62,7 @@ export default function Message({ message, username }: props) {
         </button>
       </div>
     </div>
-  );
-}
+  )
+);
+
+export default Message;
