@@ -1,33 +1,70 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import { IMessage } from "../../Hooks/groupChatHooks";
 import { IUser } from "../../Hooks/groupHooks";
-import { useQueryClient } from "@tanstack/react-query";
+import {
+  FetchNextPageOptions,
+  InfiniteQueryObserverResult,
+  useQueryClient,
+} from "@tanstack/react-query";
 import Message from "./Message";
+import { PaginatedGroupMessages } from "../../utilities/types/pagination";
+import useIntersectionObserver from "../../Hooks/useIntersectionObserver";
 
 type props = {
   messages: IMessage[] | undefined;
   groupId: string;
+  lastPage?: boolean;
+  fetchNextPage?: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<
+    InfiniteQueryObserverResult<
+      PaginatedGroupMessages<IMessage> | undefined,
+      unknown
+    >
+  >;
 };
 
-export default function Messages({ messages, groupId }: props) {
+export default function Messages({
+  messages,
+  groupId,
+  lastPage,
+  fetchNextPage,
+}: props) {
+  const firstElementRef = useRef<HTMLDivElement>(null);
+  const entry = useIntersectionObserver(firstElementRef, {});
+  const isVisible = !!entry?.isIntersecting;
+
   const queryClient = useQueryClient();
   const groupUsers = queryClient.getQueriesData([
     `group-users-${groupId}`,
   ])[0][1] as unknown[];
 
+  useEffect(() => {
+    if (isVisible && fetchNextPage) fetchNextPage();
+  }, [isVisible]);
+
   return (
     <>
-      {messages?.map((message) => {
+      {messages?.map((message, index) => {
         const foundUser = isGroupUsers(groupUsers)
           ? groupUsers.find((user) => user.userId === message.userId)
           : undefined;
-
-        return (
-          <Message message={message} username={foundUser?.username}></Message>
-        );
+        if (lastPage && index === 0) {
+          return (
+            <Message
+              ref={firstElementRef}
+              message={message}
+              username={foundUser?.username}
+            ></Message>
+          );
+        } else {
+          return (
+            <Message message={message} username={foundUser?.username}></Message>
+          );
+        }
       })}
     </>
   );
