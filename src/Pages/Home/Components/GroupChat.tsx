@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   useCreateGroupMessageMutation,
   useGetGroupMessagesByChannelIdQuery,
@@ -13,6 +13,7 @@ type props = {
 
 export default function GroupChat({ channelId, groupId }: props) {
   const messageRef = useRef<null | HTMLInputElement>(null);
+  const chatMessagesRef = useRef<null | HTMLDivElement>(null);
   // TODO after inital load need to set dateCreated to last message.
   const {
     data: chatMessages,
@@ -30,8 +31,29 @@ export default function GroupChat({ channelId, groupId }: props) {
     useCreateGroupMessageMutation();
 
   const { sessionInfo } = useGetSession();
+
+  useEffect(() => {
+    // scroll height gives height of element
+    // client height gives height of actual element or css height
+    // so scroll top is the vertical top and max is scrollHeight
+    if (chatMessagesRef.current) {
+      let isScrolledToBottom =
+        chatMessagesRef.current.scrollHeight -
+          chatMessagesRef.current.clientHeight <=
+        chatMessagesRef.current.scrollTop + 1;
+
+      if (isScrolledToBottom)
+        chatMessagesRef.current.scrollTop =
+          chatMessagesRef.current.scrollHeight -
+          chatMessagesRef.current.clientHeight;
+    }
+  }, [chatMessages]);
+
   return (
-    <div className="flex relative flex-col flex-grow overflow-auto bg-chat-bg">
+    <div
+      className="flex relative flex-col flex-grow overflow-auto bg-chat-bg"
+      ref={chatMessagesRef}
+    >
       <div className="flex flex-col w-full gap-6 p-4 ">
         {/* TODO Create chat component */}
         {chatMessages
