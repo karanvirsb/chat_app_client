@@ -64,12 +64,23 @@ export default function GroupChat({ channelId, groupId }: props) {
         {/* TODO Create chat component */}
         {chatMessages
           ? chatMessages?.pages.map((_, index, pages) => {
-              return (
-                <Messages
-                  groupId={groupId}
-                  messages={pages[pages.length - 1 - index]?.data}
-                ></Messages>
-              );
+              if (index === 0) {
+                return (
+                  <Messages
+                    groupId={groupId}
+                    messages={pages[pages.length - 1 - index]?.data}
+                    lastPage={true}
+                    fetchNextPage={fetchNextPage}
+                  ></Messages>
+                );
+              } else {
+                return (
+                  <Messages
+                    groupId={groupId}
+                    messages={pages[pages.length - 1 - index]?.data}
+                  ></Messages>
+                );
+              }
             })
           : null}
         <button onClick={() => fetchNextPage()}>fetch next messages</button>
