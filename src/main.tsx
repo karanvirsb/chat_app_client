@@ -9,19 +9,19 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SocketHandler from "./Sockets/SocketHandler";
 
 const queryClient = new QueryClient({
-    defaultOptions: { queries: { staleTime: Infinity } },
+  defaultOptions: { queries: { staleTime: Infinity } },
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <React.StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <Router>
-                <Provider store={store}>
-                    <SocketHandler>
-                        <App />
-                    </SocketHandler>
-                </Provider>
-            </Router>
-        </QueryClientProvider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Provider store={store}>
+          <SocketHandler>
+            <App />
+          </SocketHandler>
+        </Provider>
+      </Router>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
