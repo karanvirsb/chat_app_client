@@ -19,7 +19,8 @@
   },
   "plugins": ["react", "import", "@typescript-eslint", "prettier"],
   "rules": {
-    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }]
+    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+    "prettier/prettier": 2
   },
   "settings": {
     "import/resolver": {
