@@ -1,5 +1,5 @@
 import axios from "../API/axios";
-import { useQuery, useMutation, useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
 import useGroupChannelSockets from "../Sockets/Hooks/useGroupChannelSockets";
 
 // setting up global variables
@@ -59,7 +59,12 @@ function useGetGroupChannelsQuery({ groupId }: { groupId: string }):  UseQueryRe
 
 // Mutations
 
-function useCreateGroupChannelMutation() {
+type IUseCreateGroupChannelMutation = UseMutationResult<returnGroupChannel, unknown, {
+    channelName: string;
+    groupId: string;
+}, unknown> 
+
+function useCreateGroupChannelMutation(): IUseCreateGroupChannelMutation {
   const queryClient = useQueryClient();
   const send = useGroupChannelSockets();
   const createGroupChannel = async ({
