@@ -1,5 +1,5 @@
 import axios from "../API/axios";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, UseQueryResult } from "@tanstack/react-query";
 import useGroupChannelSockets from "../Sockets/Hooks/useGroupChannelSockets";
 
 // setting up global variables
@@ -12,19 +12,19 @@ export interface IGroupChannel {
   groupId: string;
 }
 
-export type returnGroupChannel = {
+export interface returnGroupChannel {
   success: boolean;
   data: IGroupChannel | undefined;
   error: string;
 };
 
-export type returnGroupChannels = {
+export interface returnGroupChannels {
   success: boolean;
   data: IGroupChannel[] | undefined;
   error: string;
 };
 
-function useGetGroupChannelQuery({ channelId }: { channelId: string }) {
+function useGetGroupChannelQuery({ channelId }: { channelId: string }): UseQueryResult<IGroupChannel | undefined, unknown> {
   const getChannel = async (): Promise<IGroupChannel | undefined> => {
     const data = await axios({
       url: `baseurl/${channelId}`,
@@ -40,7 +40,7 @@ function useGetGroupChannelQuery({ channelId }: { channelId: string }) {
   });
 }
 
-function useGetGroupChannelsQuery({ groupId }: { groupId: string }) {
+function useGetGroupChannelsQuery({ groupId }: { groupId: string }):  UseQueryResult<IGroupChannel[], unknown> {
   const getChannels = async (): Promise<IGroupChannel[]> => {
     const data = await axios({
       url: `${baseurl}/all/${groupId}`,
@@ -87,8 +87,8 @@ function useCreateGroupChannelMutation() {
   return useMutation({
     mutationFn: createGroupChannel,
     onSuccess: async (data) => {
-      queryClient.invalidateQueries([`group-channels-${data.data?.groupId}`]);
-      if (data.data) {
+      await queryClient.invalidateQueries([`group-channels-${data.data?.groupId ?? ""}`]);
+      if (data !== null && data.data) {
         send("update_channel_lists", {
           groupId: data.data.groupId,
           payload: { channelInfo: data.data },
