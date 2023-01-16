@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IMessage } from "../../Hooks/groupChatHooks";
 import dayjs from "dayjs";
 
@@ -7,7 +7,9 @@ type props = {
   username: string | undefined;
 };
 
-const Message = React.forwardRef(
+export default function Message(){
+  const [editting, setEditting] = useState(false)
+  return React.forwardRef(
   ({ message, username }: props, ref: React.ForwardedRef<HTMLDivElement>) => (
     <div
       key={message.messageId}
@@ -24,6 +26,7 @@ const Message = React.forwardRef(
         <span className="italic">{message.dateModified ? "Edited" : null}</span>
       </div>
       <p className="text-[#D9D9D9]">{message.text}</p>
+      <form></form>
       <div className="absolute -top-3 gap-3 right-0 hidden p-2 rounded-md group-hover:flex bg-[#1F242D] drop-shadow-sm">
         {/* edit btn */}
         <button>
@@ -62,7 +65,9 @@ const Message = React.forwardRef(
         </button>
       </div>
     </div>
-  )
-);
+  ));
+}
 
-export default Message;
+function handleEditMessage(){
+
+}
