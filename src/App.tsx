@@ -7,9 +7,8 @@ import SuperTokens, {
   getSuperTokensRoutesForReactRouterDom,
   SuperTokensWrapper
 } from 'supertokens-auth-react'
-import EmailPassword, {
-  EmailPasswordAuth
-} from 'supertokens-auth-react/recipe/emailpassword'
+import EmailPassword from 'supertokens-auth-react/recipe/emailpassword';
+import { SessionAuth } from 'supertokens-auth-react/recipe/session'
 import Session from 'supertokens-auth-react/recipe/session'
 import ModalDisplay from './Components/Modal/ModalDisplay'
 import Settings from './Pages/Settings/settings'
@@ -67,41 +66,41 @@ export default function App () {
                         <Route
                             path='/'
                             element={
-                                <EmailPasswordAuth>
+                                <SessionAuth>
                                     <Home></Home>
-                                </EmailPasswordAuth>
+                                </SessionAuth>
                             }
                         ></Route>
                         <Route
                             path='/settings'
                             element={
-                                <EmailPasswordAuth>
+                                <SessionAuth>
                                     <Settings></Settings>
-                                </EmailPasswordAuth>
+                                </SessionAuth>
                             }
                         ></Route>
                         <Route
                             path='/friends'
                             element={
-                                <EmailPasswordAuth>
+                                <SessionAuth>
                                     <Friends></Friends>
-                                </EmailPasswordAuth>
+                                </SessionAuth>
                             }
                         ></Route>
                         <Route
                             path='/search'
                             element={
-                                <EmailPasswordAuth>
+                                <SessionAuth>
                                     <Search></Search>
-                                </EmailPasswordAuth>
+                                </SessionAuth>
                             }
                         ></Route>
                         <Route
                             path='/invite/:inviteCode'
                             element={
-                                <EmailPasswordAuth>
+                                <SessionAuth>
                                     <Invite></Invite>
-                                </EmailPasswordAuth>
+                                </SessionAuth>
                             }
                         ></Route>
                     </Route>
