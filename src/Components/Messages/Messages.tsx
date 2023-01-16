@@ -57,7 +57,7 @@ export default function Messages({
         if (lastPage !== null && index === 0) {
           return (
             <Message
-            key={message.messageId}
+              key={message.messageId}
               ref={firstElementRef}
               message={message}
               username={foundUser?.username}
@@ -65,7 +65,11 @@ export default function Messages({
           );
         } else {
           return (
-            <Message key={message.messageId} message={message} username={foundUser?.username}></Message>
+            <Message 
+              key={message.messageId} 
+              message={message} 
+              username={foundUser?.username}
+            ></Message>
           );
         }
       })}
