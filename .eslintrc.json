@@ -20,7 +20,8 @@
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
-    "react-hooks/exhaustive-deps": 2
+    "react-hooks/exhaustive-deps": 2,
+    "no-undef": "off"
   },
   "settings": {
     "import/resolver": {
