@@ -15,11 +15,11 @@ export default function useGetSession(): IUseGetSession {
         userId: string;
         accessTokenPayload: any;
     } | null>(null);
-    let session = useSessionContext();
+    const session = useSessionContext();
 
     useEffect(() => {
         if (!session.loading) {
-            let { doesSessionExist, userId, accessTokenPayload } = session;
+            const { doesSessionExist, userId, accessTokenPayload } = session;
             setSessionInfo({
                 doesSessionExist,
                 userId,
