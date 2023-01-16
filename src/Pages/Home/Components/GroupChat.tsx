@@ -108,6 +108,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
         text: messageRef.current.value,
         userId: sessionInfo.userId,
       });
+      messageRef.current.value = ""; // resetting value
     }
   }
 }
