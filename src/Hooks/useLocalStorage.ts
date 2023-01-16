@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export default function useLocalStorage<T>(
     key: string,
@@ -9,7 +9,7 @@ export default function useLocalStorage<T>(
 
         try {
             currentValue = JSON.parse(
-                localStorage.getItem(key) || String(initialValue)
+                localStorage.getItem(key) ?? String(initialValue)
             );
         } catch (error) {
             currentValue = initialValue;
