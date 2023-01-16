@@ -195,10 +195,10 @@ function useCreateGroupMutation(): IUseCreateGroupMutation {
                         },
                     },
                 });
-                if(sessionInfo){
+                if(sessionInfo !== null){
                     send("join_rooms", {
                         rooms: [data.data.groupId],
-                        userId: sessionInfo.userId ? sessionInfo.userId : "",
+                        userId: sessionInfo.userId,
                     });
                 }
             }
@@ -307,21 +307,19 @@ function useAddUserToGroupMutation(): IUseAddUserToGroupMutation {
     return useMutation({
         mutationFn: addUserToGroup,
         onSuccess: async (data) => {
-            if (data.success && (data.data != null)) {
+            if (data.data != null) {
                 await queryClient.invalidateQueries([`groups`]);
                 // queryClient.invalidateQueries([`group-users-${data.data.groupId}`]);
-                if (data.data) {
-                    // send request to join room socket
-                    send("join_rooms", {
-                        rooms: [data.data.groupId],
-                        userId: data.data.userId,
-                    });
-                    // send to invalidate group users
-                    send("update_the_group_users", {
-                        groupId: data.data.groupId,
-                        payload: { userInfo: { ...data.data } },
-                    });
-                }
+                // send request to join room socket
+                send("join_rooms", {
+                    rooms: [data.data.groupId],
+                    userId: data.data.userId,
+                });
+                // send to invalidate group users
+                send("update_the_group_users", {
+                    groupId: data.data.groupId,
+                    payload: { userInfo: { ...data.data } },
+                });
             }
         },
     });
