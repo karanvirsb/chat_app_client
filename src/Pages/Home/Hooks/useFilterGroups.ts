@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { IGroup } from "../../../Hooks/groupHooks";
 import { isGroupArray } from "../../../test/validation/schemaValidation";
 
-type props = {
+interface props {
     groups: IGroup[] | string | undefined;
     groupId: string;
-};
+}
 
 export default function useFilterGroups({ groups, groupId }: props): IGroup {
     const [group, setGroup] = useState<IGroup>({
@@ -21,7 +21,7 @@ export default function useFilterGroups({ groups, groupId }: props): IGroup {
                 (group) => group.groupId === groupId
             );
 
-            if (foundGroup) setGroup(() => foundGroup);
+            if (foundGroup != null) setGroup(() => foundGroup);
         }
     }, [groups, groupId]);
 
