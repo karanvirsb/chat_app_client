@@ -60,7 +60,7 @@ function useGetGroupMessagesByChannelIdQuery({
   return useInfiniteQuery({
     queryKey: [`group-messages-${channelId}`],
     queryFn: getMessages,
-    enabled: !!channelId && !!dateCreated,
+    enabled: channelId.length > 0 && dateCreated.getDate() !== null,
     getNextPageParam: (last, page) => last?.nextPage,
   });
 }
@@ -84,7 +84,7 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
     dateCreated: Date;
     text: string;
     userId: string;
-  }) => {
+  }): Promise<ReturnGroupMessage> => {
     const resp = await axios({
       url: `${baseurl}`,
       method: "POST",
@@ -99,7 +99,8 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
   return useMutation({
     mutationFn: createMessage,
     onSuccess: async (data) => {
-      await queryClient.invalidateQueries([`group-messages-${data.data?.channelId || ""}`]);
+      if(data.data == undefined) return;
+      await queryClient.invalidateQueries([`group-messages-${data.data.channelId ?? ""}`]);
       //  if (data.data) {
       //    send("update_channel_lists", {
       //      groupId: data.data.groupId,
