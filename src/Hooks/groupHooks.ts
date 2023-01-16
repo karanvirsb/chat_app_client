@@ -6,7 +6,7 @@ import useGetSession from "./useGetSession";
 // setting up global variables
 const baseurl = "http://localhost:8000/group";
 
-// types
+// interfaces
 export interface IGroup {
     groupName: string;
     groupId: string;
@@ -24,37 +24,37 @@ export interface IUser {
     groupId: string;
 }
 
-export type IGroupUsers = {
+export interface IGroupUsers {
     gId: string;
     uId: string;
     roles: number[];
 };
 
-export type returnGroupsData = {
+export interface returnGroupsData {
     success: boolean;
     data: IGroup[] | undefined;
     error: string;
 };
 
-export type returnGroupData = {
+export interface returnGroupData {
     success: boolean;
     data: IGroup | undefined;
     error: string;
 };
 
-export type returnUserData = {
+export interface returnUserData {
     success: boolean;
     data: IUser | undefined;
     error: string;
 };
 
-export type returnGroupUsersData = {
+export interface returnGroupUsersData {
     success: boolean;
     data: IUser[] | undefined;
     error: string;
 };
 
-export type returnGroupUserData = {
+export interface returnGroupUserData {
     success: boolean;
     data: IGroupUsers | undefined;
     error: string;
@@ -63,7 +63,7 @@ export type returnGroupUserData = {
 function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
     const getGroups = async (): Promise<IGroup[] | string> => {
         const resp = await axios({
-            url: `${baseurl}/userId/${userId}`,
+            url: `${baseurl}/userId/${userId ?? ""}`,
             method: "GET",
         });
         const result: returnGroupsData = resp.data;
@@ -180,7 +180,7 @@ function useCreateGroupMutation() {
     return useMutation({
         mutationFn: createGroup,
         onSuccess: async (data) => {
-            queryClient.invalidateQueries(["groups"]);
+            await queryClient.invalidateQueries(["groups"]);
             if (data.data) {
                 await axios({
                     url: "http://localhost:8000/groupChannel",
