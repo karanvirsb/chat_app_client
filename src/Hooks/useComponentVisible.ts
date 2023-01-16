@@ -14,7 +14,7 @@ export default function useComponentVisible(): IUseComponentVisible {
     const [isComponentVisible, setIsComponentVisible] = useState(false);
     const ref: React.RefObject<any> = useRef(null);
 
-    const handleClickOutside = (event: any): void => {
+    const handleClickOutside = (event: Event): void => {
         if (ref.current && !ref.current.contains(event.target)) {
             setIsComponentVisible(false);
         }
