@@ -92,7 +92,8 @@ function useCreateGroupChannelMutation(): IUseCreateGroupChannelMutation {
   return useMutation({
     mutationFn: createGroupChannel,
     onSuccess: async (data) => {
-      await queryClient.invalidateQueries([`group-channels-${data.data?.groupId || ""}`]);
+      if(data.data == undefined) return; 
+      await queryClient.invalidateQueries([`group-channels-${data.data.groupId ?? ""}`]);
       if (data !== null && (data.data != null)) {
         send("update_channel_lists", {
           groupId: data.data.groupId,
