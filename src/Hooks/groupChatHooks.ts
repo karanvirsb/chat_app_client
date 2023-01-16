@@ -99,7 +99,7 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
   return useMutation({
     mutationFn: createMessage,
     onSuccess: async (data) => {
-      await queryClient.invalidateQueries([`group-messages-${data.data?.channelId}`]);
+      await queryClient.invalidateQueries([`group-messages-${data.data?.channelId || ""}`]);
       //  if (data.data) {
       //    send("update_channel_lists", {
       //      groupId: data.data.groupId,
