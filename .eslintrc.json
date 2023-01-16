@@ -15,15 +15,9 @@
     "ecmaVersion": "latest",
     "sourceType": "module",
     "requireConfigFile": false,
-    "project": ["tsconfig.json"]
+    "project": ["./tsconfig.json"]
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "import",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react-hooks/exhaustive-deps": 2
