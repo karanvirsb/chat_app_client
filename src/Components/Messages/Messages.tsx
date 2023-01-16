@@ -35,7 +35,7 @@ export default function Messages({
 }: props): JSX.Element {
   const firstElementRef = useRef<HTMLDivElement>(null);
   const entry = useIntersectionObserver(firstElementRef, {});
-  const isVisible = !!entry?.isIntersecting;
+  const isVisible = !!((entry?.isIntersecting) ?? false);
 
   const queryClient = useQueryClient();
   const groupUsers = queryClient.getQueriesData([
@@ -43,8 +43,10 @@ export default function Messages({
   ])[0][1] as unknown[];
 
   useEffect(() => {
-    if (isVisible && (fetchNextPage != null)) fetchNextPage();
-  }, [isVisible]);
+    if (isVisible && (fetchNextPage != null)){
+        void fetchNextPage()
+    } 
+  }, [fetchNextPage, isVisible]);
 
   return (
     <>
