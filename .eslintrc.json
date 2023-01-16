@@ -21,7 +21,8 @@
   "rules": {
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react-hooks/exhaustive-deps": 2,
-    "no-undef": "off"
+    "no-undef": "off",
+    "react/display-name": [{ "ignoreTranspilerName": false }]
   },
   "settings": {
     "import/resolver": {
