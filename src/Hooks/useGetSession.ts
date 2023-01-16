@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
 
-export default function useGetSession() {
+interface IUseGetSession {
+    sessionInfo: {
+        doesSessionExist: boolean;
+        userId: string;
+        accessTokenPayload: any;
+    } | null;
+}
+
+export default function useGetSession(): IUseGetSession {
     const [sessionInfo, setSessionInfo] = useState<{
         doesSessionExist: boolean;
         userId: string;
