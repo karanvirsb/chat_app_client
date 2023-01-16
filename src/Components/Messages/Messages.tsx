@@ -54,9 +54,10 @@ export default function Messages({
         const foundUser = isGroupUsers(groupUsers)
           ? groupUsers.find((user) => user.userId === message.userId)
           : undefined;
-        if (lastPage && index === 0) {
+        if (lastPage !== null && index === 0) {
           return (
             <Message
+            key={message.messageId}
               ref={firstElementRef}
               message={message}
               username={foundUser?.username}
@@ -64,7 +65,7 @@ export default function Messages({
           );
         } else {
           return (
-            <Message message={message} username={foundUser?.username}></Message>
+            <Message key={message.messageId} message={message} username={foundUser?.username}></Message>
           );
         }
       })}
