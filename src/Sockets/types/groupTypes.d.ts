@@ -1,36 +1,36 @@
 import { IGroup, IUser } from "../Hooks/groupHooks";
 
-export type InvalidateEvent = {
+export interface InvalidateEvent {
   queryTags: string[];
   groupId: string;
 };
 
-export type UpdateEvent = {
+export interface UpdateEvent {
   groupId: string;
   payload: Partial<IGroup>;
 };
 
-export type DeleteEvent = {
+export interface DeleteEvent {
   groupId: string;
   payload: {};
 };
 
-export type JoinRoomEvent = {
+export interface JoinRoomEvent {
   rooms: string[];
   userId: string;
 };
 
-export type UpdateGroupUsersEvent = {
+export interface UpdateGroupUsersEvent {
   groupId: string;
   payload: { userInfo: IUser };
 };
 
-export type LeaveRoomEvent = {
+export interface LeaveRoomEvent {
   groupId: string;
   payload: { userId: string };
 };
 
-export type LeaveGroupEvent = {
+export interface LeaveGroupEvent {
   groupId: string;
   payload: { userId: string };
 };
