@@ -20,7 +20,8 @@
   "plugins": ["react", "import", "@typescript-eslint", "prettier"],
   "rules": {
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
-    "prettier/prettier": 2
+    "prettier/prettier": 2,
+    "react-hooks/exhaustive-deps": 2
   },
   "settings": {
     "import/resolver": {
