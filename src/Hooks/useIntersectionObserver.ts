@@ -25,14 +25,14 @@ function useIntersectionObserver(
     const node = elementRef?.current; // DOM Ref
     const hasIOSupport = !!window.IntersectionObserver;
 
-    if (!hasIOSupport || frozen || !node) return;
+    if ((hasIOSupport == null) || frozen || (node == null)) return;
 
     const observerParams = { threshold, root, rootMargin };
     const observer = new IntersectionObserver(updateEntry, observerParams);
 
     observer.observe(node);
 
-    return () => observer.disconnect();
+    return () => { observer.disconnect(); };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
