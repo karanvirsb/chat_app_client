@@ -15,7 +15,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module",
     "requireConfigFile": false,
-    "project": ["tsconfig.json"]
+    "project": []
   },
   "plugins": ["react", "import", "@typescript-eslint", "prettier"],
   "rules": {
