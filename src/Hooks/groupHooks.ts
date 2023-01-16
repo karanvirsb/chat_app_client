@@ -1,5 +1,5 @@
 import axios from "../API/axios";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
 import useGroupSockets from "../Sockets/Hooks/useGroupSockets";
 import useGetSession from "./useGetSession";
 
@@ -59,8 +59,8 @@ export interface returnGroupUserData {
     data: IGroupUsers | undefined;
     error: string;
 };
-
-function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
+type IUseGetGroupsQuery = UseQueryResult<string | IGroup[], unknown>
+function useGetGroupsQuery({ userId }: { userId: string | undefined }): IUseGetGroupsQuery {
     const getGroups = async (): Promise<IGroup[] | string> => {
         const resp = await axios({
             url: `${baseurl}/userId/${userId ?? ""}`,
@@ -82,8 +82,8 @@ function useGetGroupsQuery({ userId }: { userId: string | undefined }) {
         // staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
-
-function useGetGroupQuery({ groupId }: { groupId: string }) {
+type IUseGetGroupQuery = UseQueryResult<string | IGroup, unknown>
+function useGetGroupQuery({ groupId }: { groupId: string }): IUseGetGroupQuery {
     const getGroup = async (): Promise<IGroup | string> => {
         const resp = await axios({
             url: `${baseurl}/${groupId}`,
@@ -105,8 +105,8 @@ function useGetGroupQuery({ groupId }: { groupId: string }) {
         // staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
-
-function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
+type IUseGetGroupByInviteCodeQuery = UseQueryResult<string | IGroup, unknown>;
+function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }): IUseGetGroupByInviteCodeQuery {
     const getGroup = async (): Promise<IGroup | string> => {
         const resp = await axios({
             url: `${baseurl}/invite/${inviteCode}`,
@@ -128,8 +128,8 @@ function useGetGroupByInviteCodeQuery({ inviteCode }: { inviteCode: string }) {
         // staleTime: 10 * 60 * 1000, // mins * sec * ms
     });
 }
-
-function useGetGroupUsersQuery({ groupId }: { groupId: string }) {
+type IUseGetGroupUsersQuery = UseQueryResult<string | IUser[], unknown>
+function useGetGroupUsersQuery({ groupId }: { groupId: string }): IUseGetGroupUsersQuery {
     const getGroupUsers = async (): Promise<IUser[] | string> => {
         const resp = await axios({
             url: `${baseurl}/users/${groupId}`,
@@ -152,8 +152,11 @@ function useGetGroupUsersQuery({ groupId }: { groupId: string }) {
 }
 
 // MUTATIONS
-
-function useCreateGroupMutation() {
+type IUseCreateGroupMutation = UseMutationResult<returnGroupData, unknown, {
+    groupInfo: Partial<IGroup>;
+    userId: string;
+}, unknown>
+function useCreateGroupMutation(): IUseCreateGroupMutation {
     const queryClient = useQueryClient();
     const send = useGroupSockets();
     const { sessionInfo } = useGetSession();
@@ -201,8 +204,11 @@ function useCreateGroupMutation() {
         },
     });
 }
-
-function useUpdateGroupNameMutation() {
+type IUseUpdateGroupNameMutation = UseMutationResult<returnGroupData, unknown, {
+    groupId: string;
+    newGroupName: string;
+}, unknown>
+function useUpdateGroupNameMutation(): IUseUpdateGroupNameMutation {
     // const queryClient = useQueryClient();
     const send = useGroupSockets();
     const updateGroupName = async ({
@@ -237,8 +243,10 @@ function useUpdateGroupNameMutation() {
         },
     });
 }
-
-function useDeleteGroupMutation() {
+type IUseDeleteGroupMutation = UseMutationResult<returnGroupData, unknown, {
+    groupId: string;
+}, unknown>
+function useDeleteGroupMutation(): IUseDeleteGroupMutation {
     // const queryClient = useQueryClient();
     const send = useGroupSockets();
     const deleteGroup = async ({
@@ -269,8 +277,11 @@ function useDeleteGroupMutation() {
         },
     });
 }
-
-function useAddUserToGroupMutation() {
+type IUseAddUserToGroupMutation = UseMutationResult<returnUserData, unknown, {
+    userId: string;
+    groupId: string;
+}, unknown>
+function useAddUserToGroupMutation(): IUseAddUserToGroupMutation {
     const queryClient = useQueryClient();
     const send = useGroupSockets();
     const addUserToGroup = async ({
@@ -314,8 +325,11 @@ function useAddUserToGroupMutation() {
         },
     });
 }
-
-function useLeaveGroupMutation() {
+type IUseLeaveGroupMutation = UseMutationResult<returnGroupUserData, unknown, {
+    userId: string;
+    groupId: string;
+}, unknown>;
+function useLeaveGroupMutation(): IUseLeaveGroupMutation {
     const queryClient = useQueryClient();
     const send = useGroupSockets();
     const removeUserFromGroup = async ({
