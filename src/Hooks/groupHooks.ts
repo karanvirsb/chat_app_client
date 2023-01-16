@@ -306,9 +306,9 @@ function useAddUserToGroupMutation(): IUseAddUserToGroupMutation {
     // TODO change with sockets for everyone
     return useMutation({
         mutationFn: addUserToGroup,
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             if (data.success && (data.data != null)) {
-                queryClient.invalidateQueries([`groups`]);
+                await queryClient.invalidateQueries([`groups`]);
                 // queryClient.invalidateQueries([`group-users-${data.data.groupId}`]);
                 if (data.data) {
                     // send request to join room socket
@@ -354,9 +354,9 @@ function useLeaveGroupMutation(): IUseLeaveGroupMutation {
     // TODO change with sockets for everyone
     return useMutation({
         mutationFn: removeUserFromGroup,
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             if (data.success && (data.data != null)) {
-                queryClient.invalidateQueries([`groups`]);
+                await queryClient.invalidateQueries([`groups`]);
 
                 send("leave_room", {
                     groupId: data.data.gId,
