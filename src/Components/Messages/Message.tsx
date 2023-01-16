@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IMessage } from "../../Hooks/groupChatHooks";
 import dayjs from "dayjs";
 
@@ -7,9 +7,7 @@ type props = {
   username: string | undefined;
 };
 
-export default function Message(){
-  const [editting, setEditting] = useState(false)
-  return React.forwardRef(
+const Message = React.forwardRef(
   ({ message, username }: props, ref: React.ForwardedRef<HTMLDivElement>) => (
     <div
       key={message.messageId}
@@ -66,7 +64,7 @@ export default function Message(){
       </div>
     </div>
   ));
-}
+export default Message;
 
 function handleEditMessage(){
 
