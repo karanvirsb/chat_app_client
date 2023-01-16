@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-dayjs.extend(localizedFormat);
 import { IMessage } from "../../Hooks/groupChatHooks";
 import { IUser } from "../../Hooks/groupHooks";
 import {
@@ -12,8 +11,9 @@ import {
 import Message from "./Message";
 import { PaginatedGroupMessages } from "../../utilities/types/pagination";
 import useIntersectionObserver from "../../Hooks/useIntersectionObserver";
+dayjs.extend(localizedFormat);
 
-type props = {
+interface props {
   messages: IMessage[] | undefined;
   groupId: string;
   lastPage?: boolean;
@@ -25,14 +25,14 @@ type props = {
       unknown
     >
   >;
-};
+}
 
 export default function Messages({
   messages,
   groupId,
   lastPage,
   fetchNextPage,
-}: props) {
+}: props): JSX.Element {
   const firstElementRef = useRef<HTMLDivElement>(null);
   const entry = useIntersectionObserver(firstElementRef, {});
   const isVisible = !!entry?.isIntersecting;
@@ -43,7 +43,7 @@ export default function Messages({
   ])[0][1] as unknown[];
 
   useEffect(() => {
-    if (isVisible && fetchNextPage) fetchNextPage();
+    if (isVisible && (fetchNextPage != null)) fetchNextPage();
   }, [isVisible]);
 
   return (
