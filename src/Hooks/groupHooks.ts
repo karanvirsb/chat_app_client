@@ -195,11 +195,12 @@ function useCreateGroupMutation(): IUseCreateGroupMutation {
                         },
                     },
                 });
-
-                send("join_rooms", {
-                    rooms: [data.data.groupId],
-                    userId: sessionInfo?.userId ? sessionInfo?.userId : "",
-                });
+                if(sessionInfo){
+                    send("join_rooms", {
+                        rooms: [data.data.groupId],
+                        userId: sessionInfo.userId ? sessionInfo.userId : "",
+                    });
+                }
             }
         },
     });
