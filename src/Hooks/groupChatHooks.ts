@@ -92,7 +92,6 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
     });
 
     const data: ReturnGroupMessage = resp.data;
-
     return data;
   };
 
@@ -111,4 +110,20 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
   });
 }
 
-export { useGetGroupMessagesByChannelIdQuery, useCreateGroupMessageMutation };
+type IUseEditMessageTextMutation = UseMutationResult<ReturnGroupMessage, unknown, {
+    messageId: string;
+    updateValue: string;
+}, unknown>;
+function useEditMessageTextMutation(): IUseEditMessageTextMutation{
+  const updateMessage = async ({messageId, updateValue}: {messageId: string, updateValue:string}): Promise<ReturnGroupMessage> => {
+    const resp  = await axios({url: `${baseurl}/text`, data: {messageId, updateValue }, method: "PUT"});
+    const data: ReturnGroupMessage = resp.data;
+    return data;
+  }
+
+  return useMutation({mutationFn: updateMessage, onSuccess: async (data) => {
+    console.log("🚀 ~ file: groupChatHooks.ts:122 ~ returnuseMutation ~ data", data)
+  }})
+}
+
+export { useGetGroupMessagesByChannelIdQuery, useCreateGroupMessageMutation, useEditMessageTextMutation };
