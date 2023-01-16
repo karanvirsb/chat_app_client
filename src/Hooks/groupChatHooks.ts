@@ -1,9 +1,10 @@
 import axios from "../API/axios";
 import {
-  useQuery,
   useMutation,
   useQueryClient,
   useInfiniteQuery,
+  UseInfiniteQueryResult,
+  UseMutationResult,
 } from "@tanstack/react-query";
 import { PaginatedGroupMessages } from "../utilities/types/pagination";
 
@@ -32,6 +33,8 @@ interface ReturnGroupMessage {
 // setting up global variables
 const baseurl = "http://localhost:8000/groupMessage";
 
+type IUserGetGroupMessagesByChannelIdQuery = UseInfiniteQueryResult<PaginatedGroupMessages<IMessage> | undefined, unknown>
+
 function useGetGroupMessagesByChannelIdQuery({
   channelId,
   dateCreated,
@@ -40,7 +43,7 @@ function useGetGroupMessagesByChannelIdQuery({
   channelId: string;
   dateCreated: Date;
   limit: number;
-}) {
+}): IUserGetGroupMessagesByChannelIdQuery {
   const getMessages = async ({
     pageParam = `${baseurl}/channel/messages?channelId=${channelId}&limit=${limit}&dateCreated=${dateCreated.toISOString()}`,
   }): Promise<PaginatedGroupMessages<IMessage> | undefined> => {
@@ -63,8 +66,13 @@ function useGetGroupMessagesByChannelIdQuery({
 }
 
 // MUTATIONS
-
-function useCreateGroupMessageMutation() {
+type IUseCreateGroupMessageMutation = UseMutationResult<ReturnGroupMessage, unknown, {
+    channelId: string;
+    dateCreated: Date;
+    text: string;
+    userId: string;
+}, unknown>;
+function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
   const queryClient = useQueryClient();
   const createMessage = async ({
     channelId,
