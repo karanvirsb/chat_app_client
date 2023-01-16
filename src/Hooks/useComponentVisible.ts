@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, MouseEvent } from "react";
+import React, { useState, useEffect, useRef } from "react";
 /**
  * Hook is used to check the visibility of an element usually a pop up menu
  * @returns Object {ref: the reference to the pop up element, isComponentVisible: whether the ref is visible, setIsComponentVisible: setting visibility of element}
@@ -14,7 +14,7 @@ export default function useComponentVisible(): IUseComponentVisible {
     const [isComponentVisible, setIsComponentVisible] = useState(false);
     const ref: React.RefObject<HTMLElement> = useRef(null);
 
-    const handleClickOutside = (event: MouseEvent): void => {
+    const handleClickOutside = (event: Event): void => {
         if ((ref.current != null) && !ref.current.contains(event.target as Node)) {
             setIsComponentVisible(false);
         }
