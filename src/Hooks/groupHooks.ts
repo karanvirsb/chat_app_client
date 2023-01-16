@@ -181,7 +181,7 @@ function useCreateGroupMutation() {
         mutationFn: createGroup,
         onSuccess: async (data) => {
             await queryClient.invalidateQueries(["groups"]);
-            if (data.data) {
+            if (data.data != null) {
                 await axios({
                     url: "http://localhost:8000/groupChannel",
                     method: "POST",
@@ -228,7 +228,7 @@ function useUpdateGroupNameMutation() {
         mutationFn: updateGroupName,
         onSuccess: (data) => {
             // queryClient.invalidateQueries(["groups"]);
-            if (data.data) {
+            if (data.data != null) {
                 send("updated_group_name", {
                     groupId: data.data?.groupId,
                     payload: { groupName: data.data.groupName },
@@ -261,7 +261,7 @@ function useDeleteGroupMutation() {
         mutationFn: deleteGroup,
         onSuccess: (data) => {
             // queryClient.invalidateQueries(["groups"]);
-            if (data.data)
+            if (data.data != null)
                 send("delete_the_group", {
                     groupId: data.data?.groupId,
                     payload: {},
@@ -295,7 +295,7 @@ function useAddUserToGroupMutation() {
     return useMutation({
         mutationFn: addUserToGroup,
         onSuccess: (data) => {
-            if (data.success && data.data) {
+            if (data.success && (data.data != null)) {
                 queryClient.invalidateQueries([`groups`]);
                 // queryClient.invalidateQueries([`group-users-${data.data.groupId}`]);
                 if (data.data) {
@@ -340,7 +340,7 @@ function useLeaveGroupMutation() {
     return useMutation({
         mutationFn: removeUserFromGroup,
         onSuccess: (data) => {
-            if (data.success && data.data) {
+            if (data.success && (data.data != null)) {
                 queryClient.invalidateQueries([`groups`]);
 
                 send("leave_room", {
