@@ -37,7 +37,7 @@ function useIntersectionObserver(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     elementRef?.current,
-    JSON.stringify(threshold),
+    threshold,
     root,
     rootMargin,
     frozen,
