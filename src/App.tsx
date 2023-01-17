@@ -20,7 +20,7 @@ import Invite from "./Pages/Invite/invite";
 
 SuperTokens.init({
   appInfo: {
-    // learn more about this on https://supertokens.com/docs/emailpassword/appinfo
+    // Learn more about this on https://supertokens.com/docs/emailpassword/appinfo
     appName: "chat app",
     apiDomain: "http://localhost:8000",
     websiteDomain: "http://localhost:3000",
