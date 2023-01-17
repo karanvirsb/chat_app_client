@@ -1,14 +1,22 @@
-import React, { forwardRef, useRef, useState } from "react";
+import React, { FormEvent, forwardRef, useRef, useState } from "react";
 import { IMessage } from "../../Hooks/groupChatHooks";
 import dayjs from "dayjs";
 
 type props = {
   message: IMessage;
   username: string | undefined;
+  editCallback: ({
+    messageId,
+    updateValue,
+  }: {
+    messageId: string;
+    updateValue: string;
+  }) => void;
+  deleteCallback: ({ messageId }: { messageId: string }) => void;
 };
 
 const Message = forwardRef(function (
-  { message, username }: props,
+  { message, username, editCallback, deleteCallback }: props,
   ref: React.ForwardedRef<HTMLDivElement>
 ) {
   const [editting, setEditting] = useState(false);
@@ -32,7 +40,7 @@ const Message = forwardRef(function (
       </div>
       {/* <p className="text-[#D9D9D9]">{message.text}</p> */}
       {editting ? (
-        <form className="w-full">
+        <form className="w-full" onSubmit={handleEditMessageSubmit}>
           <input
             className="w-full bg-[#2A303C] text-white p-2 outline outline-1 outline-gray-500 rounded-md"
             defaultValue={message.text}
@@ -87,8 +95,15 @@ const Message = forwardRef(function (
     </div>
   );
 
-  // function handleEdittingMessage(e: ChangeEvent){
-
-  // }
+  function handleEditMessageSubmit(e: FormEvent) {
+    e.preventDefault();
+    // callback
+    if (messageRef.current !== null) {
+      editCallback({
+        messageId: message.messageId,
+        updateValue: messageRef.current.value,
+      });
+    }
+  }
 });
 export default Message;
