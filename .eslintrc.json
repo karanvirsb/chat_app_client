@@ -5,7 +5,10 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "xo"
+        "xo", 
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended", 
+        "prettier"
     ],
     "overrides": [
         {
@@ -23,8 +26,19 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react", "prettier"
     ],
     "rules": {
+        "prettier/prettier": ["error"],
+        "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+        "react-hooks/exhaustive-deps": 2,
+        "no-undef": "off",
+        "react/display-name": 0,
+        "@typescript-eslint/no-unused-vars": "error",
+    // to enforce using type for object type definitions, can be type or interface
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+        "@typescript-eslint/quotes": "off", 
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
     }
 }
