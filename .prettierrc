@@ -18,6 +18,5 @@
   "trailingComma": "es5",
   "useTabs": false,
   "vueIndentScriptAndStyle": false,
-  "filepath": "d:\\Documents\\Shared\\Coding\\full_stack_projects\\chat_app\\client\\.eslintrc.json",
   "parser": "json"
 }
