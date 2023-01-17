@@ -63,7 +63,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
               if (index === 0) {
                 return (
                   <Messages
-                  key={`messages-${index}`}
+                    key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
                     lastPage={true}
@@ -73,7 +73,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
               } else {
                 return (
                   <Messages
-                   key={`messages-${index}`}
+                    key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
                   ></Messages>
