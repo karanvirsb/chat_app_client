@@ -22,7 +22,8 @@
     "import",
     "react-hooks",
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "@babel/plugin-syntax-import-meta"
   ],
   "rules": {
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],

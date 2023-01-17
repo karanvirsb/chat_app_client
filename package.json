@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.20.12",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
