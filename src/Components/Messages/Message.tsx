@@ -83,6 +83,7 @@ const Message = forwardRef(function (
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 hover:text-red-200"
+            onClick={handleDeleteMessage}
           >
             <path
               strokeLinecap="round"
@@ -107,6 +108,10 @@ const Message = forwardRef(function (
       messageRef.current.blur;
       setEditting(false);
     }
+  }
+
+  function handleDeleteMessage() {
+    deleteCallback({ messageId: message.messageId });
   }
 });
 export default Message;
