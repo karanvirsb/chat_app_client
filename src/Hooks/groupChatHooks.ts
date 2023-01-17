@@ -16,24 +16,27 @@ export type IMessage = {
   replyTo?: string;
   text: string;
   channelId: string;
-}
+};
 
 type ReturnGroupMessages = {
   success: boolean;
   data: PaginatedGroupMessages<IMessage> | undefined;
   error: string;
-}
+};
 
 type ReturnGroupMessage = {
   success: boolean;
   data: IMessage | undefined;
   error: string;
-}
+};
 
 // setting up global variables
 const baseurl = "http://localhost:8000/groupMessage";
 
-type IUserGetGroupMessagesByChannelIdQuery = UseInfiniteQueryResult<PaginatedGroupMessages<IMessage> | undefined, unknown>
+type IUserGetGroupMessagesByChannelIdQuery = UseInfiniteQueryResult<
+  PaginatedGroupMessages<IMessage> | undefined,
+  unknown
+>;
 
 function useGetGroupMessagesByChannelIdQuery({
   channelId,
@@ -66,12 +69,17 @@ function useGetGroupMessagesByChannelIdQuery({
 }
 
 // MUTATIONS
-type IUseCreateGroupMessageMutation = UseMutationResult<ReturnGroupMessage, unknown, {
+type IUseCreateGroupMessageMutation = UseMutationResult<
+  ReturnGroupMessage,
+  unknown,
+  {
     channelId: string;
     dateCreated: Date;
     text: string;
     userId: string;
-}, unknown>;
+  },
+  unknown
+>;
 function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
   const queryClient = useQueryClient();
   const createMessage = async ({
@@ -98,8 +106,10 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
   return useMutation({
     mutationFn: createMessage,
     onSuccess: async (data) => {
-      if(data.data === undefined) return;
-      await queryClient.invalidateQueries([`group-messages-${data.data.channelId ?? ""}`]);
+      if (data.data === undefined) return;
+      await queryClient.invalidateQueries([
+        `group-messages-${data.data.channelId ?? ""}`,
+      ]);
       //  if (data.data) {
       //    send("update_channel_lists", {
       //      groupId: data.data.groupId,
@@ -110,20 +120,83 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
   });
 }
 
-type IUseEditMessageTextMutation = UseMutationResult<ReturnGroupMessage, unknown, {
+type IUseEditMessageTextMutation = UseMutationResult<
+  ReturnGroupMessage,
+  unknown,
+  {
     messageId: string;
     updateValue: string;
-}, unknown>;
-function useEditMessageTextMutation(): IUseEditMessageTextMutation{
-  const updateMessage = async ({messageId, updateValue}: {messageId: string, updateValue:string}): Promise<ReturnGroupMessage> => {
-    const resp  = await axios({url: `${baseurl}/text`, data: {messageId, updateValue }, method: "PUT"});
+  },
+  unknown
+>;
+function useEditMessageTextMutation(): IUseEditMessageTextMutation {
+  const updateMessage = async ({
+    messageId,
+    updateValue,
+  }: {
+    messageId: string;
+    updateValue: string;
+  }): Promise<ReturnGroupMessage> => {
+    const resp = await axios({
+      url: `${baseurl}/text`,
+      data: { messageId, updateValue },
+      method: "PUT",
+    });
     const data: ReturnGroupMessage = resp.data;
     return data;
-  }
+  };
 
-  return useMutation({mutationFn: updateMessage, onSuccess: async (data) => {
-    console.log("🚀 ~ file: groupChatHooks.ts:122 ~ returnuseMutation ~ data", data)
-  }})
+  return useMutation({
+    mutationFn: updateMessage,
+    onSuccess: async (data) => {
+      // TODO add socket functionality
+      console.log(
+        "🚀 ~ file: groupChatHooks.ts:122 ~ returnuseMutation ~ data",
+        data
+      );
+    },
+  });
 }
 
-export { useGetGroupMessagesByChannelIdQuery, useCreateGroupMessageMutation, useEditMessageTextMutation };
+type IUseDeleteGroupMessageMutation = UseMutationResult<
+  ReturnGroupMessage,
+  unknown,
+  {
+    messageId: string;
+  },
+  unknown
+>;
+
+function useDeleteGroupMessageMutation() {
+  const deleteMessage = async ({
+    messageId,
+  }: {
+    messageId: string;
+  }): Promise<ReturnGroupMessage> => {
+    const resp = await axios({
+      url: `${baseurl}/groupMessage`,
+      method: "DELETE",
+      data: { messageId },
+    });
+
+    const data: ReturnGroupMessage = resp.data;
+    return data;
+  };
+
+  return useMutation({
+    mutationFn: deleteMessage,
+    onSuccess: async (data) => {
+      console.log(
+        "🚀 ~ file: groupChatHooks.ts:174 ~ returnuseMutation ~ data",
+        data
+      );
+    },
+  });
+}
+
+export {
+  useGetGroupMessagesByChannelIdQuery,
+  useCreateGroupMessageMutation,
+  useEditMessageTextMutation,
+  useDeleteGroupMessageMutation,
+};
