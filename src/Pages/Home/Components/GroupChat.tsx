@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import {
   useCreateGroupMessageMutation,
+  useDeleteGroupMessageMutation,
   useEditMessageTextMutation,
   useGetGroupMessagesByChannelIdQuery,
 } from "../../../Hooks/groupChatHooks";
@@ -24,6 +25,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
     });
   const { mutate: createMessage } = useCreateGroupMessageMutation();
   const { mutate: updateText } = useEditMessageTextMutation();
+  const { mutate: deleteMessage } = useDeleteGroupMessageMutation();
   const { sessionInfo } = useGetSession();
 
   useEffect(() => {
@@ -62,6 +64,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
                 return (
                   <Messages
                     editCallback={updateText}
+                    deleteCallback={deleteMessage}
                     key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
@@ -73,6 +76,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
                 return (
                   <Messages
                     editCallback={updateText}
+                    deleteCallback={deleteMessage}
                     key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
