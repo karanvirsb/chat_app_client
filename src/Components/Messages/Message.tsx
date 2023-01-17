@@ -12,7 +12,7 @@ type props = {
     messageId: string;
     updateValue: string;
   }) => void;
-  deleteCallback: ({ messageId }: { messageId: string }) => void;
+  deleteCallback?: ({ messageId }: { messageId: string }) => void;
 };
 
 const Message = forwardRef(function (
