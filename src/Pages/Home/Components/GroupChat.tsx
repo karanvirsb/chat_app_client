@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import {
   useCreateGroupMessageMutation,
+  useEditMessageTextMutation,
   useGetGroupMessagesByChannelIdQuery,
 } from "../../../Hooks/groupChatHooks";
 import useGetSession from "../../../Hooks/useGetSession";
@@ -9,23 +10,20 @@ import Messages from "../../../Components/Messages/Messages";
 type props = {
   channelId: string;
   groupId: string;
-}
+};
 
 export default function GroupChat({ channelId, groupId }: props): JSX.Element {
   const messageRef = useRef<null | HTMLInputElement>(null);
   const chatMessagesRef = useRef<null | HTMLDivElement>(null);
   // TODO after inital load need to set dateCreated to last message.
-  const {
-    data: chatMessages,
-    fetchNextPage,
-  } = useGetGroupMessagesByChannelIdQuery({
-    channelId,
-    dateCreated: new Date(),
-    limit: 10,
-  });
-  const { mutate } =
-    useCreateGroupMessageMutation();
-
+  const { data: chatMessages, fetchNextPage } =
+    useGetGroupMessagesByChannelIdQuery({
+      channelId,
+      dateCreated: new Date(),
+      limit: 10,
+    });
+  const { mutate } = useCreateGroupMessageMutation();
+  const { mutate: updateText } = useEditMessageTextMutation();
   const { sessionInfo } = useGetSession();
 
   useEffect(() => {
@@ -63,6 +61,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
               if (index === 0) {
                 return (
                   <Messages
+                    editCallback={updateText}
                     key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
@@ -73,6 +72,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
               } else {
                 return (
                   <Messages
+                    editCallback={updateText}
                     key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
@@ -101,7 +101,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
 
   function handleMessageSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    if (messageRef.current !== null && sessionInfo !== null){
+    if (messageRef.current !== null && sessionInfo !== null) {
       mutate({
         channelId,
         dateCreated: new Date(),
