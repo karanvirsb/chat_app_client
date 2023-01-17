@@ -17,7 +17,13 @@
     "requireConfigFile": false,
     "project": ["./tsconfig.json"]
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "import",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "react-hooks/exhaustive-deps": 2,
