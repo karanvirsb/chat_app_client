@@ -8,10 +8,10 @@ type props = {
 };
 
 const Message = forwardRef(
-  function({ message, username }: props, ref: React.ForwardedRef<HTMLDivElement>) {
+  function ({ message, username }: props, ref: React.ForwardedRef<HTMLDivElement>) {
     const [editting, setEditting] = useState(false);
     const messageRef = useRef<HTMLInputElement>(null);
-    return  <div
+    return <div
       key={message.messageId}
       ref={ref}
       className="flex flex-col gap-2 py-2 px-4 rounded-md hover:bg-[#2A303C] group relative"
@@ -26,14 +26,13 @@ const Message = forwardRef(
         <span className="italic">{(message.dateModified != null) ? "Edited" : null}</span>
       </div>
       {/* <p className="text-[#D9D9D9]">{message.text}</p> */}
-      {
-      editting ? 
+      {editting ?
         <form className="w-full">
           <input className="w-full bg-[#2A303C] text-white p-2 outline outline-1 outline-gray-500 rounded-md" defaultValue={message.text} ref={messageRef}></input>
-        </form> 
-      : <p className="text-[#D9D9D9]">{message.text}</p>
+        </form>
+        : <p className="text-[#D9D9D9]">{message.text}</p>
       }
-      
+
       <div className="absolute -top-3 gap-3 right-0 hidden p-2 rounded-md group-hover:flex bg-[#1F242D] drop-shadow-sm">
         {/* edit btn */}
         <button>
@@ -46,7 +45,7 @@ const Message = forwardRef(
             className="w-6 h-6 hover:text-yellow-200"
             onClick={() => {
               setEditting(true);
-              messageRef.current?.focus({preventScroll: true});
+              messageRef.current?.focus({ preventScroll: true });
             }}
           >
             <path
@@ -78,7 +77,7 @@ const Message = forwardRef(
     </div>
 
     // function handleEdittingMessage(e: ChangeEvent){
-      
+
     // }
-});
+  });
 export default Message;
