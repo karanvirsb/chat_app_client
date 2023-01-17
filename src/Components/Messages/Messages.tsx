@@ -24,7 +24,7 @@ type props = {
     messageId: string;
     updateValue: string;
   }) => void;
-  deleteCallback?: ({ messageId }: { messageId: string }) => void;
+  deleteCallback: ({ messageId }: { messageId: string }) => void;
   fetchNextPage?: (
     options?: FetchNextPageOptions | undefined
   ) => Promise<
