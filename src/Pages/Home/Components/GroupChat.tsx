@@ -22,7 +22,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
       dateCreated: new Date(),
       limit: 10,
     });
-  const { mutate } = useCreateGroupMessageMutation();
+  const { mutate: createMessage } = useCreateGroupMessageMutation();
   const { mutate: updateText } = useEditMessageTextMutation();
   const { sessionInfo } = useGetSession();
 
@@ -102,7 +102,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
   function handleMessageSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     if (messageRef.current !== null && sessionInfo !== null) {
-      mutate({
+      createMessage({
         channelId,
         dateCreated: new Date(),
         text: messageRef.current.value,
