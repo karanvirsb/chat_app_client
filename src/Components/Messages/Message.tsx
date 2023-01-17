@@ -103,6 +103,9 @@ const Message = forwardRef(function (
         messageId: message.messageId,
         updateValue: messageRef.current.value,
       });
+
+      messageRef.current.blur;
+      setEditting(false);
     }
   }
 });
