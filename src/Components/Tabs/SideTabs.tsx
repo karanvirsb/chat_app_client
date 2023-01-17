@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 type props = {
-    components: Map<String, JSX.Element>;
+    components: Map<string, JSX.Element>;
     tabs: string[];
 };
 
@@ -15,7 +15,7 @@ export default function SideTabs({ components, tabs }: props) {
                         return (
                             <button
                                 className='btn flex-grow rounded-none'
-                                onClick={() => setTab(index)}
+                                onClick={() => { setTab(index); }}
                             >
                                 {tab}
                             </button>
@@ -24,7 +24,7 @@ export default function SideTabs({ components, tabs }: props) {
                         return (
                             <button
                                 className='btn flex-grow rounded-none'
-                                onClick={() => setTab(index)}
+                                onClick={() => { setTab(index); }}
                             >
                                 {tab}
                             </button>

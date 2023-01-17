@@ -38,7 +38,7 @@ export default function DropDown({
         };
 
         document.addEventListener("keydown", handleEscPress);
-        return () => document.removeEventListener("keydown", handleEscPress);
+        return () => { document.removeEventListener("keydown", handleEscPress); };
     }, []);
 
     useEffect(() => {

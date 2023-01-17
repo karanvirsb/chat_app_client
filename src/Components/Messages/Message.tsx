@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, forwardRef, useRef, useState } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import { IMessage } from "../../Hooks/groupChatHooks";
 import dayjs from "dayjs";
 
@@ -23,7 +23,7 @@ const Message = forwardRef(
         <span className="text-sm text-[#ABABAB]">
           {dayjs(message.dateCreated).format("L LTS")}
         </span>
-        <span className="italic">{message.dateModified ? "Edited" : null}</span>
+        <span className="italic">{(message.dateModified != null) ? "Edited" : null}</span>
       </div>
       {/* <p className="text-[#D9D9D9]">{message.text}</p> */}
       {
@@ -77,9 +77,8 @@ const Message = forwardRef(
       </div>
     </div>
 
-    function handleEdittingMessage(e: ChangeEvent){
+    // function handleEdittingMessage(e: ChangeEvent){
       
-      
-    }
+    // }
 });
 export default Message;

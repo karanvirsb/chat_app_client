@@ -7,14 +7,14 @@ import useGetSession from "./useGetSession";
 const baseurl = "http://localhost:8000/group";
 
 // interfaces
-export interface IGroup {
+export type IGroup = {
     groupName: string;
     groupId: string;
     inviteCode: string;
     dateCreated: Date;
 }
 
-export interface IUser {
+export type IUser = {
     userId: string;
     username: string;
     email: string;
@@ -24,41 +24,41 @@ export interface IUser {
     groupId: string;
 }
 
-export interface IGroupUsers {
+export type IGroupUsers = {
     gId: string;
     uId: string;
     roles: number[];
-};
+}
 
-export interface returnGroupsData {
+export type returnGroupsData = {
     success: boolean;
     data: IGroup[] | undefined;
     error: string;
-};
+}
 
-export interface returnGroupData {
+export type returnGroupData = {
     success: boolean;
     data: IGroup | undefined;
     error: string;
-};
+}
 
-export interface returnUserData {
+export type returnUserData = {
     success: boolean;
     data: IUser | undefined;
     error: string;
-};
+}
 
-export interface returnGroupUsersData {
+export type returnGroupUsersData = {
     success: boolean;
     data: IUser[] | undefined;
     error: string;
-};
+}
 
-export interface returnGroupUserData {
+export type returnGroupUserData = {
     success: boolean;
     data: IGroupUsers | undefined;
     error: string;
-};
+}
 type IUseGetGroupsQuery = UseQueryResult<string | IGroup[], unknown>
 function useGetGroupsQuery({ userId }: { userId: string | undefined }): IUseGetGroupsQuery {
     const getGroups = async (): Promise<IGroup[] | string> => {

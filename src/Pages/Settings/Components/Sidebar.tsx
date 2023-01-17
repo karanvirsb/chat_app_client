@@ -47,7 +47,7 @@ export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
                                 <li className='w-full text-center rounded-md'>
                                     <a
                                         className='tab bg-[#2A303C] rounded-tl-md rounded-bl-md  text-[#DFDFDF] w-full'
-                                        onClick={() => setActiveTab(index)}
+                                        onClick={() => { setActiveTab(index); }}
                                         key={tab}
                                     >
                                         {tab}
@@ -59,7 +59,7 @@ export default function Sidebar({ tabs, activeIndex, setActiveIndex }: props) {
                                 <li className='w-full text-center '>
                                     <a
                                         className='tab hover:bg-[#343C4B] text-[#DFDFDF] w-full'
-                                        onClick={() => setActiveTab(index)}
+                                        onClick={() => { setActiveTab(index); }}
                                     >
                                         {tab}
                                     </a>

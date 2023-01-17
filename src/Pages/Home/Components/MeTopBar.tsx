@@ -10,7 +10,7 @@ export default function MeTopBar() {
         <TopBarContainer>
             <div className='flex gap-4 items-center'>
                 <ToggleSidebarBtn></ToggleSidebarBtn>
-                {/*TODO Friends username goes here*/}
+                {/* TODO Friends username goes here */}
                 <span>Friends Name</span>
                 <button
                     className='btn btn-sm border-none bg-accent-color font-bold ml-4 text-black hover:bg-accent-hover sm:hidden'

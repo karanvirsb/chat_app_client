@@ -56,7 +56,7 @@ export default function EditEmailModal() {
         setCurrPassword(() => e.target.value);
     }
 
-    //TODO
+    // TODO
     function handleSubmit() {}
 
     function handleCancel() {

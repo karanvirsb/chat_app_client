@@ -78,8 +78,8 @@ export default function CreateGroupModal() {
         if (!isLoading) {
             try {
                 mutate({
-                    groupInfo: { groupName: groupName },
-                    userId: sessionInfo ? sessionInfo?.userId : "",
+                    groupInfo: { groupName },
+                    userId: (sessionInfo != null) ? sessionInfo?.userId : "",
                 });
             } catch (err) {
                 console.log(err);

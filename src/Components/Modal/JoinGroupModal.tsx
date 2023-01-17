@@ -164,7 +164,7 @@ export default function JoinGroupModal({ inviteCode }: props) {
     }
 
     function handleSubmit() {
-        if (isGroup(group) && sessionInfo && sessionInfo.userId) {
+        if (isGroup(group) && (sessionInfo != null) && sessionInfo.userId) {
             addUserToGroup({
                 userId: sessionInfo?.userId,
                 groupId: group.groupId,

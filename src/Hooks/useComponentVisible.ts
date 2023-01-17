@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
  * @returns Object {ref: the reference to the pop up element, isComponentVisible: whether the ref is visible, setIsComponentVisible: setting visibility of element}
  */
 
-interface IUseComponentVisible {
+type IUseComponentVisible = {
     ref: React.RefObject<any>;
     isComponentVisible: boolean;
     setIsComponentVisible: React.Dispatch<React.SetStateAction<boolean>>;

@@ -13,7 +13,7 @@ import { PaginatedGroupMessages } from "../../utilities/types/pagination";
 import useIntersectionObserver from "../../Hooks/useIntersectionObserver";
 dayjs.extend(localizedFormat);
 
-interface props {
+type props = {
   messages: IMessage[] | undefined;
   groupId: string;
   lastPage?: boolean;

@@ -5,24 +5,24 @@ import useGroupChannelSockets from "../Sockets/Hooks/useGroupChannelSockets";
 // setting up global variables
 const baseurl = "http://localhost:8000/groupChannel";
 
-export interface IGroupChannel {
+export type IGroupChannel = {
   channelId: string;
   channelName: string;
   dateCreated: Date;
   groupId: string;
 }
 
-export interface returnGroupChannel {
+export type returnGroupChannel = {
   success: boolean;
   data: IGroupChannel | undefined;
   error: string;
-};
+}
 
-export interface returnGroupChannels {
+export type returnGroupChannels = {
   success: boolean;
   data: IGroupChannel[] | undefined;
   error: string;
-};
+}
 
 function useGetGroupChannelQuery({ channelId }: { channelId: string }): UseQueryResult<IGroupChannel | undefined, unknown> {
   const getChannel = async (): Promise<IGroupChannel | undefined> => {

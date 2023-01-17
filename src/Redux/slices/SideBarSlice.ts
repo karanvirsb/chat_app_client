@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Define a type for the slice state
-interface SideBarState {
+type SideBarState = {
     open: boolean;
 }
 

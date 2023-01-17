@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { PaginatedGroupMessages } from "../utilities/types/pagination";
 
-export interface IMessage {
+export type IMessage = {
   userId: string;
   dateCreated: Date;
   messageId: string;
@@ -18,13 +18,13 @@ export interface IMessage {
   channelId: string;
 }
 
-interface ReturnGroupMessages {
+type ReturnGroupMessages = {
   success: boolean;
   data: PaginatedGroupMessages<IMessage> | undefined;
   error: string;
 }
 
-interface ReturnGroupMessage {
+type ReturnGroupMessage = {
   success: boolean;
   data: IMessage | undefined;
   error: string;

@@ -1,6 +1,6 @@
 import { IGroupChannel } from "../../Hooks/groupChannelHooks";
 
-export interface UpdateChannelsListEvent {
+export type UpdateChannelsListEvent = {
   groupId: string;
   payload: { channelInfo: IGroupChannel };
 }

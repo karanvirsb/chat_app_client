@@ -14,7 +14,7 @@ export default function CopiedPopUp({ copied, setCopied }: props) {
             }, 1500);
         }
 
-        return () => clearTimeout(timer);
+        return () => { clearTimeout(timer); };
     }, [copied]);
 
     return copied ? (

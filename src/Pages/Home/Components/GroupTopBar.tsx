@@ -26,7 +26,7 @@ export default function GroupTopBar({
   ]);
 
   // filtering out the channel needed
-  const channel = channels
+  const channel = (channels != null)
     ? channels.find((c) => c.channelId === selectedChannel)
     : null;
 

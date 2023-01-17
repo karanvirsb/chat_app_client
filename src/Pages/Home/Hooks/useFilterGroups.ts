@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IGroup } from "../../../Hooks/groupHooks";
 import { isGroupArray } from "../../../test/validation/schemaValidation";
 
-interface props {
+type props = {
     groups: IGroup[] | string | undefined;
     groupId: string;
 }

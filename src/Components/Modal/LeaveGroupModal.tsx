@@ -35,7 +35,7 @@ export default function LeaveGroupModal({ groupId }: props) {
 
     // TODO handle leaving group
     function handleSubmit() {
-        if (sessionInfo) {
+        if (sessionInfo != null) {
             removeUserFromGroup({ userId: sessionInfo.userId, groupId });
         }
     }

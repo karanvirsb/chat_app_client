@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
 
-interface IUseGetSession {
+type IUseGetSession = {
     sessionInfo: {
         doesSessionExist: boolean;
         userId: string;

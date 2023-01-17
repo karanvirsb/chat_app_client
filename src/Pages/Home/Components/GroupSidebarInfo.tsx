@@ -111,7 +111,7 @@ export default function GroupSidebarInfo({
                   return (
                     <li
                       key={channel.channelId}
-                      onClick={() => setActiveChannel(channel.channelId)}
+                      onClick={() => { setActiveChannel(channel.channelId); }}
                       className="cursor-pointer"
                     >
                       {channel.channelName}

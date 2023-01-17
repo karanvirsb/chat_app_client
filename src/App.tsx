@@ -8,8 +8,8 @@ import SuperTokens, {
   SuperTokensWrapper
 } from 'supertokens-auth-react'
 import EmailPassword from 'supertokens-auth-react/recipe/emailpassword';
-import { SessionAuth } from 'supertokens-auth-react/recipe/session'
-import Session from 'supertokens-auth-react/recipe/session'
+import Session, { SessionAuth } from 'supertokens-auth-react/recipe/session'
+
 import ModalDisplay from './Components/Modal/ModalDisplay'
 import Settings from './Pages/Settings/settings'
 import socket from './Sockets'

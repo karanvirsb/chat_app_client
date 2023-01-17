@@ -17,7 +17,7 @@ export default function GroupChannel({ groupId }: props) {
   const [selectedChannel, setSelectedChannel] = useLocalStorage<string>(
     "selectedChannelId",
     ""
-  ); //TODO this is for when a different channel is selected for the chat
+  ); // TODO this is for when a different channel is selected for the chat
   const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
 
   return (

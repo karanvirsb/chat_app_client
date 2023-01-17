@@ -6,7 +6,7 @@ import {
 import useGetSession from "../../../Hooks/useGetSession";
 import Messages from "../../../Components/Messages/Messages";
 
-interface props {
+type props = {
   channelId: string;
   groupId: string;
 }
