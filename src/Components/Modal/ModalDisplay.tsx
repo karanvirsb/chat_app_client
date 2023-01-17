@@ -12,64 +12,71 @@ import EditEmailModal from "./EditEmailModal";
 import EditPasswordModal from "./EditPasswordModal";
 import JoinGroupModal from "./JoinGroupModal";
 import CreateGroupChannelModal from "./CreateGroupChannelModal";
+import { ModalState } from "../../Redux/slices/modalSlice";
 
 export default function ModalDisplay() {
-  const modalOpen = useAppSelector((state) => state.modalReducer.open);
-  const modalOptions = useAppSelector((state) => state.modalReducer.options);
-  const modalName = useAppSelector((state) => state.modalReducer.modalName);
+  const modalState: ModalState = useAppSelector(
+    (state) => state.modalReducer
+  ) satisfies ModalState;
 
   return (
     <>
-      {modalOpen && modalName === "changeGroupName" && (
+      {modalState.open && modalState.modalName === "changeGroupName" && (
         <ChangeGroupNameModal
-          groupId={modalOptions.groupId}
-          previousName={modalOptions.previousName}
+          groupId={modalState.options.groupId}
+          previousName={modalState.options.previousName}
         ></ChangeGroupNameModal>
       )}
 
-      {modalOpen && modalName === "inviteUser" && (
-        <InviteUserModal inviteCode={modalOptions.inviteCode}></InviteUserModal>
+      {modalState.open && modalState.modalName === "inviteUser" && (
+        <InviteUserModal
+          inviteCode={modalState.options.inviteCode}
+        ></InviteUserModal>
       )}
 
-      {modalOpen && modalName === "deleteGroup" && (
-        <DeleteGroupModal groupId={modalOptions.groupId}></DeleteGroupModal>
+      {modalState.open && modalState.modalName === "deleteGroup" && (
+        <DeleteGroupModal
+          groupId={modalState.options.groupId}
+        ></DeleteGroupModal>
       )}
 
-      {modalOpen && modalName === "leaveGroup" && (
-        <LeaveGroupModal groupId={modalOptions.groupId}></LeaveGroupModal>
+      {modalState.open && modalState.modalName === "leaveGroup" && (
+        <LeaveGroupModal groupId={modalState.options.groupId}></LeaveGroupModal>
       )}
 
-      {modalOpen && modalName === "createGroup" && (
+      {modalState.open && modalState.modalName === "createGroup" && (
         <CreateGroupModal></CreateGroupModal>
       )}
 
-      {modalOpen && modalName === "addFriend" && (
+      {modalState.open && modalState.modalName === "addFriend" && (
         <AddFriendModal></AddFriendModal>
       )}
 
-      {modalOpen && modalName === "deleteAccount" && (
+      {modalState.open && modalState.modalName === "deleteAccount" && (
         <DeleteAccountModal></DeleteAccountModal>
       )}
 
-      {modalOpen && modalName === "editUsername" && (
+      {modalState.open && modalState.modalName === "editUsername" && (
         <EditUsernameModal></EditUsernameModal>
       )}
 
-      {modalOpen && modalName === "editEmail" && (
+      {modalState.open && modalState.modalName === "editEmail" && (
         <EditEmailModal></EditEmailModal>
       )}
 
-      {modalOpen && modalName === "editPassword" && (
+      {modalState.open && modalState.modalName === "editPassword" && (
         <EditPasswordModal></EditPasswordModal>
       )}
 
-      {modalOpen && modalName === "joinGroup" && (
-        <JoinGroupModal inviteCode={modalOptions.inviteCode}></JoinGroupModal>
+      {modalState.open && modalState.modalName === "joinGroup" && (
+        <JoinGroupModal
+          inviteCode={modalState.options.inviteCode}
+        ></JoinGroupModal>
       )}
 
-      {modalOpen && modalName === "createGroupChannel" && (
+      {modalState.open && modalState.modalName === "createGroupChannel" && (
         <CreateGroupChannelModal
-          groupId={modalOptions.groupId}
+          groupId={modalState.options.groupId}
         ></CreateGroupChannelModal>
       )}
     </>
