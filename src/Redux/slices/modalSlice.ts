@@ -3,28 +3,31 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 // import type { RootState } from "../store";
 
 // Define a type for the slice state
-type ModalState = {
-  open: boolean;
-  options: any;
-  modalName:
-    | "changeGroupName"
-    | "inviteUser"
-    | "deleteGroup"
-    | "leaveGroup"
-    | "createGroup"
-    | "addFriend"
-    | "deleteAccount"
-    | "editUsername"
-    | "editEmail"
-    | "editPassword"
-    | "joinGroup"
-    | "createGroupChannel"
-    | "";
-}
+export type ModalState =
+  | {
+      open: boolean;
+      modalName: "changeGroupName";
+      options: { groupId: string; previousName: string };
+    }
+  | { open: boolean; options: { inviteCode: string }; modalName: "inviteUser" }
+  | { open: boolean; options: { groupId: string }; modalName: "deleteGroup" }
+  | { open: boolean; options: { groupId: string }; modalName: "leaveGroup" }
+  | { open: boolean; options: {}; modalName: "createGroup" }
+  | { open: boolean; options: {}; modalName: "addFriend" }
+  | { open: boolean; options: {}; modalName: "deleteAccount" }
+  | { open: boolean; options: {}; modalName: "editUsername" }
+  | { open: boolean; options: {}; modalName: "editEmail" }
+  | { open: boolean; options: {}; modalName: "editPassword" }
+  | { open: boolean; options: { inviteCode: string }; modalName: "joinGroup" }
+  | {
+      open: boolean;
+      options: { groupId: string };
+      modalName: "createGroupChannel";
+    };
 
 // Define the initial state using that type
 const initialState: ModalState = {
-  modalName: "",
+  modalName: "createGroup",
   options: {},
   open: false,
 };
@@ -32,7 +35,7 @@ const initialState: ModalState = {
 export const modalSlice = createSlice({
   name: "modal",
   // `createSlice` will infer the state type from the `initialState` argument
-  initialState,
+  initialState: initialState as ModalState,
   reducers: {
     setModal: (state, action: PayloadAction<ModalState>) => {
       const { modalName, options, open } = action.payload;
@@ -41,7 +44,7 @@ export const modalSlice = createSlice({
       state.options = options;
     },
     resetModal: (state) => {
-      state.modalName = "";
+      state.modalName = "createGroup";
       state.open = false;
       state.options = {};
     },
