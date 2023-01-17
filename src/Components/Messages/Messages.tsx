@@ -17,6 +17,14 @@ type props = {
   messages: IMessage[] | undefined;
   groupId: string;
   lastPage?: boolean;
+  editCallback: ({
+    messageId,
+    updateValue,
+  }: {
+    messageId: string;
+    updateValue: string;
+  }) => void;
+  deleteCallback?: ({ messageId }: { messageId: string }) => void;
   fetchNextPage?: (
     options?: FetchNextPageOptions | undefined
   ) => Promise<
@@ -25,17 +33,19 @@ type props = {
       unknown
     >
   >;
-}
+};
 
 export default function Messages({
   messages,
   groupId,
   lastPage,
   fetchNextPage,
+  editCallback,
+  deleteCallback,
 }: props): JSX.Element {
   const firstElementRef = useRef<HTMLDivElement>(null);
   const entry = useIntersectionObserver(firstElementRef, {});
-  const isVisible = !!((entry?.isIntersecting) ?? false);
+  const isVisible = !!(entry?.isIntersecting ?? false);
 
   const queryClient = useQueryClient();
   const groupUsers = queryClient.getQueriesData([
@@ -43,9 +53,9 @@ export default function Messages({
   ])[0][1] as unknown[];
 
   useEffect(() => {
-    if (isVisible && (fetchNextPage != null)){
-        void fetchNextPage()
-    } 
+    if (isVisible && fetchNextPage != null) {
+      void fetchNextPage();
+    }
   }, [fetchNextPage, isVisible]);
 
   return (
@@ -57,6 +67,8 @@ export default function Messages({
         if (lastPage !== null && index === 0) {
           return (
             <Message
+              editCallback={editCallback}
+              deleteCallback={deleteCallback}
               key={message.messageId}
               ref={firstElementRef}
               message={message}
@@ -65,9 +77,11 @@ export default function Messages({
           );
         } else {
           return (
-            <Message 
-              key={message.messageId} 
-              message={message} 
+            <Message
+              editCallback={editCallback}
+              deleteCallback={deleteCallback}
+              key={message.messageId}
+              message={message}
               username={foundUser?.username}
             ></Message>
           );
