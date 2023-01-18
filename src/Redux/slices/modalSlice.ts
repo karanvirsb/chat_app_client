@@ -27,7 +27,7 @@ export type ModalState =
   | {
       open: boolean;
       options: {
-        deleteMessageCallback: void;
+        deleteMessageCallback: () => void;
         isLoading: boolean;
         isSuccess: boolean;
       };
