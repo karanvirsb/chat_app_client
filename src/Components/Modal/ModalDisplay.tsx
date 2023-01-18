@@ -15,9 +15,7 @@ import CreateGroupChannelModal from "./CreateGroupChannelModal";
 import { ModalState } from "../../Redux/slices/modalSlice";
 
 export default function ModalDisplay() {
-  const modalState: ModalState = useAppSelector(
-    (state) => state.modalReducer
-  ) satisfies ModalState;
+  const modalState: ModalState = useAppSelector((state) => state.modalReducer);
 
   return (
     <>
