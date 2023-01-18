@@ -174,7 +174,7 @@ function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
     messageId: string;
   }): Promise<ReturnGroupMessage> => {
     const resp = await axios({
-      url: `${baseurl}/groupMessage`,
+      url: baseurl,
       method: "DELETE",
       data: { messageId },
     });
