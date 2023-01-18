@@ -167,7 +167,7 @@ type IUseDeleteGroupMessageMutation = UseMutationResult<
   unknown
 >;
 
-function useDeleteGroupMessageMutation() {
+function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
   const deleteMessage = async ({
     messageId,
   }: {
