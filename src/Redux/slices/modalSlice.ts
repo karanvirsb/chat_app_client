@@ -27,11 +27,9 @@ export type ModalState =
   | {
       open: boolean;
       options: {
-        deleteMessageCallback: () => void;
-        isLoading: boolean;
-        isSuccess: boolean;
+        messageId: string;
       };
-      modalName: "deleteMessage";
+      modalName: "deleteGroupMessage";
     };
 
 // Define the initial state using that type
