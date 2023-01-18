@@ -7,6 +7,8 @@ import {
 } from "../../../Hooks/groupChatHooks";
 import useGetSession from "../../../Hooks/useGetSession";
 import Messages from "../../../Components/Messages/Messages";
+import { useAppDispatch } from "../../../Hooks/reduxHooks";
+import { setModal } from "../../../Redux/slices/modalSlice";
 
 type props = {
   channelId: string;
@@ -25,7 +27,12 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
     });
   const { mutate: createMessage } = useCreateGroupMessageMutation();
   const { mutate: updateText } = useEditMessageTextMutation();
-  const { mutate: deleteMessage } = useDeleteGroupMessageMutation();
+  const {
+    mutate: deleteMessage,
+    isLoading: isDeletedMessageLoading,
+    isSuccess: isDeletedMessageSuccessful,
+  } = useDeleteGroupMessageMutation();
+  const dispatch = useAppDispatch();
   const { sessionInfo } = useGetSession();
 
   useEffect(() => {
@@ -64,7 +71,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
                 return (
                   <Messages
                     editCallback={updateText}
-                    deleteCallback={deleteMessage}
+                    deleteCallback={handleDeletingMessage}
                     key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
@@ -76,7 +83,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
                 return (
                   <Messages
                     editCallback={updateText}
-                    deleteCallback={deleteMessage}
+                    deleteCallback={handleDeletingMessage}
                     key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
@@ -114,5 +121,19 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
       });
       messageRef.current.value = ""; // resetting value
     }
+  }
+
+  function handleDeletingMessage({ messageId }: { messageId: string }) {
+    dispatch(
+      setModal({
+        modalName: "deleteMessage",
+        open: true,
+        options: {
+          deleteMessageCallback: deleteMessage({ messageId }),
+          isLoading: isDeletedMessageLoading,
+          isSuccess: isDeletedMessageSuccessful,
+        },
+      })
+    );
   }
 }
