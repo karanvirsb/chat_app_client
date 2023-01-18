@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
-import { useDeleteGroupMutation } from "../../Hooks/groupHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
-import { useDeleteGroupMessageMutation } from "../../Hooks/groupChatHooks";
 
 type props = {
   deleteMessageCallback: () => void;
