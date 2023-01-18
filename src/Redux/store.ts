@@ -3,10 +3,10 @@ import modalReducer from "./slices/modalSlice";
 import sideBarReducer from "./slices/SideBarSlice";
 
 export const store = configureStore({
-    reducer: {
-        modalReducer,
-        sideBarReducer,
-    },
+  reducer: {
+    modalReducer,
+    sideBarReducer,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
