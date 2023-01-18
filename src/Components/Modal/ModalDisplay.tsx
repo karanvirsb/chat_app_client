@@ -13,6 +13,7 @@ import EditPasswordModal from "./EditPasswordModal";
 import JoinGroupModal from "./JoinGroupModal";
 import CreateGroupChannelModal from "./CreateGroupChannelModal";
 import { ModalState } from "../../Redux/slices/modalSlice";
+import DeleteMessageModal from "./DeleteMessageModal";
 
 export default function ModalDisplay() {
   const modalState: ModalState = useAppSelector((state) => state.modalReducer);
@@ -76,6 +77,14 @@ export default function ModalDisplay() {
         <CreateGroupChannelModal
           groupId={modalState.options.groupId}
         ></CreateGroupChannelModal>
+      )}
+
+      {modalState.open && modalState.modalName === "deleteMessage" && (
+        <DeleteMessageModal
+          deleteMessageCallback={modalState.options.deleteMessageCallback}
+          isLoading={modalState.options.isLoading}
+          isSuccess={modalState.options.isSuccess}
+        ></DeleteMessageModal>
       )}
     </>
   );
