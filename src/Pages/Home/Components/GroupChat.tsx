@@ -126,12 +126,10 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
   function handleDeletingMessage({ messageId }: { messageId: string }) {
     dispatch(
       setModal({
-        modalName: "deleteMessage",
+        modalName: "deleteGroupMessage",
         open: true,
         options: {
-          deleteMessageCallback: () => deleteMessage({ messageId }),
-          isLoading: isDeletedMessageLoading,
-          isSuccess: isDeletedMessageSuccessful,
+          messageId,
         },
       })
     );
