@@ -2,22 +2,21 @@ import React, { useEffect } from "react";
 import { useAppDispatch } from "../../Hooks/reduxHooks";
 import { resetModal } from "../../Redux/slices/modalSlice";
 import MutationModal from "./MutationModal";
+import { useDeleteGroupMessageMutation } from "../../Hooks/groupChatHooks";
 
 type props = {
-  deleteMessageCallback: () => void;
-  isLoading: boolean;
-  isSuccess: boolean;
+  messageId: string;
 };
 
-export default function DeleteMessageModal({
-  deleteMessageCallback,
-  isLoading,
-  isSuccess,
-}: props) {
+export default function DeleteMessageModal({ messageId }: props) {
   const dispatch = useAppDispatch();
+  const {
+    mutate: deleteMessage,
+    isLoading,
+    isSuccess,
+  } = useDeleteGroupMessageMutation();
 
   useEffect(() => {
-    console.log(isLoading, isSuccess);
     if (!isLoading && isSuccess) {
       handleCancel();
     }
@@ -31,11 +30,15 @@ export default function DeleteMessageModal({
       text="Are you sure you want to delete the message?"
       loading={isLoading}
       handleCancel={handleCancel}
-      handleSubmit={deleteMessageCallback}
+      handleSubmit={handleSubmit}
     ></MutationModal>
   );
 
   function handleCancel() {
     dispatch(resetModal());
+  }
+
+  function handleSubmit() {
+    deleteMessage({ messageId });
   }
 }
