@@ -17,6 +17,7 @@ export default function DeleteMessageModal({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    console.log(isLoading, isSuccess);
     if (!isLoading && isSuccess) {
       handleCancel();
     }
