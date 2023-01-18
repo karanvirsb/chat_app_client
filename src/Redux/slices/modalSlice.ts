@@ -23,6 +23,15 @@ export type ModalState =
       open: boolean;
       options: { groupId: string };
       modalName: "createGroupChannel";
+    }
+  | {
+      open: boolean;
+      options: {
+        deleteMessageCallback: () => void;
+        isLoading: boolean;
+        isSuccess: boolean;
+      };
+      modalName: "deleteMessage";
     };
 
 // Define the initial state using that type
