@@ -1,16 +1,16 @@
 import { IMessage } from "../../Hooks/groupChatHooks";
 
 export interface ICreateGroupMessageEvent {
-  channelId: string;
+  groupId: string;
   payload: { messageInfo: IMessage };
 }
 
 export interface IUpdateGroupMessageEvent {
-  channelId: string;
+  groupId: string;
   payload: { messageInfo: Partial<IMessage> };
 }
 
 export interface IDeleteGroupMessageEvent {
-  channelId: string;
-  payload: { messageId: string };
+  groupId: string;
+  payload: { messageId: string; channelId: string };
 }
