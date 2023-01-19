@@ -5,6 +5,7 @@ import {
   useInfiniteQuery,
   UseInfiniteQueryResult,
   UseMutationResult,
+  InfiniteData,
 } from "@tanstack/react-query";
 import { PaginatedGroupMessages } from "../utilities/types/pagination";
 
@@ -107,9 +108,40 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
     mutationFn: createMessage,
     onSuccess: async (data) => {
       if (data.data === undefined) return;
-      await queryClient.invalidateQueries([
-        `group-messages-${data.data.channelId ?? ""}`,
-      ]);
+      // await queryClient.invalidateQueries([
+      //   `group-messages-${data.data.channelId ?? ""}`,
+      // ]);
+      queryClient.setQueryData(
+        [`group-messages-${data.data.channelId}`],
+        (oldData: unknown) => {
+          const pushResult = (
+            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+          ) => {
+            if (data.data !== undefined) {
+              // pages[0].data.push(data.data);
+              infiniteData.pages[0].data = [
+                ...infiniteData.pages[0].data,
+                data.data,
+              ];
+              console.log(infiniteData);
+              return structuredClone(infiniteData);
+            }
+          };
+
+          return checkIfPagesExist(oldData) ? pushResult(oldData) : oldData;
+        }
+      );
+
+      function checkIfPagesExist(
+        arr: unknown | InfiniteData<PaginatedGroupMessages<IMessage>>
+      ): arr is InfiniteData<PaginatedGroupMessages<IMessage>> {
+        return (
+          (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pages !==
+            undefined &&
+          (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pageParams !==
+            undefined
+        );
+      }
       //  if (data.data) {
       //    send("update_channel_lists", {
       //      groupId: data.data.groupId,
