@@ -124,6 +124,37 @@ export default function SocketHandler({ children }: props) {
           }
         );
       });
+
+      socket.on(
+        "update_group_chat_message",
+        (data: IUpdateGroupMessageEvent) => {
+          const updatedMessage = data.payload.messageInfo;
+          queryClient.setQueryData(
+            [`group-messages-${data.channelId}`],
+            (oldData: unknown) => {
+              const updateResult = (
+                infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+              ) => {
+                if (updatedMessage !== undefined) {
+                  infiniteData.pages.map((page) => {
+                    page.data.map((message) =>
+                      message.messageId === updatedMessage.messageId
+                        ? Object.assign(message, updatedMessage)
+                        : message
+                    );
+                  });
+
+                  return structuredClone(infiniteData);
+                }
+              };
+
+              return checkIfPagesExist(oldData)
+                ? updateResult(oldData)
+                : oldData;
+            }
+          );
+        }
+      );
     });
 
     return () => {
