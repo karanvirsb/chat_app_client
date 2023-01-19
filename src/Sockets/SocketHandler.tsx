@@ -155,6 +155,43 @@ export default function SocketHandler({ children }: props) {
           );
         }
       );
+
+      socket.on(
+        "delete_group_chat_message",
+        (data: IDeleteGroupMessageEvent) => {
+          const messageId = data.payload.messageId;
+          queryClient.setQueryData(
+            [`group-messages-${data.channelId}`],
+            (oldData: unknown) => {
+              const deleteResult = (
+                infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+              ) => {
+                if (messageId !== undefined) {
+                  const filteredData: IMessage[][] = infiniteData.pages.map(
+                    (page) =>
+                      page.data.filter(
+                        (message) => message.messageId !== messageId
+                      )
+                  );
+                  const newData: {
+                    data: IMessage[];
+                  }[] = filteredData.map((message) => {
+                    return {
+                      data: message,
+                    };
+                  });
+
+                  return { ...infiniteData, pages: [...newData] };
+                }
+              };
+
+              return checkIfPagesExist(oldData)
+                ? deleteResult(oldData)
+                : oldData;
+            }
+          );
+        }
+      );
     });
 
     return () => {
