@@ -6,15 +6,16 @@ import { useDeleteGroupMessageMutation } from "../../Hooks/groupChatHooks";
 
 type props = {
   messageId: string;
+  groupId: string;
 };
 
-export default function DeleteMessageModal({ messageId }: props) {
+export default function DeleteMessageModal({ messageId, groupId }: props) {
   const dispatch = useAppDispatch();
   const {
     mutate: deleteMessage,
     isLoading,
     isSuccess,
-  } = useDeleteGroupMessageMutation();
+  } = useDeleteGroupMessageMutation({ groupId });
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
