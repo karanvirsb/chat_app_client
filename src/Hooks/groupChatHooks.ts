@@ -82,7 +82,11 @@ type IUseCreateGroupMessageMutation = UseMutationResult<
   },
   unknown
 >;
-function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
+function useCreateGroupMessageMutation({
+  groupId,
+}: {
+  groupId: string;
+}): IUseCreateGroupMessageMutation {
   const send = useGroupChatSockets();
   const createMessage = async ({
     channelId,
@@ -113,7 +117,7 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
       send({
         event: "create_group_message",
         data: {
-          groupId: data.data.channelId,
+          groupId,
           payload: { messageInfo: data.data },
         },
       });
