@@ -196,34 +196,6 @@ function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
     mutationFn: deleteMessage,
     onSuccess: async (data) => {
       if (data.data === undefined) return;
-      queryClient.setQueryData(
-        [`group-messages-${data.data.channelId}`],
-        (oldData: unknown) => {
-          const deleteResult = (
-            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-          ) => {
-            if (data.data !== undefined) {
-              const filteredData: IMessage[][] = infiniteData.pages.map(
-                (page) =>
-                  page.data.filter(
-                    (message) => message.messageId !== data.data?.messageId
-                  )
-              );
-              const newData: {
-                data: IMessage[];
-              }[] = filteredData.map((message) => {
-                return {
-                  data: message,
-                };
-              });
-
-              return { ...infiniteData, pages: [...newData] };
-            }
-          };
-
-          return checkIfPagesExist(oldData) ? deleteResult(oldData) : oldData;
-        }
-      );
     },
   });
 }
