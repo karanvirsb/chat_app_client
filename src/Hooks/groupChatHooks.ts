@@ -8,6 +8,7 @@ import {
   InfiniteData,
 } from "@tanstack/react-query";
 import { PaginatedGroupMessages } from "../utilities/types/pagination";
+import useGroupChatSockets from "../Sockets/Hooks/useGroupChatSockets";
 
 export type IMessage = {
   userId: string;
@@ -82,7 +83,7 @@ type IUseCreateGroupMessageMutation = UseMutationResult<
   unknown
 >;
 function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
-  const queryClient = useQueryClient();
+  const send = useGroupChatSockets();
   const createMessage = async ({
     channelId,
     dateCreated,
@@ -109,45 +110,15 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
     onSuccess: async (data) => {
       if (data.data === undefined) return;
 
-      queryClient.setQueryData(
-        [`group-messages-${data.data.channelId}`],
-        (oldData: unknown) => {
-          const pushResult = (
-            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-          ) => {
-            if (data.data !== undefined) {
-              infiniteData.pages[0].data = [
-                ...infiniteData.pages[0].data,
-                data.data,
-              ];
-
-              return structuredClone(infiniteData);
-            }
-          };
-
-          return checkIfPagesExist(oldData) ? pushResult(oldData) : oldData;
-        }
-      );
-
-      //  if (data.data) {
-      //    send("update_channel_lists", {
-      //      groupId: data.data.groupId,
-      //      payload: { channelInfo: data.data },
-      //    });
-      //  }
+      send({
+        event: "create_group_message",
+        data: {
+          channelId: data.data.channelId,
+          payload: { messageInfo: data.data },
+        },
+      });
     },
   });
-}
-
-function checkIfPagesExist(
-  arr: unknown | InfiniteData<PaginatedGroupMessages<IMessage>>
-): arr is InfiniteData<PaginatedGroupMessages<IMessage>> {
-  return (
-    (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pages !==
-      undefined &&
-    (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pageParams !==
-      undefined
-  );
 }
 
 type IUseEditMessageTextMutation = UseMutationResult<
