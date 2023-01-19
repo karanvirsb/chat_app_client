@@ -13,6 +13,11 @@ import {
   LeaveGroupEvent,
   DeleteEvent,
 } from "./types/groupTypes";
+import {
+  ICreateGroupMessageEvent,
+  IDeleteGroupMessageEvent,
+  IUpdateGroupMessageEvent,
+} from "./types/groupChatTypes";
 
 type props = {
   children: JSX.Element;
@@ -27,6 +32,14 @@ export type groupSocketEvents =
   | LeaveGroupEvent;
 
 export type groupChannelSocketEvents = UpdateChannelsListEvent;
+
+export type groupChatSocketEvents =
+  | {
+      event: "create_group_message";
+      data: ICreateGroupMessageEvent;
+    }
+  | { event: "update_group_message"; data: IUpdateGroupMessageEvent }
+  | { event: "delete_group_message"; data: IDeleteGroupMessageEvent };
 
 export default function SocketHandler({ children }: props) {
   const queryClient = useQueryClient();
