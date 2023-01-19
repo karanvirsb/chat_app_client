@@ -131,7 +131,7 @@ type IUseEditMessageTextMutation = UseMutationResult<
   unknown
 >;
 function useEditMessageTextMutation(): IUseEditMessageTextMutation {
-  const queryClient = useQueryClient();
+  const send = useGroupChatSockets();
 
   const updateMessage = async ({
     messageId,
@@ -155,28 +155,13 @@ function useEditMessageTextMutation(): IUseEditMessageTextMutation {
       // TODO add socket functionality;
       if (data.data === undefined) return;
 
-      queryClient.setQueryData(
-        [`group-messages-${data.data.channelId}`],
-        (oldData: unknown) => {
-          const updateResult = (
-            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-          ) => {
-            if (data.data !== undefined) {
-              infiniteData.pages.map((page) => {
-                page.data.map((message) =>
-                  message.messageId === data.data?.messageId
-                    ? Object.assign(message, data.data)
-                    : message
-                );
-              });
-
-              return structuredClone(infiniteData);
-            }
-          };
-
-          return checkIfPagesExist(oldData) ? updateResult(oldData) : oldData;
-        }
-      );
+      send({
+        event: "update_group_message",
+        data: {
+          channelId: data.data.channelId,
+          payload: { messageInfo: data.data },
+        },
+      });
     },
   });
 }
