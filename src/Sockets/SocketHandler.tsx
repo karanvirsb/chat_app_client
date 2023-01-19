@@ -104,6 +104,7 @@ export default function SocketHandler({ children }: props) {
 
       //Group chat events
       socket.on("new_group_chat_message", (data: ICreateGroupMessageEvent) => {
+        console.log(data);
         const newMessage = data.payload.messageInfo;
         queryClient.setQueryData(
           [`group-messages-${newMessage.channelId}`],
@@ -129,6 +130,7 @@ export default function SocketHandler({ children }: props) {
       socket.on(
         "update_group_chat_message",
         (data: IUpdateGroupMessageEvent) => {
+          console.log(data);
           const updatedMessage = data.payload.messageInfo;
           queryClient.setQueryData(
             [`group-messages-${updatedMessage.channelId}`],
@@ -160,6 +162,7 @@ export default function SocketHandler({ children }: props) {
       socket.on(
         "delete_group_chat_message",
         (data: IDeleteGroupMessageEvent) => {
+          console.log(data);
           const payload = data.payload;
           queryClient.setQueryData(
             [`group-messages-${payload.channelId}`],
