@@ -51,7 +51,7 @@ function useGetGroupMessagesByChannelIdQuery({
   const getMessages = async ({
     pageParam = `${baseurl}/channel/messages?channelId=${channelId}&limit=${limit}&dateCreated=${dateCreated.toISOString()}`,
   }): Promise<PaginatedGroupMessages<IMessage> | undefined> => {
-    if (pageParam.length === 0) return undefined;
+    if (pageParam === null || pageParam.length === 0) return undefined;
     const resp = await axios({
       url: pageParam,
       method: "GET",
