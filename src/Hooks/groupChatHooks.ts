@@ -182,7 +182,11 @@ type IUseDeleteGroupMessageMutation = UseMutationResult<
   unknown
 >;
 
-function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
+function useDeleteGroupMessageMutation({
+  groupId,
+}: {
+  groupId: string;
+}): IUseDeleteGroupMessageMutation {
   const send = useGroupChatSockets();
   const deleteMessage = async ({
     messageId,
@@ -207,7 +211,7 @@ function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
       send({
         event: "delete_group_message",
         data: {
-          groupId: data.data.channelId,
+          groupId,
           payload: {
             messageId: data.data.messageId,
             channelId: data.data.channelId,
