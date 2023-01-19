@@ -134,7 +134,11 @@ type IUseEditMessageTextMutation = UseMutationResult<
   },
   unknown
 >;
-function useEditMessageTextMutation(): IUseEditMessageTextMutation {
+function useEditMessageTextMutation({
+  groupId,
+}: {
+  groupId: string;
+}): IUseEditMessageTextMutation {
   const send = useGroupChatSockets();
 
   const updateMessage = async ({
@@ -161,7 +165,7 @@ function useEditMessageTextMutation(): IUseEditMessageTextMutation {
       send({
         event: "update_group_message",
         data: {
-          groupId: data.data.channelId,
+          groupId,
           payload: { messageInfo: data.data },
         },
       });
