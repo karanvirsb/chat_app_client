@@ -113,7 +113,7 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
       send({
         event: "create_group_message",
         data: {
-          channelId: data.data.channelId,
+          groupId: data.data.channelId,
           payload: { messageInfo: data.data },
         },
       });
@@ -152,13 +152,12 @@ function useEditMessageTextMutation(): IUseEditMessageTextMutation {
   return useMutation({
     mutationFn: updateMessage,
     onSuccess: async (data) => {
-      // TODO add socket functionality;
       if (data.data === undefined) return;
 
       send({
         event: "update_group_message",
         data: {
-          channelId: data.data.channelId,
+          groupId: data.data.channelId,
           payload: { messageInfo: data.data },
         },
       });
@@ -200,8 +199,11 @@ function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
       send({
         event: "delete_group_message",
         data: {
-          channelId: data.data.channelId,
-          payload: { messageId: data.data.messageId },
+          groupId: data.data.channelId,
+          payload: {
+            messageId: data.data.messageId,
+            channelId: data.data.channelId,
+          },
         },
       });
     },
