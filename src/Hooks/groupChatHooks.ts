@@ -123,7 +123,7 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
                 ...infiniteData.pages[0].data,
                 data.data,
               ];
-              console.log(infiniteData);
+
               return structuredClone(infiniteData);
             }
           };
