@@ -104,8 +104,9 @@ export default function SocketHandler({ children }: props) {
 
       //Group chat events
       socket.on("new_group_chat_message", (data: ICreateGroupMessageEvent) => {
+        const newMessage = data.payload.messageInfo;
         queryClient.setQueryData(
-          [`group-messages-${data.channelId}`],
+          [`group-messages-${newMessage.channelId}`],
           (oldData: unknown) => {
             const pushResult = (
               infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
@@ -113,7 +114,7 @@ export default function SocketHandler({ children }: props) {
               if (data.payload !== undefined) {
                 infiniteData.pages[0].data = [
                   ...infiniteData.pages[0].data,
-                  data.payload.messageInfo,
+                  newMessage,
                 ];
 
                 return structuredClone(infiniteData);
@@ -130,7 +131,7 @@ export default function SocketHandler({ children }: props) {
         (data: IUpdateGroupMessageEvent) => {
           const updatedMessage = data.payload.messageInfo;
           queryClient.setQueryData(
-            [`group-messages-${data.channelId}`],
+            [`group-messages-${updatedMessage.channelId}`],
             (oldData: unknown) => {
               const updateResult = (
                 infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
@@ -159,18 +160,18 @@ export default function SocketHandler({ children }: props) {
       socket.on(
         "delete_group_chat_message",
         (data: IDeleteGroupMessageEvent) => {
-          const messageId = data.payload.messageId;
+          const payload = data.payload;
           queryClient.setQueryData(
-            [`group-messages-${data.channelId}`],
+            [`group-messages-${payload.channelId}`],
             (oldData: unknown) => {
               const deleteResult = (
                 infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
               ) => {
-                if (messageId !== undefined) {
+                if (payload !== undefined) {
                   const filteredData: IMessage[][] = infiniteData.pages.map(
                     (page) =>
                       page.data.filter(
-                        (message) => message.messageId !== messageId
+                        (message) => message.messageId !== payload.messageId
                       )
                   );
                   const newData: {
