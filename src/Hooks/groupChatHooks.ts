@@ -247,19 +247,20 @@ function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (data.data !== undefined) {
-              // pages[0].data.push(data.data);
-              const filteredData = infiniteData.pages.map((page) =>
-                page.data.filter(
-                  (message) => message.messageId !== data.data?.messageId
-                )
+              const filteredData: IMessage[][] = infiniteData.pages.map(
+                (page) =>
+                  page.data.filter(
+                    (message) => message.messageId !== data.data?.messageId
+                  )
               );
-              console.log(filteredData);
-              const newData = filteredData.map((message) => {
+              const newData: {
+                data: IMessage[];
+              }[] = filteredData.map((message) => {
                 return {
                   data: message,
                 };
               });
-              console.log(newData);
+
               return { ...infiniteData, pages: [...newData] };
             }
           };
