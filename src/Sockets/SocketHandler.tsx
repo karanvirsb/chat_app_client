@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import socket from ".";
 import { IGroupChannel } from "../Hooks/groupChannelHooks";
@@ -18,6 +18,8 @@ import {
   IDeleteGroupMessageEvent,
   IUpdateGroupMessageEvent,
 } from "./types/groupChatTypes";
+import { PaginatedGroupMessages } from "../utilities/types/pagination";
+import { IMessage } from "../Hooks/groupChatHooks";
 
 type props = {
   children: JSX.Element;
@@ -99,6 +101,29 @@ export default function SocketHandler({ children }: props) {
           return Array.isArray(oldData) && pushNewChannel(oldData);
         }
       );
+
+      //Group chat events
+      socket.on("new_group_chat_message", (data: ICreateGroupMessageEvent) => {
+        queryClient.setQueryData(
+          [`group-messages-${data.channelId}`],
+          (oldData: unknown) => {
+            const pushResult = (
+              infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+            ) => {
+              if (data.payload !== undefined) {
+                infiniteData.pages[0].data = [
+                  ...infiniteData.pages[0].data,
+                  data.payload.messageInfo,
+                ];
+
+                return structuredClone(infiniteData);
+              }
+            };
+
+            return checkIfPagesExist(oldData) ? pushResult(oldData) : oldData;
+          }
+        );
+      });
     });
 
     return () => {
@@ -110,4 +135,15 @@ export default function SocketHandler({ children }: props) {
     };
   }, [queryClient]);
   return children;
+}
+
+function checkIfPagesExist(
+  arr: unknown | InfiniteData<PaginatedGroupMessages<IMessage>>
+): arr is InfiniteData<PaginatedGroupMessages<IMessage>> {
+  return (
+    (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pages !==
+      undefined &&
+    (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pageParams !==
+      undefined
+  );
 }
