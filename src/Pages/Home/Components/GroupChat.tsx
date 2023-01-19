@@ -27,11 +27,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
     });
   const { mutate: createMessage } = useCreateGroupMessageMutation();
   const { mutate: updateText } = useEditMessageTextMutation();
-  const {
-    mutate: deleteMessage,
-    isLoading: isDeletedMessageLoading,
-    isSuccess: isDeletedMessageSuccessful,
-  } = useDeleteGroupMessageMutation();
+
   const dispatch = useAppDispatch();
   const { sessionInfo } = useGetSession();
 
@@ -118,6 +114,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
         dateCreated: new Date(),
         text: messageRef.current.value,
         userId: sessionInfo.userId,
+        groupId,
       });
       messageRef.current.value = ""; // resetting value
     }
@@ -130,6 +127,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
         open: true,
         options: {
           messageId,
+          groupId,
         },
       })
     );
