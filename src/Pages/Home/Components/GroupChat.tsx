@@ -25,8 +25,8 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
       dateCreated: new Date(),
       limit: 10,
     });
-  const { mutate: createMessage } = useCreateGroupMessageMutation();
-  const { mutate: updateText } = useEditMessageTextMutation();
+  const { mutate: createMessage } = useCreateGroupMessageMutation({ groupId });
+  const { mutate: updateText } = useEditMessageTextMutation({ groupId });
 
   const dispatch = useAppDispatch();
   const { sessionInfo } = useGetSession();
@@ -114,7 +114,6 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
         dateCreated: new Date(),
         text: messageRef.current.value,
         userId: sessionInfo.userId,
-        groupId,
       });
       messageRef.current.value = ""; // resetting value
     }
