@@ -28,6 +28,7 @@ export type ModalState =
       open: boolean;
       options: {
         messageId: string;
+        groupId: string;
       };
       modalName: "deleteGroupMessage";
     };
