@@ -82,6 +82,7 @@ export default function ModalDisplay() {
       {modalState.open && modalState.modalName === "deleteGroupMessage" && (
         <DeleteMessageModal
           messageId={modalState.options.messageId}
+          groupId={modalState.options.groupId}
         ></DeleteMessageModal>
       )}
     </>
