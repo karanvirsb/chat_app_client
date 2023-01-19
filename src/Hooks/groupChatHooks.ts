@@ -228,6 +228,7 @@ type IUseDeleteGroupMessageMutation = UseMutationResult<
 >;
 
 function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
+  const queryClient = useQueryClient();
   const deleteMessage = async ({
     messageId,
   }: {
@@ -250,6 +251,36 @@ function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
         "🚀 ~ file: groupChatHooks.ts:174 ~ returnuseMutation ~ data",
         data
       );
+
+      if (data.data !== undefined) {
+        queryClient.setQueryData(
+          [`group-messages-${data.data.channelId}`],
+          (oldData: unknown) => {
+            const deleteResult = (
+              infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+            ) => {
+              if (data.data !== undefined) {
+                // pages[0].data.push(data.data);
+                const filteredData = infiniteData.pages.map((page) =>
+                  page.data.filter(
+                    (message) => message.messageId !== data.data?.messageId
+                  )
+                );
+                console.log(filteredData);
+                const newData = filteredData.map((message) => {
+                  return {
+                    data: message,
+                  };
+                });
+                console.log(newData);
+                return { ...infiniteData, pages: [...newData] };
+              }
+            };
+
+            return checkIfPagesExist(oldData) ? deleteResult(oldData) : oldData;
+          }
+        );
+      }
     },
   });
 }
