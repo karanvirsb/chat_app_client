@@ -108,9 +108,7 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
     mutationFn: createMessage,
     onSuccess: async (data) => {
       if (data.data === undefined) return;
-      // await queryClient.invalidateQueries([
-      //   `group-messages-${data.data.channelId ?? ""}`,
-      // ]);
+
       queryClient.setQueryData(
         [`group-messages-${data.data.channelId}`],
         (oldData: unknown) => {
@@ -118,7 +116,6 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (data.data !== undefined) {
-              // pages[0].data.push(data.data);
               infiniteData.pages[0].data = [
                 ...infiniteData.pages[0].data,
                 data.data,
@@ -184,36 +181,31 @@ function useEditMessageTextMutation(): IUseEditMessageTextMutation {
   return useMutation({
     mutationFn: updateMessage,
     onSuccess: async (data) => {
-      // TODO add socket functionality
-      console.log(
-        "🚀 ~ file: groupChatHooks.ts:122 ~ returnuseMutation ~ data",
-        data
+      // TODO add socket functionality;
+      if (data.data === undefined) return;
+
+      queryClient.setQueryData(
+        [`group-messages-${data.data.channelId}`],
+        (oldData: unknown) => {
+          const updateResult = (
+            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+          ) => {
+            if (data.data !== undefined) {
+              infiniteData.pages.map((page) => {
+                page.data.map((message) =>
+                  message.messageId === data.data?.messageId
+                    ? Object.assign(message, data.data)
+                    : message
+                );
+              });
+
+              return structuredClone(infiniteData);
+            }
+          };
+
+          return checkIfPagesExist(oldData) ? updateResult(oldData) : oldData;
+        }
       );
-      if (data.data !== undefined) {
-        queryClient.setQueryData(
-          [`group-messages-${data.data.channelId}`],
-          (oldData: unknown) => {
-            const updateResult = (
-              infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-            ) => {
-              if (data.data !== undefined) {
-                // pages[0].data.push(data.data);
-                infiniteData.pages.map((page) => {
-                  page.data.map((message) =>
-                    message.messageId === data.data?.messageId
-                      ? Object.assign(message, data.data)
-                      : message
-                  );
-                });
-
-                return structuredClone(infiniteData);
-              }
-            };
-
-            return checkIfPagesExist(oldData) ? updateResult(oldData) : oldData;
-          }
-        );
-      }
     },
   });
 }
@@ -247,40 +239,34 @@ function useDeleteGroupMessageMutation(): IUseDeleteGroupMessageMutation {
   return useMutation({
     mutationFn: deleteMessage,
     onSuccess: async (data) => {
-      console.log(
-        "🚀 ~ file: groupChatHooks.ts:174 ~ returnuseMutation ~ data",
-        data
+      if (data.data === undefined) return;
+      queryClient.setQueryData(
+        [`group-messages-${data.data.channelId}`],
+        (oldData: unknown) => {
+          const deleteResult = (
+            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+          ) => {
+            if (data.data !== undefined) {
+              // pages[0].data.push(data.data);
+              const filteredData = infiniteData.pages.map((page) =>
+                page.data.filter(
+                  (message) => message.messageId !== data.data?.messageId
+                )
+              );
+              console.log(filteredData);
+              const newData = filteredData.map((message) => {
+                return {
+                  data: message,
+                };
+              });
+              console.log(newData);
+              return { ...infiniteData, pages: [...newData] };
+            }
+          };
+
+          return checkIfPagesExist(oldData) ? deleteResult(oldData) : oldData;
+        }
       );
-
-      if (data.data !== undefined) {
-        queryClient.setQueryData(
-          [`group-messages-${data.data.channelId}`],
-          (oldData: unknown) => {
-            const deleteResult = (
-              infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-            ) => {
-              if (data.data !== undefined) {
-                // pages[0].data.push(data.data);
-                const filteredData = infiniteData.pages.map((page) =>
-                  page.data.filter(
-                    (message) => message.messageId !== data.data?.messageId
-                  )
-                );
-                console.log(filteredData);
-                const newData = filteredData.map((message) => {
-                  return {
-                    data: message,
-                  };
-                });
-                console.log(newData);
-                return { ...infiniteData, pages: [...newData] };
-              }
-            };
-
-            return checkIfPagesExist(oldData) ? deleteResult(oldData) : oldData;
-          }
-        );
-      }
     },
   });
 }
