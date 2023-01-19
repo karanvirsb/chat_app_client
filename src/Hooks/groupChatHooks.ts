@@ -132,16 +132,6 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
         }
       );
 
-      function checkIfPagesExist(
-        arr: unknown | InfiniteData<PaginatedGroupMessages<IMessage>>
-      ): arr is InfiniteData<PaginatedGroupMessages<IMessage>> {
-        return (
-          (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pages !==
-            undefined &&
-          (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pageParams !==
-            undefined
-        );
-      }
       //  if (data.data) {
       //    send("update_channel_lists", {
       //      groupId: data.data.groupId,
@@ -150,6 +140,17 @@ function useCreateGroupMessageMutation(): IUseCreateGroupMessageMutation {
       //  }
     },
   });
+}
+
+function checkIfPagesExist(
+  arr: unknown | InfiniteData<PaginatedGroupMessages<IMessage>>
+): arr is InfiniteData<PaginatedGroupMessages<IMessage>> {
+  return (
+    (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pages !==
+      undefined &&
+    (arr as InfiniteData<PaginatedGroupMessages<IMessage>>).pageParams !==
+      undefined
+  );
 }
 
 type IUseEditMessageTextMutation = UseMutationResult<
