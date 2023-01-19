@@ -1,5 +1,11 @@
 import axios from "../API/axios";
-import { useQuery, useMutation, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import useGroupChannelSockets from "../Sockets/Hooks/useGroupChannelSockets";
 
 // setting up global variables
@@ -10,21 +16,25 @@ export type IGroupChannel = {
   channelName: string;
   dateCreated: Date;
   groupId: string;
-}
+};
 
 export type returnGroupChannel = {
   success: boolean;
   data: IGroupChannel | undefined;
   error: string;
-}
+};
 
 export type returnGroupChannels = {
   success: boolean;
   data: IGroupChannel[] | undefined;
   error: string;
-}
+};
 
-function useGetGroupChannelQuery({ channelId }: { channelId: string }): UseQueryResult<IGroupChannel | undefined, unknown> {
+function useGetGroupChannelQuery({
+  channelId,
+}: {
+  channelId: string;
+}): UseQueryResult<IGroupChannel | undefined, unknown> {
   const getChannel = async (): Promise<IGroupChannel | undefined> => {
     const data = await axios({
       url: `baseurl/${channelId}`,
@@ -40,7 +50,11 @@ function useGetGroupChannelQuery({ channelId }: { channelId: string }): UseQuery
   });
 }
 
-function useGetGroupChannelsQuery({ groupId }: { groupId: string }):  UseQueryResult<IGroupChannel[], unknown> {
+function useGetGroupChannelsQuery({
+  groupId,
+}: {
+  groupId: string;
+}): UseQueryResult<IGroupChannel[], unknown> {
   const getChannels = async (): Promise<IGroupChannel[]> => {
     const data = await axios({
       url: `${baseurl}/all/${groupId}`,
@@ -59,10 +73,15 @@ function useGetGroupChannelsQuery({ groupId }: { groupId: string }):  UseQueryRe
 
 // Mutations
 
-type IUseCreateGroupChannelMutation = UseMutationResult<returnGroupChannel, unknown, {
+type IUseCreateGroupChannelMutation = UseMutationResult<
+  returnGroupChannel,
+  unknown,
+  {
     channelName: string;
     groupId: string;
-}, unknown> 
+  },
+  unknown
+>;
 
 function useCreateGroupChannelMutation(): IUseCreateGroupChannelMutation {
   const queryClient = useQueryClient();
@@ -92,8 +111,10 @@ function useCreateGroupChannelMutation(): IUseCreateGroupChannelMutation {
   return useMutation({
     mutationFn: createGroupChannel,
     onSuccess: async (data) => {
-      if(data.data === undefined) return; 
-      await queryClient.invalidateQueries([`group-channels-${data.data.groupId ?? ""}`]);
+      if (data.data === undefined) return;
+      await queryClient.invalidateQueries([
+        `group-channels-${data.data.groupId ?? ""}`,
+      ]);
       if (data.data !== null) {
         send("update_channel_lists", {
           groupId: data.data.groupId,
