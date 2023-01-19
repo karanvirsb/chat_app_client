@@ -163,6 +163,8 @@ type IUseEditMessageTextMutation = UseMutationResult<
   unknown
 >;
 function useEditMessageTextMutation(): IUseEditMessageTextMutation {
+  const queryClient = useQueryClient();
+
   const updateMessage = async ({
     messageId,
     updateValue,
@@ -187,6 +189,31 @@ function useEditMessageTextMutation(): IUseEditMessageTextMutation {
         "🚀 ~ file: groupChatHooks.ts:122 ~ returnuseMutation ~ data",
         data
       );
+      if (data.data !== undefined) {
+        queryClient.setQueryData(
+          [`group-messages-${data.data.channelId}`],
+          (oldData: unknown) => {
+            const updateResult = (
+              infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+            ) => {
+              if (data.data !== undefined) {
+                // pages[0].data.push(data.data);
+                infiniteData.pages.map((page) => {
+                  page.data.map((message) =>
+                    message.messageId === data.data?.messageId
+                      ? Object.assign(message, data.data)
+                      : message
+                  );
+                });
+
+                return structuredClone(infiniteData);
+              }
+            };
+
+            return checkIfPagesExist(oldData) ? updateResult(oldData) : oldData;
+          }
+        );
+      }
     },
   });
 }
