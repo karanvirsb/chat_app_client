@@ -101,99 +101,86 @@ export default function SocketHandler({ children }: props) {
           return Array.isArray(oldData) && pushNewChannel(oldData);
         }
       );
+    });
 
-      //Group chat events
-      socket.on("new_group_chat_message", (data: ICreateGroupMessageEvent) => {
-        console.log(data);
-        const newMessage = data.payload.messageInfo;
-        queryClient.setQueryData(
-          [`group-messages-${newMessage.channelId}`],
-          (oldData: unknown) => {
-            const pushResult = (
-              infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-            ) => {
-              if (data.payload !== undefined) {
-                infiniteData.pages[0].data = [
-                  ...infiniteData.pages[0].data,
-                  newMessage,
-                ];
+    //Group chat events
+    socket.on("new_group_chat_message", (data: ICreateGroupMessageEvent) => {
+      const newMessage = data.payload.messageInfo;
+      queryClient.setQueriesData(
+        [`group-messages-${newMessage.channelId}`],
+        (oldData: unknown) => {
+          const pushResult = (
+            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+          ) => {
+            if (data.payload !== undefined) {
+              infiniteData.pages[0].data = [
+                ...infiniteData.pages[0].data,
+                newMessage,
+              ];
 
-                return structuredClone(infiniteData);
-              }
-            };
-
-            return checkIfPagesExist(oldData) ? pushResult(oldData) : oldData;
-          }
-        );
-      });
-
-      socket.on(
-        "update_group_chat_message",
-        (data: IUpdateGroupMessageEvent) => {
-          console.log(data);
-          const updatedMessage = data.payload.messageInfo;
-          queryClient.setQueryData(
-            [`group-messages-${updatedMessage.channelId}`],
-            (oldData: unknown) => {
-              const updateResult = (
-                infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-              ) => {
-                if (updatedMessage !== undefined) {
-                  infiniteData.pages.map((page) => {
-                    page.data.map((message) =>
-                      message.messageId === updatedMessage.messageId
-                        ? Object.assign(message, updatedMessage)
-                        : message
-                    );
-                  });
-
-                  return structuredClone(infiniteData);
-                }
-              };
-
-              return checkIfPagesExist(oldData)
-                ? updateResult(oldData)
-                : oldData;
+              return structuredClone(infiniteData);
             }
-          );
+          };
+
+          return checkIfPagesExist(oldData) ? pushResult(oldData) : oldData;
         }
       );
+    });
 
-      socket.on(
-        "delete_group_chat_message",
-        (data: IDeleteGroupMessageEvent) => {
-          console.log(data);
-          const payload = data.payload;
-          queryClient.setQueryData(
-            [`group-messages-${payload.channelId}`],
-            (oldData: unknown) => {
-              const deleteResult = (
-                infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
-              ) => {
-                if (payload !== undefined) {
-                  const filteredData: IMessage[][] = infiniteData.pages.map(
-                    (page) =>
-                      page.data.filter(
-                        (message) => message.messageId !== payload.messageId
-                      )
-                  );
-                  const newData: {
-                    data: IMessage[];
-                  }[] = filteredData.map((message) => {
-                    return {
-                      data: message,
-                    };
-                  });
+    socket.on("update_group_chat_message", (data: IUpdateGroupMessageEvent) => {
+      const updatedMessage = data.payload.messageInfo;
+      queryClient.setQueriesData(
+        [`group-messages-${updatedMessage.channelId}`],
+        (oldData: unknown) => {
+          const updateResult = (
+            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+          ) => {
+            if (updatedMessage !== undefined) {
+              infiniteData.pages.map((page) => {
+                page.data.map((message) =>
+                  message.messageId === updatedMessage.messageId
+                    ? Object.assign(message, updatedMessage)
+                    : message
+                );
+              });
 
-                  return { ...infiniteData, pages: [...newData] };
-                }
-              };
-
-              return checkIfPagesExist(oldData)
-                ? deleteResult(oldData)
-                : oldData;
+              return structuredClone(infiniteData);
             }
-          );
+          };
+
+          return checkIfPagesExist(oldData) ? updateResult(oldData) : oldData;
+        }
+      );
+    });
+
+    socket.on("delete_group_chat_message", (data: IDeleteGroupMessageEvent) => {
+      const payload = data.payload;
+      queryClient.setQueriesData(
+        [`group-messages-${payload.channelId}`],
+        (oldData: unknown) => {
+          const deleteResult = (
+            infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
+          ) => {
+            if (payload !== undefined) {
+              const filteredData: IMessage[][] = infiniteData.pages.map(
+                (page) =>
+                  page.data.filter(
+                    (message) => message.messageId !== payload.messageId
+                  )
+              );
+              const newData: {
+                data: IMessage[];
+              }[] = filteredData.map((message) => {
+                return {
+                  data: message,
+                };
+              });
+
+              return { ...infiniteData, pages: [...newData] };
+            }
+          };
+
+          return checkIfPagesExist(oldData) ? deleteResult(oldData) : oldData;
         }
       );
     });
