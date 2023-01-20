@@ -106,19 +106,21 @@ export default function SocketHandler({ children }: props) {
     //Group chat events
     socket.on("new_group_chat_message", (data: ICreateGroupMessageEvent) => {
       const newMessage = data.payload.messageInfo;
-      queryClient.setQueriesData(
+      const FIRST_PAGE = 0;
+      queryClient.setQueryData(
         [`group-messages-${newMessage.channelId}`],
         (oldData: unknown) => {
           const pushResult = (
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (data.payload !== undefined) {
-              infiniteData.pages[0].data = [
-                ...infiniteData.pages[0].data,
-                newMessage,
-              ];
-
-              return structuredClone(infiniteData);
+              const oldPage = infiniteData.pages[FIRST_PAGE];
+              oldPage.data.push(data.payload.messageInfo);
+              const newData = infiniteData.pages.map((page, index) =>
+                index === 0 ? oldPage : page
+              );
+              console.log(newData);
+              return { ...infiniteData, pages: newData };
             }
           };
 
@@ -191,6 +193,9 @@ export default function SocketHandler({ children }: props) {
       socket.off("update_group_users");
       socket.off("removed_user");
       socket.off("update_channel_list");
+      socket.off("new_group_chat_message");
+      socket.off("update_group_chat_message");
+      socket.off("delete_group_chat_message");
     };
   }, [queryClient]);
   return children;
