@@ -119,7 +119,6 @@ export default function SocketHandler({ children }: props) {
               const newData = infiniteData.pages.map((page, index) =>
                 index === 0 ? oldPage : page
               );
-              console.log(newData);
               return { ...infiniteData, pages: newData };
             }
           };
@@ -138,15 +137,20 @@ export default function SocketHandler({ children }: props) {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (updatedMessage !== undefined) {
-              infiniteData.pages.map((page) => {
+              const updatedData: IMessage[][] = infiniteData.pages.map((page) =>
                 page.data.map((message) =>
                   message.messageId === updatedMessage.messageId
                     ? Object.assign(message, updatedMessage)
                     : message
-                );
+                )
+              );
+              const newData: {
+                data: IMessage[];
+              }[] = updatedData.map((message) => {
+                return { data: message };
               });
 
-              return structuredClone(infiniteData);
+              return { ...infiniteData, pages: [...newData] };
             }
           };
 
