@@ -117,9 +117,9 @@ export default function SocketHandler({ children }: props) {
               const oldPage = infiniteData.pages[FIRST_PAGE];
               oldPage.data.push(data.payload.messageInfo);
               const newData = infiniteData.pages.map((page, index) =>
-                index === 0 ? oldPage : page
+                index === FIRST_PAGE ? Object.assign(page, oldPage) : page
               );
-              return { ...infiniteData, pages: newData };
+              return { ...infiniteData, pages: [...newData] };
             }
           };
 
