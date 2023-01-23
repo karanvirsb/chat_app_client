@@ -115,12 +115,6 @@ export default function SocketHandler({ children }: props) {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (data.payload !== undefined) {
-              // const oldPage = infiniteData.pages[FIRST_PAGE];
-              // oldPage.data.push(data.payload.messageInfo);
-              // const newData = infiniteData.pages.map((page, index) =>
-              //   index === FIRST_PAGE ? Object.assign(page, oldPage) : page
-              // );
-              // return { ...infiniteData, pages: [...newData] };
               const updatedData = produce(infiniteData, (draft) => {
                 draft.pages[FIRST_PAGE].data.push(data.payload.messageInfo);
               });
@@ -142,20 +136,6 @@ export default function SocketHandler({ children }: props) {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (updatedMessage !== undefined) {
-              // const updatedData: IMessage[][] = infiniteData.pages.map((page) =>
-              //   page.data.map((message) =>
-              //     message.messageId === updatedMessage.messageId
-              //       ? Object.assign(message, updatedMessage)
-              //       : message
-              //   )
-              // );
-              // const newData: {
-              //   data: IMessage[];
-              // }[] = updatedData.map((message) => {
-              //   return { data: message };
-              // });
-
-              // return { ...infiniteData, pages: [...newData] };
               const updatedData = produce(infiniteData, (draft) => {
                 draft.pages[data.payload.pageIndex].data[
                   data.payload.currIndex
@@ -180,21 +160,6 @@ export default function SocketHandler({ children }: props) {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (payload !== undefined) {
-              // const filteredData: IMessage[][] = infiniteData.pages.map(
-              //   (page) =>
-              //     page.data.filter(
-              //       (message) => message.messageId !== payload.messageId
-              //     )
-              // );
-              // const newData: {
-              //   data: IMessage[];
-              // }[] = filteredData.map((message) => {
-              //   return {
-              //     data: message,
-              //   };
-              // });
-
-              // return { ...infiniteData, pages: [...newData] };
               const updatedData = produce(infiniteData, (draft) => {
                 draft.pages[data.payload.pageIndex].data.splice(
                   data.payload.currIndex,
