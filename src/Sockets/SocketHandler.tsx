@@ -142,20 +142,27 @@ export default function SocketHandler({ children }: props) {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (updatedMessage !== undefined) {
-              const updatedData: IMessage[][] = infiniteData.pages.map((page) =>
-                page.data.map((message) =>
-                  message.messageId === updatedMessage.messageId
-                    ? Object.assign(message, updatedMessage)
-                    : message
-                )
-              );
-              const newData: {
-                data: IMessage[];
-              }[] = updatedData.map((message) => {
-                return { data: message };
+              // const updatedData: IMessage[][] = infiniteData.pages.map((page) =>
+              //   page.data.map((message) =>
+              //     message.messageId === updatedMessage.messageId
+              //       ? Object.assign(message, updatedMessage)
+              //       : message
+              //   )
+              // );
+              // const newData: {
+              //   data: IMessage[];
+              // }[] = updatedData.map((message) => {
+              //   return { data: message };
+              // });
+
+              // return { ...infiniteData, pages: [...newData] };
+              const updatedData = produce(infiniteData, (draft) => {
+                draft.pages[data.payload.pageIndex].data[
+                  data.payload.currIndex
+                ] = data.payload.messageInfo;
               });
 
-              return { ...infiniteData, pages: [...newData] };
+              return updatedData;
             }
           };
 
