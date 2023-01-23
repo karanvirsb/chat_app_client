@@ -180,21 +180,29 @@ export default function SocketHandler({ children }: props) {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (payload !== undefined) {
-              const filteredData: IMessage[][] = infiniteData.pages.map(
-                (page) =>
-                  page.data.filter(
-                    (message) => message.messageId !== payload.messageId
-                  )
-              );
-              const newData: {
-                data: IMessage[];
-              }[] = filteredData.map((message) => {
-                return {
-                  data: message,
-                };
+              // const filteredData: IMessage[][] = infiniteData.pages.map(
+              //   (page) =>
+              //     page.data.filter(
+              //       (message) => message.messageId !== payload.messageId
+              //     )
+              // );
+              // const newData: {
+              //   data: IMessage[];
+              // }[] = filteredData.map((message) => {
+              //   return {
+              //     data: message,
+              //   };
+              // });
+
+              // return { ...infiniteData, pages: [...newData] };
+              const updatedData = produce(infiniteData, (draft) => {
+                draft.pages[data.payload.pageIndex].data.splice(
+                  data.payload.currIndex,
+                  1
+                );
               });
 
-              return { ...infiniteData, pages: [...newData] };
+              return updatedData;
             }
           };
 
