@@ -73,6 +73,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
                     messages={pages[pages.length - 1 - index]?.data}
                     lastPage={true}
                     fetchNextPage={fetchNextPage}
+                    pageIndex={pages.length - 1 - index}
                   ></Messages>
                 );
               } else {
@@ -83,6 +84,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
                     key={`messages-${index}`}
                     groupId={groupId}
                     messages={pages[pages.length - 1 - index]?.data}
+                    pageIndex={pages.length - 1 - index}
                   ></Messages>
                 );
               }
