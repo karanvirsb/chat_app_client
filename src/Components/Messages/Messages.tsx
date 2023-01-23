@@ -20,9 +20,13 @@ type props = {
   editCallback: ({
     messageId,
     updateValue,
+    pageIndex,
+    currIndex,
   }: {
     messageId: string;
     updateValue: string;
+    pageIndex: number;
+    currIndex: number;
   }) => void;
   deleteCallback: ({ messageId }: { messageId: string }) => void;
   fetchNextPage?: (
