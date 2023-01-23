@@ -83,6 +83,8 @@ export default function ModalDisplay() {
         <DeleteMessageModal
           messageId={modalState.options.messageId}
           groupId={modalState.options.groupId}
+          messageIndex={modalState.options.messageIndex}
+          pageIndex={modalState.options.pageIndex}
         ></DeleteMessageModal>
       )}
     </>
