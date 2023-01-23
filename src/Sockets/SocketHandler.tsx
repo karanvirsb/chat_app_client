@@ -138,7 +138,7 @@ export default function SocketHandler({ children }: props) {
             if (updatedMessage !== undefined) {
               const updatedData = produce(infiniteData, (draft) => {
                 draft.pages[data.payload.pageIndex].data[
-                  data.payload.currIndex
+                  data.payload.messageIndex
                 ] = data.payload.messageInfo;
               });
 
@@ -162,7 +162,7 @@ export default function SocketHandler({ children }: props) {
             if (payload !== undefined) {
               const updatedData = produce(infiniteData, (draft) => {
                 draft.pages[data.payload.pageIndex].data.splice(
-                  data.payload.currIndex,
+                  data.payload.messageIndex,
                   1
                 );
               });

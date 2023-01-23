@@ -47,6 +47,6 @@ export default function DeleteMessageModal({
   }
 
   function handleSubmit() {
-    deleteMessage({ messageId, pageIndex, currIndex: messageIndex });
+    deleteMessage({ messageId, pageIndex, messageIndex: messageIndex });
   }
 }

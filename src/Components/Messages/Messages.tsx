@@ -21,12 +21,12 @@ type props = {
     messageId,
     updateValue,
     pageIndex,
-    currIndex,
+    messageIndex,
   }: {
     messageId: string;
     updateValue: string;
     pageIndex: number;
-    currIndex: number;
+    messageIndex: number;
   }) => void;
   deleteCallback: ({
     messageId,
@@ -87,7 +87,7 @@ export default function Messages({
               ref={firstElementRef}
               message={message}
               username={foundUser?.username}
-              currIndex={index}
+              messageIndex={index}
               pageIndex={pageIndex}
             ></Message>
           );
@@ -99,7 +99,7 @@ export default function Messages({
               key={message.messageId}
               message={message}
               username={foundUser?.username}
-              currIndex={index}
+              messageIndex={index}
               pageIndex={pageIndex}
             ></Message>
           );

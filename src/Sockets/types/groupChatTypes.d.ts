@@ -7,7 +7,7 @@ export interface ICreateGroupMessageEvent {
 
 export interface IUpdateGroupMessageEvent {
   groupId: string;
-  payload: { messageInfo: IMessage; pageIndex: number; currIndex: number };
+  payload: { messageInfo: IMessage; pageIndex: number; messageIndex: number };
 }
 
 export interface IDeleteGroupMessageEvent {
@@ -16,6 +16,6 @@ export interface IDeleteGroupMessageEvent {
     messageId: string;
     channelId: string;
     pageIndex: number;
-    currIndex: number;
+    messageIndex: number;
   };
 }

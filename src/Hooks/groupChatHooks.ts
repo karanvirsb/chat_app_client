@@ -132,7 +132,7 @@ type IUseEditMessageTextMutation = UseMutationResult<
     messageId: string;
     updateValue: string;
     pageIndex: number;
-    currIndex: number;
+    messageIndex: number;
   },
   unknown
 >;
@@ -147,12 +147,12 @@ function useEditMessageTextMutation({
     messageId,
     updateValue,
     pageIndex,
-    currIndex,
+    messageIndex,
   }: {
     messageId: string;
     updateValue: string;
     pageIndex: number;
-    currIndex: number;
+    messageIndex: number;
   }): Promise<ReturnGroupMessage> => {
     const resp = await axios({
       url: `${baseurl}/text`,
@@ -174,7 +174,7 @@ function useEditMessageTextMutation({
           groupId,
           payload: {
             messageInfo: data.data,
-            currIndex: variables.currIndex,
+            messageIndex: variables.messageIndex,
             pageIndex: variables.pageIndex,
           },
         },
@@ -189,7 +189,7 @@ type IUseDeleteGroupMessageMutation = UseMutationResult<
   {
     messageId: string;
     pageIndex: number;
-    currIndex: number;
+    messageIndex: number;
   },
   unknown
 >;
@@ -203,11 +203,11 @@ function useDeleteGroupMessageMutation({
   const deleteMessage = async ({
     messageId,
     pageIndex,
-    currIndex,
+    messageIndex,
   }: {
     messageId: string;
     pageIndex: number;
-    currIndex: number;
+    messageIndex: number;
   }): Promise<ReturnGroupMessage> => {
     const resp = await axios({
       url: baseurl,
@@ -232,7 +232,7 @@ function useDeleteGroupMessageMutation({
             messageId: data.data.messageId,
             channelId: data.data.channelId,
             pageIndex: variables.pageIndex,
-            currIndex: variables.currIndex,
+            messageIndex: variables.messageIndex,
           },
         },
       });

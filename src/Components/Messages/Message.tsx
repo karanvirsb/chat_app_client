@@ -9,12 +9,12 @@ type props = {
     messageId,
     updateValue,
     pageIndex,
-    currIndex,
+    messageIndex,
   }: {
     messageId: string;
     updateValue: string;
     pageIndex: number;
-    currIndex: number;
+    messageIndex: number;
   }) => void;
   deleteCallback: ({
     messageId,
@@ -25,7 +25,7 @@ type props = {
     pageIndex: number;
     messageIndex: number;
   }) => void;
-  currIndex: number;
+  messageIndex: number;
   pageIndex: number;
 };
 
@@ -35,7 +35,7 @@ const Message = forwardRef(function (
     username,
     editCallback,
     deleteCallback,
-    currIndex,
+    messageIndex,
     pageIndex,
   }: props,
   ref: React.ForwardedRef<HTMLDivElement>
@@ -125,7 +125,7 @@ const Message = forwardRef(function (
         messageId: message.messageId,
         updateValue: messageRef.current.value,
         pageIndex,
-        currIndex,
+        messageIndex,
       });
 
       messageRef.current.blur;
@@ -136,7 +136,7 @@ const Message = forwardRef(function (
   function handleDeleteMessage() {
     deleteCallback({
       messageId: message.messageId,
-      messageIndex: currIndex,
+      messageIndex: messageIndex,
       pageIndex,
     });
   }
