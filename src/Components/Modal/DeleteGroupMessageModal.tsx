@@ -7,9 +7,16 @@ import { useDeleteGroupMessageMutation } from "../../Hooks/groupChatHooks";
 type props = {
   messageId: string;
   groupId: string;
+  pageIndex: number;
+  messageIndex: number;
 };
 
-export default function DeleteMessageModal({ messageId, groupId }: props) {
+export default function DeleteMessageModal({
+  messageId,
+  groupId,
+  messageIndex,
+  pageIndex,
+}: props) {
   const dispatch = useAppDispatch();
   const {
     mutate: deleteMessage,
@@ -40,6 +47,6 @@ export default function DeleteMessageModal({ messageId, groupId }: props) {
   }
 
   function handleSubmit() {
-    deleteMessage({ messageId });
+    deleteMessage({ messageId, pageIndex, currIndex: messageIndex });
   }
 }
