@@ -8,9 +8,13 @@ type props = {
   editCallback: ({
     messageId,
     updateValue,
+    pageIndex,
+    currIndex,
   }: {
     messageId: string;
     updateValue: string;
+    pageIndex: number;
+    currIndex: number;
   }) => void;
   deleteCallback: ({ messageId }: { messageId: string }) => void;
   currIndex: number;
@@ -112,6 +116,8 @@ const Message = forwardRef(function (
       editCallback({
         messageId: message.messageId,
         updateValue: messageRef.current.value,
+        pageIndex,
+        currIndex,
       });
 
       messageRef.current.blur;
