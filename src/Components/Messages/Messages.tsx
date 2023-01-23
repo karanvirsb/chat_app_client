@@ -33,6 +33,7 @@ type props = {
       unknown
     >
   >;
+  pageIndex: number;
 };
 
 export default function Messages({
@@ -42,6 +43,7 @@ export default function Messages({
   fetchNextPage,
   editCallback,
   deleteCallback,
+  pageIndex,
 }: props): JSX.Element {
   const firstElementRef = useRef<HTMLDivElement>(null);
   const entry = useIntersectionObserver(firstElementRef, {});
@@ -73,6 +75,8 @@ export default function Messages({
               ref={firstElementRef}
               message={message}
               username={foundUser?.username}
+              currIndex={index}
+              pageIndex={pageIndex}
             ></Message>
           );
         } else {
@@ -83,6 +87,8 @@ export default function Messages({
               key={message.messageId}
               message={message}
               username={foundUser?.username}
+              currIndex={index}
+              pageIndex={pageIndex}
             ></Message>
           );
         }
