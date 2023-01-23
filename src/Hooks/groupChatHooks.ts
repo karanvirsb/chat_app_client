@@ -131,6 +131,8 @@ type IUseEditMessageTextMutation = UseMutationResult<
   {
     messageId: string;
     updateValue: string;
+    pageIndex: number;
+    currIndex: number;
   },
   unknown
 >;
@@ -144,9 +146,13 @@ function useEditMessageTextMutation({
   const updateMessage = async ({
     messageId,
     updateValue,
+    pageIndex,
+    currIndex,
   }: {
     messageId: string;
     updateValue: string;
+    pageIndex: number;
+    currIndex: number;
   }): Promise<ReturnGroupMessage> => {
     const resp = await axios({
       url: `${baseurl}/text`,
@@ -159,14 +165,18 @@ function useEditMessageTextMutation({
 
   return useMutation({
     mutationFn: updateMessage,
-    onSuccess: async (data) => {
+    onSuccess: async (data, variables) => {
       if (data.data === undefined) return;
 
       send({
         event: "update_group_message",
         data: {
           groupId,
-          payload: { messageInfo: data.data },
+          payload: {
+            messageInfo: data.data,
+            currIndex: variables.currIndex,
+            pageIndex: variables.pageIndex,
+          },
         },
       });
     },
