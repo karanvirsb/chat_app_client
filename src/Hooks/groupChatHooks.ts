@@ -188,6 +188,8 @@ type IUseDeleteGroupMessageMutation = UseMutationResult<
   unknown,
   {
     messageId: string;
+    pageIndex: number;
+    currIndex: number;
   },
   unknown
 >;
@@ -200,8 +202,12 @@ function useDeleteGroupMessageMutation({
   const send = useGroupChatSockets();
   const deleteMessage = async ({
     messageId,
+    pageIndex,
+    currIndex,
   }: {
     messageId: string;
+    pageIndex: number;
+    currIndex: number;
   }): Promise<ReturnGroupMessage> => {
     const resp = await axios({
       url: baseurl,
@@ -215,7 +221,7 @@ function useDeleteGroupMessageMutation({
 
   return useMutation({
     mutationFn: deleteMessage,
-    onSuccess: async (data) => {
+    onSuccess: async (data, variables) => {
       if (data.data === undefined) return;
 
       send({
@@ -225,6 +231,8 @@ function useDeleteGroupMessageMutation({
           payload: {
             messageId: data.data.messageId,
             channelId: data.data.channelId,
+            pageIndex: variables.pageIndex,
+            currIndex: variables.currIndex,
           },
         },
       });
