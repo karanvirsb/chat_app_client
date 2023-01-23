@@ -28,7 +28,15 @@ type props = {
     pageIndex: number;
     currIndex: number;
   }) => void;
-  deleteCallback: ({ messageId }: { messageId: string }) => void;
+  deleteCallback: ({
+    messageId,
+    pageIndex,
+    messageIndex,
+  }: {
+    messageId: string;
+    pageIndex: number;
+    messageIndex: number;
+  }) => void;
   fetchNextPage?: (
     options?: FetchNextPageOptions | undefined
   ) => Promise<
