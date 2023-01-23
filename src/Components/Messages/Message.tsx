@@ -13,10 +13,19 @@ type props = {
     updateValue: string;
   }) => void;
   deleteCallback: ({ messageId }: { messageId: string }) => void;
+  currIndex: number;
+  pageIndex: number;
 };
 
 const Message = forwardRef(function (
-  { message, username, editCallback, deleteCallback }: props,
+  {
+    message,
+    username,
+    editCallback,
+    deleteCallback,
+    currIndex,
+    pageIndex,
+  }: props,
   ref: React.ForwardedRef<HTMLDivElement>
 ) {
   const [editting, setEditting] = useState(false);
