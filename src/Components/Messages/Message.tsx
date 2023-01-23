@@ -16,7 +16,15 @@ type props = {
     pageIndex: number;
     currIndex: number;
   }) => void;
-  deleteCallback: ({ messageId }: { messageId: string }) => void;
+  deleteCallback: ({
+    messageId,
+    pageIndex,
+    messageIndex,
+  }: {
+    messageId: string;
+    pageIndex: number;
+    messageIndex: number;
+  }) => void;
   currIndex: number;
   pageIndex: number;
 };
@@ -126,7 +134,11 @@ const Message = forwardRef(function (
   }
 
   function handleDeleteMessage() {
-    deleteCallback({ messageId: message.messageId });
+    deleteCallback({
+      messageId: message.messageId,
+      messageIndex: currIndex,
+      pageIndex,
+    });
   }
 });
 export default Message;
