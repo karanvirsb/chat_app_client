@@ -1,5 +1,6 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
+import { produce } from "immer";
 import socket from ".";
 import { IGroupChannel } from "../Hooks/groupChannelHooks";
 import { IGroup, IUser } from "../Hooks/groupHooks";
@@ -114,12 +115,16 @@ export default function SocketHandler({ children }: props) {
             infiniteData: InfiniteData<PaginatedGroupMessages<IMessage>>
           ) => {
             if (data.payload !== undefined) {
-              const oldPage = infiniteData.pages[FIRST_PAGE];
-              oldPage.data.push(data.payload.messageInfo);
-              const newData = infiniteData.pages.map((page, index) =>
-                index === FIRST_PAGE ? Object.assign(page, oldPage) : page
-              );
-              return { ...infiniteData, pages: [...newData] };
+              // const oldPage = infiniteData.pages[FIRST_PAGE];
+              // oldPage.data.push(data.payload.messageInfo);
+              // const newData = infiniteData.pages.map((page, index) =>
+              //   index === FIRST_PAGE ? Object.assign(page, oldPage) : page
+              // );
+              // return { ...infiniteData, pages: [...newData] };
+              const updatedData = produce(infiniteData, (draft) => {
+                draft.pages[FIRST_PAGE].data.push(data.payload.messageInfo);
+              });
+              return updatedData;
             }
           };
 
