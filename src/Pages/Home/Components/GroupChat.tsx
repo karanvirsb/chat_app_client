@@ -120,7 +120,15 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
     }
   }
 
-  function handleDeletingMessage({ messageId }: { messageId: string }) {
+  function handleDeletingMessage({
+    messageId,
+    pageIndex,
+    messageIndex,
+  }: {
+    messageId: string;
+    pageIndex: number;
+    messageIndex: number;
+  }) {
     dispatch(
       setModal({
         modalName: "deleteGroupMessage",
@@ -128,6 +136,8 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
         options: {
           messageId,
           groupId,
+          pageIndex,
+          messageIndex,
         },
       })
     );
