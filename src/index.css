@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: lightblue;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #505e79;
+  border-radius: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: hsl(218, 25%, 20%);
+  border-radius: 33px;
+}
+
 :root {
     font-family: "Inter", sans-serif;
 }
