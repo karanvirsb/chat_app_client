@@ -21,11 +21,19 @@ import {
 } from "./types/groupChatTypes";
 import { PaginatedGroupMessages } from "../utilities/types/pagination";
 import { IMessage } from "../Hooks/groupChatHooks";
+import { ILoginEvent, ILogoutEvent } from "./types/loginAndLogoutTypes";
 
 type props = {
   children: JSX.Element;
 };
 
+// USER EVENTS
+
+export type userSocketEvents =
+  | { event: "logout_user"; data: ILogoutEvent }
+  | { event: "login_user"; data: ILoginEvent };
+
+// GROUP EVENTS
 export type groupSocketEvents =
   | InvalidateEvent
   | UpdateEvent
