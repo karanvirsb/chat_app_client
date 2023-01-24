@@ -7,6 +7,10 @@ import { setModal } from "../../../Redux/slices/modalSlice";
 import { useNavigate } from "react-router";
 import GroupList from "./GroupList";
 import useLocalStorage from "../../../Hooks/useLocalStorage";
+import useLoginAndLogoutSockets from "../../../Sockets/Hooks/useLoginAndLogoutSockets";
+import useGetSession from "../../../Hooks/useGetSession";
+import { useQueryClient } from "@tanstack/react-query";
+import { IGroup } from "../../../Hooks/groupHooks";
 
 type props = {
   setTab: React.Dispatch<React.SetStateAction<"group" | "me">>;
@@ -19,7 +23,8 @@ export default function Sidebar({ setTab, setTabId }: props) {
   const navigate = useNavigate();
   const isSideBarOpen = useAppSelector((state) => state.sideBarReducer.open);
   const dispatch = useAppDispatch();
-
+  const sessionInfo = useGetSession();
+  const queryClient = useQueryClient();
   return (
     <>
       <nav
@@ -112,7 +117,20 @@ export default function Sidebar({ setTab, setTabId }: props) {
   );
 
   async function logout() {
+    if (sessionInfo.sessionInfo) {
+      console.log("logging out");
+      const send = useLoginAndLogoutSockets();
+      const groupIds: IGroup[] = queryClient.getQueryData(["groups"]) ?? [];
+      send({
+        event: "logout_user",
+        data: {
+          userId: sessionInfo.sessionInfo?.userId,
+          payload: { groupIds: groupIds.map((group) => group.groupId) },
+        },
+      });
+    }
     await signOut();
+
     window.location.href = "/";
   }
 
