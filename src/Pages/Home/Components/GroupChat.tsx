@@ -90,7 +90,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
             })
           : null}
       </div>
-      {channelId !== null ? (
+      {channelId.length > 0 ? (
         // made it sticky so it will stay at the bottom
         <form
           className="p-4 input-group sticky bottom-0 bg-chat-bg"
@@ -103,7 +103,11 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
             ref={messageRef}
           />
         </form>
-      ) : null}
+      ) : (
+        <p className="text-center text-lg uppercase font-semibold">
+          Select a channel to see your chats!
+        </p>
+      )}
     </div>
   );
 
