@@ -60,35 +60,39 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
     >
       <div className="flex flex-grow flex-col w-full gap-6 p-4 ">
         {/* TODO Create chat component */}
-        {chatMessages !== null
-          ? chatMessages?.pages.map((_, index, pages) => {
-              if (index === 0) {
-                return (
-                  <Messages
-                    editCallback={updateText}
-                    deleteCallback={handleDeletingMessage}
-                    key={`messages-${index}`}
-                    groupId={groupId}
-                    messages={pages[pages.length - 1 - index]?.data}
-                    lastPage={true}
-                    fetchNextPage={fetchNextPage}
-                    pageIndex={pages.length - 1 - index}
-                  ></Messages>
-                );
-              } else {
-                return (
-                  <Messages
-                    editCallback={updateText}
-                    deleteCallback={handleDeletingMessage}
-                    key={`messages-${index}`}
-                    groupId={groupId}
-                    messages={pages[pages.length - 1 - index]?.data}
-                    pageIndex={pages.length - 1 - index}
-                  ></Messages>
-                );
-              }
-            })
-          : null}
+        {chatMessages !== undefined ? (
+          chatMessages?.pages.map((_, index, pages) => {
+            if (index === 0) {
+              return (
+                <Messages
+                  editCallback={updateText}
+                  deleteCallback={handleDeletingMessage}
+                  key={`messages-${index}`}
+                  groupId={groupId}
+                  messages={pages[pages.length - 1 - index]?.data}
+                  lastPage={true}
+                  fetchNextPage={fetchNextPage}
+                  pageIndex={pages.length - 1 - index}
+                ></Messages>
+              );
+            } else {
+              return (
+                <Messages
+                  editCallback={updateText}
+                  deleteCallback={handleDeletingMessage}
+                  key={`messages-${index}`}
+                  groupId={groupId}
+                  messages={pages[pages.length - 1 - index]?.data}
+                  pageIndex={pages.length - 1 - index}
+                ></Messages>
+              );
+            }
+          })
+        ) : (
+          <p className="text-center text-lg uppercase font-semibold">
+            Select a channel to see your chats!
+          </p>
+        )}
       </div>
       {channelId.length > 0 ? (
         // made it sticky so it will stay at the bottom
@@ -103,11 +107,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
             ref={messageRef}
           />
         </form>
-      ) : (
-        <p className="text-center text-lg uppercase font-semibold">
-          Select a channel to see your chats!
-        </p>
-      )}
+      ) : null}
     </div>
   );
 
