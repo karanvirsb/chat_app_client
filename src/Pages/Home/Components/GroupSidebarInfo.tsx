@@ -95,11 +95,11 @@ export default function GroupSidebarInfo({
             title="Text Channels"
             clickEvent={displayCreateChannelModal}
           >
-            <ul className="flex flex-col items-center justify-center w-full capitalize">
+            <ul className="flex flex-col mt-4 gap-1 justify-center w-full capitalize">
               {channels?.map((channel) => {
                 if (channel.channelId === activeChannel) {
                   return (
-                    <li key={channel.channelId}>
+                    <li className="opacity-80" key={channel.channelId}>
                       <span className="mr-2">#</span>
                       {channel.channelName}
                     </li>
@@ -111,7 +111,7 @@ export default function GroupSidebarInfo({
                       onClick={() => {
                         setActiveChannel(channel.channelId);
                       }}
-                      className="cursor-pointer"
+                      className="cursor-pointer opacity-80"
                     >
                       {channel.channelName}
                     </li>
