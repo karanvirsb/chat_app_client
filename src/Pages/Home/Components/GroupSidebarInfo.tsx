@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import Collapse from "../../../Components/Collapse/Collapse";
 import DropDown from "../../../Components/DropDown/DropDown";
 import SidebarInfo from "../../../Components/SidebarInfo/SidebarInfo";
-import Spinner from "../../../Components/Spinner/Spinner";
 import { useAppDispatch } from "../../../Hooks/reduxHooks";
-import useGetSession from "../../../Hooks/useGetSession";
 import { setModal } from "../../../Redux/slices/modalSlice";
 import { isGroup } from "../../../test/validation/schemaValidation";
-import { IGroup, useGetGroupsQuery } from "../../../Hooks/groupHooks";
+import { IGroup } from "../../../Hooks/groupHooks";
 import useFilterGroups from "../Hooks/useFilterGroups";
 import { useGetGroupChannelsQuery } from "../../../Hooks/groupChannelHooks";
 import { useQueryClient } from "@tanstack/react-query";
@@ -24,7 +22,6 @@ export default function GroupSidebarInfo({
 }: props) {
   const [activeChannel, setActiveChannel] = useState("");
   const dispatch = useAppDispatch();
-  const { sessionInfo } = useGetSession();
   const queryClient = useQueryClient();
 
   // TODO use cached data
@@ -111,7 +108,9 @@ export default function GroupSidebarInfo({
                   return (
                     <li
                       key={channel.channelId}
-                      onClick={() => { setActiveChannel(channel.channelId); }}
+                      onClick={() => {
+                        setActiveChannel(channel.channelId);
+                      }}
                       className="cursor-pointer"
                     >
                       {channel.channelName}
