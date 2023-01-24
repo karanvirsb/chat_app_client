@@ -58,7 +58,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
       className="flex relative flex-col flex-grow overflow-auto bg-chat-bg"
       ref={chatMessagesRef}
     >
-      <div className="flex flex-col w-full gap-6 p-4 ">
+      <div className="flex flex-grow flex-col w-full gap-6 p-4 ">
         {/* TODO Create chat component */}
         {chatMessages !== null
           ? chatMessages?.pages.map((_, index, pages) => {
