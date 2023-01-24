@@ -9,6 +9,7 @@ import { IGroup } from "../../../Hooks/groupHooks";
 import useFilterGroups from "../Hooks/useFilterGroups";
 import { useGetGroupChannelsQuery } from "../../../Hooks/groupChannelHooks";
 import { useQueryClient } from "@tanstack/react-query";
+import useLocalStorage from "../../../Hooks/useLocalStorage";
 
 type props = {
   groupId: string;
@@ -20,7 +21,10 @@ export default function GroupSidebarInfo({
   groupId,
   setSelectedChannel,
 }: props) {
-  const [activeChannel, setActiveChannel] = useState("");
+  const [activeChannel, setActiveChannel] = useLocalStorage(
+    "activeChannel",
+    ""
+  );
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
