@@ -14,7 +14,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
       <div className="flex flex-col items-start px-2">
         <p className="grid grid-cols-[1fr_3fr_1fr] items-center gap-2 w-full py-4">
           <span
-            className="text-md flex items-center justify-self-end"
+            className="text-md flex items-center justify-self-end self-start"
             onClick={() => {
               setClicked((prev) => !prev);
             }}
@@ -51,7 +51,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
               </svg>
             )}
           </span>
-          <div className="justify-self-start flex flex-col">
+          <div className="justify-self-start self-start flex flex-col">
             <p
               onClick={() => {
                 setClicked((prev) => !prev);
@@ -64,7 +64,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
           {/* TODO hover color */}
           {clickEvent != null ? (
             <span
-              className="text-2xl font-light cursor-pointer justify-self-center"
+              className="text-2xl font-light cursor-pointer justify-self-center self-start"
               onClick={clickEvent}
             >
               +
