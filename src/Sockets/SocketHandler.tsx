@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { produce } from "immer";
 import socket from ".";
 import { IGroupChannel } from "../Hooks/groupChannelHooks";
-import { IGroup, IUser } from "../Hooks/groupHooks";
+import { IGroup, IGroupUsers, IUser } from "../Hooks/groupHooks";
 import { UpdateChannelsListEvent } from "./types/groupChannelTypes";
 import {
   InvalidateEvent,
@@ -22,6 +22,7 @@ import {
 import { PaginatedGroupMessages } from "../utilities/types/pagination";
 import { IMessage } from "../Hooks/groupChatHooks";
 import { ILoginEvent, ILogoutEvent } from "./types/loginAndLogoutTypes";
+import { areGroupUsers } from "../test/validation/schemaValidation";
 
 type props = {
   children: JSX.Element;
@@ -55,7 +56,35 @@ export type groupChatSocketEvents =
 export default function SocketHandler({ children }: props) {
   const queryClient = useQueryClient();
   useEffect(() => {
-    // Group Events
+    // USER EVENTS
+
+    socket.on("logged_user_out", async (data: ILogoutEvent) => {
+      const groupIds = data.payload.groupIds;
+      for (let i = 0; i < groupIds.length; i++) {
+        queryClient.setQueryData(
+          [`group-users-${groupIds[i]}`],
+          (oldData: unknown) => {
+            const filterResult = (users: IUser[]) => {
+              const updatedValue = produce(users, (draft) => {
+                const foundIndex = draft.findIndex(
+                  (user) => user.userId === data.userId
+                );
+                if (foundIndex !== -1) draft[foundIndex].status = "offline";
+              });
+              return updatedValue;
+            };
+
+            return (
+              Array.isArray(oldData) &&
+              areGroupUsers(oldData) &&
+              filterResult(oldData)
+            );
+          }
+        );
+      }
+    });
+
+    // GROUP EVENTS
     socket.on("update_group_name", (data: UpdateEvent) => {
       queryClient.setQueriesData(["groups"], (oldData: unknown) => {
         const update = (entity: IGroup) =>
