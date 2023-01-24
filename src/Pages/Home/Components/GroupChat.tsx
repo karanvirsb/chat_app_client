@@ -60,7 +60,16 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
     >
       <div className="flex flex-grow flex-col w-full gap-6 p-4 ">
         {/* TODO Create chat component */}
-        {chatMessages !== undefined ? (
+        {chatMessages === undefined ? (
+          <p className="text-center text-lg uppercase font-semibold">
+            Select a channel to see your chats!
+          </p>
+        ) : chatMessages.pages === undefined ? (
+          <p className="text-center text-lg uppercase font-semibold">
+            Seems like this is your first message send something awesome! No
+            pressure!
+          </p>
+        ) : (
           chatMessages?.pages.map((_, index, pages) => {
             if (index === 0) {
               return (
@@ -88,10 +97,6 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
               );
             }
           })
-        ) : (
-          <p className="text-center text-lg uppercase font-semibold">
-            Select a channel to see your chats!
-          </p>
         )}
       </div>
       {channelId.length > 0 ? (
