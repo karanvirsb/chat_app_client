@@ -21,7 +21,11 @@ import {
 } from "./types/groupChatTypes";
 import { PaginatedGroupMessages } from "../utilities/types/pagination";
 import { IMessage } from "../Hooks/groupChatHooks";
-import { ILoginEvent, ILogoutEvent } from "./types/loginAndLogoutTypes";
+import {
+  IChangeUserStatus,
+  ILoginEvent,
+  ILogoutEvent,
+} from "./types/loginAndLogoutTypes";
 import { areGroupUsers } from "../test/validation/schemaValidation";
 
 type props = {
@@ -58,30 +62,27 @@ export default function SocketHandler({ children }: props) {
   useEffect(() => {
     // USER EVENTS
 
-    socket.on("logged_user_out", async (data: ILogoutEvent) => {
-      const groupIds = data.payload.groupIds;
-      for (let i = 0; i < groupIds.length; i++) {
-        queryClient.setQueryData(
-          [`group-users-${groupIds[i]}`],
-          (oldData: unknown) => {
-            const filterResult = (users: IUser[]) => {
-              const updatedValue = produce(users, (draft) => {
-                const foundIndex = draft.findIndex(
-                  (user) => user.userId === data.userId
-                );
-                if (foundIndex !== -1) draft[foundIndex].status = "offline";
-              });
-              return updatedValue;
-            };
+    socket.on("logged_user_out", async (data: IChangeUserStatus) => {
+      queryClient.setQueryData(
+        [`group-users-${data.payload.groupId}`],
+        (oldData: unknown) => {
+          const filterResult = (users: IUser[]) => {
+            const updatedValue = produce(users, (draft) => {
+              const foundIndex = draft.findIndex(
+                (user) => user.userId === data.userId
+              );
+              if (foundIndex !== -1) draft[foundIndex].status = "offline";
+            });
+            return updatedValue;
+          };
 
-            return (
-              Array.isArray(oldData) &&
-              areGroupUsers(oldData) &&
-              filterResult(oldData)
-            );
-          }
-        );
-      }
+          return (
+            Array.isArray(oldData) &&
+            areGroupUsers(oldData) &&
+            filterResult(oldData)
+          );
+        }
+      );
     });
 
     // GROUP EVENTS
