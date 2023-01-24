@@ -67,12 +67,14 @@ export default function SocketHandler({ children }: props) {
         [`group-users-${data.payload.groupId}`],
         (oldData: unknown) => {
           const filterResult = (users: IUser[]) => {
+            console.log("logged_user_out client");
             const updatedValue = produce(users, (draft) => {
               const foundIndex = draft.findIndex(
                 (user) => user.userId === data.userId
               );
               if (foundIndex !== -1) draft[foundIndex].status = "offline";
             });
+            console.log(updatedValue);
             return updatedValue;
           };
 
