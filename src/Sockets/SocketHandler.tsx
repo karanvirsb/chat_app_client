@@ -62,12 +62,13 @@ export default function SocketHandler({ children }: props) {
   useEffect(() => {
     // USER EVENTS
 
-    socket.on("logged_user_out", async (data: IChangeUserStatus) => {
+    socket.on("logged_user_out", (data: IChangeUserStatus) => {
+      console.log("logged_user_out client");
       queryClient.setQueryData(
-        [`group-users-${data.payload.groupId}`],
+        [`group-users-${data.payload}`],
         (oldData: unknown) => {
+          console.log("logged_user_out client", oldData, data);
           const filterResult = (users: IUser[]) => {
-            console.log("logged_user_out client");
             const updatedValue = produce(users, (draft) => {
               const foundIndex = draft.findIndex(
                 (user) => user.userId === data.userId
@@ -78,21 +79,20 @@ export default function SocketHandler({ children }: props) {
             return updatedValue;
           };
 
-          return (
-            Array.isArray(oldData) &&
-            areGroupUsers(oldData) &&
-            filterResult(oldData)
-          );
+          return Array.isArray(oldData) && areGroupUsers(oldData)
+            ? filterResult(oldData)
+            : oldData;
         }
       );
     });
 
-    socket.on("logged_user_in", async (data: IChangeUserStatus) => {
+    socket.on("logged_user_in", (data: IChangeUserStatus) => {
+      console.log("logged_user_in client");
       queryClient.setQueryData(
-        [`group-users-${data.payload.groupId}`],
+        [`group-users-${data.payload}`],
         (oldData: unknown) => {
+          console.log("logged_user_in client", oldData, data);
           const filterResult = (users: IUser[]) => {
-            console.log("logged_user_in client");
             const updatedValue = produce(users, (draft) => {
               const foundIndex = draft.findIndex(
                 (user) => user.userId === data.userId
@@ -102,12 +102,9 @@ export default function SocketHandler({ children }: props) {
             console.log(updatedValue);
             return updatedValue;
           };
-
-          return (
-            Array.isArray(oldData) &&
-            areGroupUsers(oldData) &&
-            filterResult(oldData)
-          );
+          return Array.isArray(oldData) && areGroupUsers(oldData)
+            ? filterResult(oldData)
+            : oldData;
         }
       );
     });
@@ -242,7 +239,9 @@ export default function SocketHandler({ children }: props) {
     });
 
     return () => {
-      socket.off("update_group_name"); // clean up
+      socket.off("logged_user_in");
+      socket.off("logged_user_out");
+      socket.off("update_group_name");
       socket.off("delete_group");
       socket.off("update_group_users");
       socket.off("removed_user");
