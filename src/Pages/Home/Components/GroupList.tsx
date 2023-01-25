@@ -10,6 +10,7 @@ type props = {
   setTabToGroup: (id: string, index: number) => void;
 };
 
+// TODO prefetch group data
 export default function GroupList({ setTabToGroup, activeIndex }: props) {
   const { sessionInfo } = useGetSession();
   const {
