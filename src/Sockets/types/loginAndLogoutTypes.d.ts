@@ -10,5 +10,5 @@ export interface ILoginEvent {
 
 export interface IChangeUserStatus {
   userId: string;
-  payload: { groupId: string };
+  payload: string;
 }
