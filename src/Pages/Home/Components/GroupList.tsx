@@ -40,7 +40,7 @@ export default function GroupList({ setTabToGroup, activeIndex }: props) {
   }, [isLoading, isSuccess]);
 
   let content;
-
+  // TODO fix loading with spinner
   if (isLoading) {
     content = <>Loading...</>;
   } else if (isSuccess) {
