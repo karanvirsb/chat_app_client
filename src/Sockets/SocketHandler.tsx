@@ -116,14 +116,14 @@ export default function SocketHandler({ children }: props) {
           entity.groupId === data.groupId
             ? { ...entity, ...data.payload }
             : entity;
-        return Array.isArray(oldData) && oldData.map(update);
+        return Array.isArray(oldData) ? oldData.map(update) : oldData;
       });
     });
 
     socket.on("delete_group", (data: DeleteEvent) => {
       queryClient.setQueriesData(["groups"], (oldData: unknown) => {
         const deleteGroup = (group: IGroup) => group.groupId !== data.groupId;
-        return Array.isArray(oldData) && oldData.filter(deleteGroup);
+        return Array.isArray(oldData) ? oldData.filter(deleteGroup) : oldData;
       });
     });
 
@@ -134,7 +134,7 @@ export default function SocketHandler({ children }: props) {
           const pushResult = (arr: IUser[]) => {
             return [...arr, data.payload.userInfo];
           };
-          return Array.isArray(oldData) && pushResult(oldData);
+          return Array.isArray(oldData) ? pushResult(oldData) : oldData;
         }
       );
     });
@@ -145,7 +145,7 @@ export default function SocketHandler({ children }: props) {
         (oldData: unknown) => {
           const removeUser = (user: IUser) =>
             user.userId !== data.payload.userId;
-          return Array.isArray(oldData) && oldData.filter(removeUser);
+          return Array.isArray(oldData) ? oldData.filter(removeUser) : oldData;
         }
       );
     });
@@ -161,7 +161,7 @@ export default function SocketHandler({ children }: props) {
             return [...arr, data.payload.channelInfo];
           };
           // if the oldData is an array then add the push new channel
-          return Array.isArray(oldData) && pushNewChannel(oldData);
+          return Array.isArray(oldData) ? pushNewChannel(oldData) : oldData;
         }
       );
     });
