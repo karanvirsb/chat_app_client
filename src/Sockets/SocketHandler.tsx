@@ -87,6 +87,31 @@ export default function SocketHandler({ children }: props) {
       );
     });
 
+    socket.on("logged_user_in", async (data: IChangeUserStatus) => {
+      queryClient.setQueryData(
+        [`group-users-${data.payload.groupId}`],
+        (oldData: unknown) => {
+          const filterResult = (users: IUser[]) => {
+            console.log("logged_user_in client");
+            const updatedValue = produce(users, (draft) => {
+              const foundIndex = draft.findIndex(
+                (user) => user.userId === data.userId
+              );
+              if (foundIndex !== -1) draft[foundIndex].status = "online";
+            });
+            console.log(updatedValue);
+            return updatedValue;
+          };
+
+          return (
+            Array.isArray(oldData) &&
+            areGroupUsers(oldData) &&
+            filterResult(oldData)
+          );
+        }
+      );
+    });
+
     // GROUP EVENTS
     socket.on("update_group_name", (data: UpdateEvent) => {
       queryClient.setQueriesData(["groups"], (oldData: unknown) => {
