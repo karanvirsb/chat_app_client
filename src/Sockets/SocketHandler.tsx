@@ -60,8 +60,11 @@ export type groupChatSocketEvents =
 export default function SocketHandler({ children }: props) {
   const queryClient = useQueryClient();
   useEffect(() => {
-    // USER EVENTS
+    socket.on("echo", () => {
+      socket.emit("ping");
+    });
 
+    // USER EVENTS
     socket.on("logged_user_out", (data: IChangeUserStatus) => {
       console.log("logged_user_out client");
       queryClient.setQueryData(
@@ -239,6 +242,7 @@ export default function SocketHandler({ children }: props) {
     });
 
     return () => {
+      socket.off("echo");
       socket.off("logged_user_in");
       socket.off("logged_user_out");
       socket.off("update_group_name");
