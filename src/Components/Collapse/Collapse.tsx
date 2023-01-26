@@ -25,7 +25,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-6 opacity-90 cursor-pointer"
+              className="w-5 h-6 opacity-90 cursor-pointer hover:opacity-80"
             >
               <path
                 strokeLinecap="round"
@@ -52,7 +52,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
         </span>
         <div className="justify-self-start self-start flex flex-col">
           <p
-            className="tracking-wide cursor-pointer"
+            className="tracking-wide cursor-pointer hover:opacity-80"
             onClick={() => {
               setClicked((prev) => !prev);
             }}
@@ -69,7 +69,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-6 justify-self-center self-start opacity-90 cursor-pointer"
+            className="w-5 h-6 justify-self-center self-start opacity-90 cursor-pointer hover:opacity-80"
             onClick={() => clickEvent()}
           >
             <path
