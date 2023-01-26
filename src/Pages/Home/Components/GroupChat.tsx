@@ -40,7 +40,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
           chatMessagesRef.current.clientHeight <=
         chatMessagesRef.current.scrollTop + 1;
 
-      if (isScrolledToBottom)
+      if (!isScrolledToBottom)
         chatMessagesRef.current.scrollTop =
           chatMessagesRef.current.scrollHeight -
           chatMessagesRef.current.clientHeight;
