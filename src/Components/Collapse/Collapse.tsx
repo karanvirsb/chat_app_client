@@ -3,7 +3,7 @@ import React, { MouseEventHandler, useState } from "react";
 type props = {
   children: any;
   title: string;
-  clickEvent?: MouseEventHandler<HTMLElement>;
+  clickEvent?: () => void;
 };
 
 const Collapse = ({ children, title, clickEvent }: props) => {
@@ -25,7 +25,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-6 opacity-90"
+              className="w-5 h-6 opacity-90 cursor-pointer"
             >
               <path
                 strokeLinecap="round"
@@ -40,7 +40,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-6 opacity-90"
+              className="w-5 h-6 opacity-90 cursor-pointer"
             >
               <path
                 strokeLinecap="round"
@@ -52,7 +52,7 @@ const Collapse = ({ children, title, clickEvent }: props) => {
         </span>
         <div className="justify-self-start self-start flex flex-col">
           <p
-            className="tracking-wide"
+            className="tracking-wide cursor-pointer"
             onClick={() => {
               setClicked((prev) => !prev);
             }}
@@ -69,7 +69,8 @@ const Collapse = ({ children, title, clickEvent }: props) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-6 justify-self-center self-start opacity-90"
+            className="w-5 h-6 justify-self-center self-start opacity-90 cursor-pointer"
+            onClick={() => clickEvent()}
           >
             <path
               strokeLinecap="round"
