@@ -48,12 +48,16 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
   // }, []);
 
   useEffect(() => {
-    if (chatMessagesRef.current !== null) {
-      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-      chatMessagesRef.current.scrollTop =
-        chatMessagesRef.current.scrollHeight -
-        chatMessagesRef.current.clientHeight;
-    }
+    const timer = setTimeout(() => {
+      if (chatMessagesRef.current !== null) {
+        chatMessagesRef.current.scrollTop =
+          chatMessagesRef.current.scrollHeight -
+          chatMessagesRef.current.clientHeight;
+      }
+      console.log("timeout");
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [channelId]);
 
   return (
