@@ -30,26 +30,29 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
   const dispatch = useAppDispatch();
   const { sessionInfo } = useGetSession();
 
-  useEffect(() => {
-    // scroll height gives height of element
-    // client height gives height of actual element or css height
-    // so scroll top is the vertical top and max is scrollHeight
-    if (chatMessagesRef.current !== null) {
-      const isScrolledToBottom =
-        chatMessagesRef.current.scrollHeight -
-          chatMessagesRef.current.clientHeight <=
-        chatMessagesRef.current.scrollTop + 1;
+  // useEffect(() => {
+  //   // scroll height gives height of element
+  //   // client height gives height of actual element or css height
+  //   // so scroll top is the vertical top and max is scrollHeight
+  //   if (chatMessagesRef.current !== null) {
+  //     const isScrolledToBottom =
+  //       chatMessagesRef.current.scrollHeight -
+  //         chatMessagesRef.current.clientHeight <=
+  //       chatMessagesRef.current.scrollTop + 1;
 
-      if (!isScrolledToBottom)
-        chatMessagesRef.current.scrollTop =
-          chatMessagesRef.current.scrollHeight -
-          chatMessagesRef.current.clientHeight;
-    }
-  }, []);
+  //     if (!isScrolledToBottom)
+  //       chatMessagesRef.current.scrollTop =
+  //         chatMessagesRef.current.scrollHeight -
+  //         chatMessagesRef.current.clientHeight;
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (chatMessagesRef.current !== null) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+      chatMessagesRef.current.scrollTop =
+        chatMessagesRef.current.scrollHeight -
+        chatMessagesRef.current.clientHeight;
     }
   }, [channelId]);
 
