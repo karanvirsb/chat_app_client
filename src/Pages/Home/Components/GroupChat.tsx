@@ -45,7 +45,7 @@ export default function GroupChat({ channelId, groupId }: props): JSX.Element {
           chatMessagesRef.current.scrollHeight -
           chatMessagesRef.current.clientHeight;
     }
-  }, [chatMessages]);
+  }, []);
 
   useEffect(() => {
     if (chatMessagesRef.current !== null) {
