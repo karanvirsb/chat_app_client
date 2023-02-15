@@ -21,10 +21,11 @@ export default function GroupSidebarInfo({
   groupId,
   setSelectedChannel,
 }: props) {
-  const [activeChannel, setActiveChannel] = useLocalStorage(
-    "activeChannel",
-    ""
-  );
+  // const [activeChannel, setActiveChannel] = useLocalStorage(
+  //   "activeChannel",
+  //   ""
+  // );
+  const [activeChannel, setActiveChannel] = useState("");
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
