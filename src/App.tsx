@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import * as reactRouterDom from "react-router-dom";
-import Home from "./Pages/Home/home";
+import Home from "./pages/Home/home";
 import "./App.css";
 import SuperTokens, {
   getSuperTokensRoutesForReactRouterDom,
@@ -11,12 +11,12 @@ import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 import Session, { SessionAuth } from "supertokens-auth-react/recipe/session";
 
 import ModalDisplay from "./Components/Modal/ModalDisplay";
-import Settings from "./Pages/Settings/settings";
+import Settings from "./pages/Settings/settings";
 import socket from "./Sockets";
 import BottomBar from "./Components/BottomBar/BottomBar";
-import Friends from "./Pages/Friends/friends";
-import Search from "./Pages/Search/search";
-import Invite from "./Pages/Invite/invite";
+import Friends from "./pages/Friends/friends";
+import Search from "./pages/Search/search";
+import Invite from "./pages/Invite/invite";
 
 SuperTokens.init({
   appInfo: {
