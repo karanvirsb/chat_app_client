@@ -4,8 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "react-dev": "vite",
+    "react-build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src/**/*.t*",
     "format": "prettier --config .prettierrc --cache --debug --write "
@@ -23,8 +26,10 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "react-router": "^6.3.0",
-    "react-router-dom": "^6.3.0",
-    "socket.io-client": "^4.5.3"
+    "socket.io-client": "^4.5.3",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
     "@babel/core": "7.20.12",
